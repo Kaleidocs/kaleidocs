@@ -1,0 +1,5 @@
+framework: "qunit"
+routes:
+  /: test-cl2/test.html
+  /test-cl2: test-cl2
+  /vendor: resources/public/vendor

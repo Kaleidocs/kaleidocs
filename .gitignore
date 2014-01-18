@@ -1,0 +1,6 @@
+node_modules/
+*.js
+*.tgz
+*.html
+resources/public/vendor
+target/
