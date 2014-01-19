@@ -6,7 +6,10 @@
    {:content "width=device-width, initial-scale=1.0",
     :name "viewport"}]
   [:title "My App"]
-  [:link {:rel "stylesheet" :href "vendor/bootstrap/dist/css/bootstrap.min.css"}]
+  [:link {:rel "stylesheet"
+          :href "vendor/bootstrap/dist/css/bootstrap.min.css"}]
+  [:link {:rel "stylesheet"
+          :href "vendor/angular-xeditable/dist/css/xeditable.css"}]
   [:link
    {:href
     "http://fonts.googleapis.com/css?family=Arimo|Open+Sans+Condensed:300|Noto+Serif:700italic&subset=latin"
@@ -15,6 +18,7 @@
    "document.write('<base href=\"' + document.location + '\" />')"]
   [:script {:src "vendor/angular/angular.js"}]
   [:script {:src "vendor/angular-route/angular-route.js"}]
+  [:script {:src "vendor/angular-xeditable/dist/js/xeditable.min.js"}]
   [:script {:src "core.js"}]]
  [:body
   [:div.container
