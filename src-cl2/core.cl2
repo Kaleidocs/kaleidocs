@@ -2,7 +2,7 @@
 (load-file "atom-crud/src/core.cl2")
 (load-file "../test-cl2/sample_data.cl2")
 
-(defapp my-app [ngRoute])
+(defapp my-app [ngRoute xeditable])
 
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
