@@ -32,6 +32,10 @@
   (defn$ service-add [n]
     (my-service.add-three n)))
 
+(defcontroller profiles-ctrl
+  [$scope]
+  ($->atom profiles profiles))
+
 (defcontroller empty-ctrl
   [$scope])
 
