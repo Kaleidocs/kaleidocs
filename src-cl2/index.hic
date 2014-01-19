@@ -37,7 +37,7 @@
     [:div.navbar-collapse.collapse
      [:ul.nav.navbar-nav
       [:li [:a {:href "#/default"} "Default view"]]
-      [:li [:a {:href "#/view-2"} "View 2"]]]]]
+      [:li [:a {:href "#/profiles"} "Profiles"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
      [:ng-view]]]]]]
