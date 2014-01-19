@@ -70,7 +70,10 @@
        [:button.btn.btn-default
         {:ng-click "textBtnForm.$show()"
          :ng-hide "textBtnForm.$visible"}
-        "Rename"]]]])}
+        "Rename"]
+       [:a.btn.btn-default
+        {:ng-hide "textBtnForm.$visible"
+         :href "{{ '#/profile/' + profile.id }}"} "Edit"]]]])}
   :default "/default")
 
 (defdirective my-directive
