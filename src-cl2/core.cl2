@@ -1,4 +1,6 @@
 (load-file "angular-cl2/src/core.cl2")
+(load-file "atom-crud/src/core.cl2")
+(load-file "../test-cl2/sample_data.cl2")
 
 (defapp my-app [ngRoute])
 
