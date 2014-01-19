@@ -36,6 +36,17 @@
   [$scope]
   ($->atom profiles profiles))
 
+(defcontroller profile-ctrl
+  [$scope]
+  (def$ editing false)
+  (defn$ remove-field [index]
+    (.splice ($- profile.fields)
+             index 1))
+  (defn$ add-field []
+    (def$ profile.fields
+      (conj ($- profile.fields)
+            {:name "" :value ""}))))
+
 (defcontroller empty-ctrl
   [$scope])
 
