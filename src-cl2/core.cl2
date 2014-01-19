@@ -7,7 +7,56 @@
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
 (defroute
-  "/default" ['my-ctrl "partials/default.html" ]
+  "/default" ['my-ctrl "partials/default.html"]
+  "/profile/:profileId"
+  {:controller 'profile-ctrl
+   :template
+   (hiccup
+    [:div "{{fields}}"]
+    [:table.table.table-bordered.table-hover.table-condensed
+     [:tr {:style "font-weight: bold"}
+      [:td {:style "width:35%"} "Name"]
+      [:td {:style "width:35%"} "Value"]
+      [:td {:style "width:30%"} "Edit"]]
+     [:tr {:ng-repeat "field in fields"}
+      [:td
+       [:span {:editable-text "field.name"
+               :e-name "name"
+               :e-form "rowform"
+               ;;:onbeforesave "check"
+               :e-required ""}
+        "{{ field.name || 'empty' }}"]]
+      [:td
+       [:span {:editable-text "field.value"
+               :e-name "value"
+               :e-form "rowform"
+               ;;:onbeforesave "check"
+               :e-required ""}
+        "{{ field.value || 'empty' }}"]]
+      [:td {:style "white-space: nowrap"}
+       [:form.form-buttons.form-inline
+        {:editable-form ""
+         :name "rowform"
+         ;; :onbeforesave "saveUser($data, user.id)"
+         :ng-show "rowform.$visible"
+         :shown "inserted == field"}
+        [:button.btn.btn-primary
+         {:type "submit" :ng-disabled "rowform.$waiting"}
+         "Save"]
+        [:button.btn.btn-default
+         {:type "button" :ng-click "rowform.$cancel()"}
+         "Cancel"]]
+       [:div.buttons {:ng-show "!rowform.$visible"}
+        [:button.btn.btn-primary
+         {:ng-click "rowform.$show()"}
+         "Edit"]
+        [:button.btn.btn-danger
+         {:ng-click "removeField($index)"}
+         "Delete"]]]]]
+    [:button.btn.btn-default
+     {:ng-click "addField()"}
+     "Add field"])}
+
   "/profiles"
   {:controller 'profiles-ctrl
    :template
@@ -21,53 +70,7 @@
        [:button.btn.btn-default
         {:ng-click "textBtnForm.$show()"
          :ng-hide "textBtnForm.$visible"}
-        "Rename"]]]
-     [:div
-      {:ng-controller "profileCtrl"}
-      [:table.table.table-bordered.table-hover.table-condensed
-
-       [:tr {:style "font-weight: bold"}
-        [:td {:style "width:35%"} "Name"]
-        [:td {:style "width:35%"} "Value"]
-        [:td {:style "width:30%"} "Edit"]]
-       [:tr {:ng-repeat "field in profile.fields"}
-        [:td
-         [:span {:editable-text "field.name"
-                 :e-name "name"
-                 :e-form "rowform"
-                 ;;:onbeforesave "check"
-                 :e-required ""}
-          "{{ field.name || 'empty' }}"]]
-        [:td
-         [:span {:editable-text "field.value"
-                 :e-name "value"
-                 :e-form "rowform"
-                 ;;:onbeforesave "check"
-                 :e-required ""}
-          "{{ field.value || 'empty' }}"]]
-        [:td {:style "white-space: nowrap"}
-         [:form.form-buttons.form-inline
-          {:editable-form ""
-           :name "rowform"
-           ;; :onbeforesave "saveUser($data, user.id)"
-           :ng-show "rowform.$visible"
-           :shown "inserted == field"}
-          [:button.btn.btn-primary
-           {:type "submit" :ng-disabled "rowform.$waiting"}
-           "Save"]
-          [:button.btn.btn-default
-           {:type "button" :ng-click "rowform.$cancel()"}
-           "Cancel"]]
-         [:div.buttons {:ng-show "!rowform.$visible"}
-          [:button.btn.btn-primary
-           {:ng-click "rowform.$show()"}
-           "Edit"]
-          [:button.btn.btn-danger
-           {:ng-click "removeField($index)"}
-           "Delete"]]]]]
-      [:button.btn.btn-default
-       {:ng-click "addField()"}
-       "Add field"]]])}
+        "Rename"]]]])}
   :default "/default")
 
 (defdirective my-directive
