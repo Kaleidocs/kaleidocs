@@ -4,7 +4,8 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]]
-  :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]]
+  :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]
+                      [ng-file-upload "1.2.4"]]
   :nodejs {:keywords ["chlorinejs",
                       "clojure",
                       "macro",
