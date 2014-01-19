@@ -95,14 +95,18 @@
   ($->atom profiles profiles))
 
 (defcontroller profile-ctrl
-  [$scope]
-  (def$ editing false)
+  [$scope $routeParams]
+  (def$ fields
+    (-> profiles
+        (find-entities  {:id (:profile-id $routeParams)})
+        first
+        (get :fields)))
   (defn$ remove-field [index]
-    (.splice ($- profile.fields)
+    (.splice ($- fields)
              index 1))
   (defn$ add-field []
-    (def$ profile.fields
-      (conj ($- profile.fields)
+    (def$ fields
+      (conj ($- fields)
             {:name "" :value ""}))))
 
 (defcontroller empty-ctrl
