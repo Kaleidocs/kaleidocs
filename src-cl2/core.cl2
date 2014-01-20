@@ -124,6 +124,11 @@
       [:span {:editable-text "config.produceKeys"
               :e-name "produceKeys"}
        "{{ config.produceKeys || 'empty' }}"]]
+     [:div
+      [:span.title "Default table keys"]
+      [:span {:editable-text "config.tableKeys"
+              :e-name "tableKeys"}
+       "{{ config.tableKeys || 'empty' }}"]]
      [:div.buttons
       [:button.btn.btn-default
        {:type "button"
