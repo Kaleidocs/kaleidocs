@@ -19,49 +19,56 @@
    :template
    (hiccup
     [:div "{{fields}}"]
-    [:table.table.table-bordered.table-hover.table-condensed
-     [:tr {:style "font-weight: bold"}
-      [:td {:style "width:35%"} "Name"]
-      [:td {:style "width:35%"} "Value"]
-      [:td {:style "width:30%"} "Edit"]]
-     [:tr {:ng-repeat "field in fields"}
-      [:td
-       [:span {:editable-text "field.name"
-               :e-name "name"
-               :e-form "rowform"
-               ;;:onbeforesave "check"
-               :e-required ""}
-        "{{ field.name || 'empty' }}"]]
-      [:td
-       [:span {:editable-text "field.value"
-               :e-name "value"
-               :e-form "rowform"
-               ;;:onbeforesave "check"
-               :e-required ""}
-        "{{ field.value || 'empty' }}"]]
-      [:td {:style "white-space: nowrap"}
-       [:form.form-buttons.form-inline
-        {:editable-form ""
-         :name "rowform"
-         :onbeforesave "syncProfile()"
-         :ng-show "rowform.$visible"
-         :shown "inserted == field"}
-        [:button.btn.btn-primary
-         {:type "submit" :ng-disabled "rowform.$waiting"}
-         "Save"]
-        [:button.btn.btn-default
-         {:type "button" :ng-click "rowform.$cancel()"}
-         "Cancel"]]
-       [:div.buttons {:ng-show "!rowform.$visible"}
-        [:button.btn.btn-primary
-         {:ng-click "rowform.$show()"}
-         "Edit"]
-        [:button.btn.btn-danger
-         {:ng-click "removeField($index)"}
-         "Delete"]]]]]
-    [:button.btn.btn-default
-     {:ng-click "addField()"}
-     "Add field"])}
+    [:form {:editable-form ""
+            :name "profileForm"
+            :onaftersave "syncProfile()"
+            :oncancel "reset()"}
+     [:table.table.table-bordered.table-hover.table-condensed
+      [:tr {:style "font-weight: bold"}
+       [:td {:style "width:35%"} "Name"]
+       [:td {:style "width:55%"} "Value"]
+       [:td {:style "width:10%"}
+        [:span {:ng-show "profileForm.$visible"}
+         "Action"]]]
+      [:tr {:ng-repeat "field in fields | filter:filterFields"}
+       [:td
+        [:span {:editable-text "field.name"
+                :e-form "profileForm"
+                ;;:onbeforesave "check"
+                :e-required ""}
+         "{{ field.name || 'empty' }}"]]
+       [:td
+        [:span {:editable-text "field.value"
+                :e-form "profileForm"
+                ;;:onbeforesave "check"
+                :e-required ""}
+         "{{ field.value || 'empty' }}"]]
+       [:td [:button.btn.btn-danger.pull-right
+             {:type "button"
+              :ng-show "profileForm.$visible"
+              :ng-click "removeField($index)"}
+             "Del"]]]]
+     [:div.btn-edit
+      [:button.btn.btn-default
+       {:type "button"
+        :ng-show "!profileForm.$visible"
+        :ng-click "profileForm.$show()"}
+       "edit"]]
+     [:div.btn-form {:ng-show "profileForm.$visible"}
+      [:button.btn.btn-default.pull-right
+       {:type "button"
+        :ng-disabled "profileForm.$waiting"
+        :ng-click "addField()"}
+       "add row"]
+      [:button.btn.btn-primary
+       {:type "submit"
+        :ng-disabled "profileForm.$waiting"}
+       "save"]
+      [:button.btn.btn-default
+       {:type "button"
+        :ng-disabled "profileForm.$waiting"
+        :ng-click "profileForm.$cancel()"}
+       "cancel"]]])}
 
   "/profiles"
   {:controller 'profiles-ctrl
@@ -189,11 +196,15 @@
 (defcontroller profile-ctrl
   [$scope $routeParams]
   (def profile-id (parseInt (:profile-id $routeParams)))
-  (def$ fields
-    (-> profiles
-        (find-entities {:id profile-id})
-        first
-        (get :fields)))
+  (defn$ filter-field [field]
+    (true? (:deleted? field)))
+  (defn$ reset []
+    (def$ fields
+      (-> profiles
+          (find-entities {:id profile-id})
+          first
+          (get :fields))))
+  (($- reset))
   (defn$ sync-profile []
     (swap! profiles
            #(assoc-in % [profile-id :fields] ($- fields))))
