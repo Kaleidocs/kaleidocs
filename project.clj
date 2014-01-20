@@ -3,9 +3,9 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.5.1"]]
-  :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]
-                      [ng-file-upload "1.2.4"]]
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [simpledb "0.1.4"]]
+  :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]]
   :nodejs {:keywords ["chlorinejs",
                       "clojure",
                       "macro",
@@ -24,6 +24,7 @@
                        [angular "~1.2.9"]
                        [angular-route "~1.2.9"]
                        [angular-xeditable  "~0.1.8"]
+                       [ng-file-upload "1.2.4"]
                        [bootstrap "~3.0.3"]]
   :cl2c {:prod
          {:watch ["src-cl2", "test-cl2"]
