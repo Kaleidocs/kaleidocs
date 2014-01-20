@@ -79,7 +79,10 @@
         "Rename"]
        [:a.btn.btn-default
         {:ng-hide "textBtnForm.$visible"
-         :href "{{ '#/profile/' + profile.id }}"} "Edit"]]]])}
+         :href "{{ '#/profile/' + profile.id }}"} "Edit"]]]]
+    [:button.btn.btn-default
+     {:ng-click "addProfile()"}
+     "Add profile"])}
   "/config"
   {:controller 'config-ctrl
    :template
@@ -149,7 +152,18 @@
 
 (defcontroller profiles-ctrl
   [$scope]
-  ($->atom profiles profiles))
+  ($->atom profiles profiles)
+  (defn$ add-profile []
+    (let [profile-id (gen-unique-id :profiles)
+          default-keys (.split (get @config :profile-keys "") " ")]
+      (add-entity! profiles
+                   nil
+                   {:id profile-id
+                    :name "New profile"
+                    :fields
+                    (map (fn [k] {:name k
+                                  :value ""})
+                         default-keys)}))))
 
 (defcontroller profile-ctrl
   [$scope $routeParams]
