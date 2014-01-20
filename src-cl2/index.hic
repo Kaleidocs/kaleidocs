@@ -33,11 +33,13 @@
       [:span.icon-bar]
       [:span.icon-bar]
       [:span.icon-bar]]
-     [:a.navbar-brand {:href "/"} "My App"]]
+     [:a.navbar-brand {:href "/"} "Kaleidocs"]]
     [:div.navbar-collapse.collapse
      [:ul.nav.navbar-nav
-      [:li [:a {:href "#/default"} "Default view"]]
-      [:li [:a {:href "#/profiles"} "Profiles"]]]]]
+      [:li [:a {:href "#/templates"} "Templates"]]
+      [:li [:a {:href "#/profiles"} "Profiles"]]
+      [:li [:a {:href "#/produce"} "Produce"]]
+      [:li [:a {:href "#/config"} "Config"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
      [:ng-view]]]]]]
