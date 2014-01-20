@@ -110,6 +110,11 @@
               :e-required ""}
        "{{ config.amountIwSuffixes || 'empty' }}"]]
      [:div
+      [:span.title "Columns to calculate sum"]
+      [:span {:editable-text "config.sumColumn"
+              :e-name "sumColmn"}
+       "{{ config.sumColumn || 'empty' }}"]]
+     [:div
       [:span.title "Default profile keys"]
       [:span {:editable-text "config.profileKeys"
               :e-name "profileKeys"}
