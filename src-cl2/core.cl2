@@ -77,6 +77,10 @@
         {:ng-click "textBtnForm.$show()"
          :ng-hide "textBtnForm.$visible"}
         "Rename"]
+       [:button.btn.btn-danger
+        {:ng-click "removeProfile(profile.id)"
+         :ng-hide "textBtnForm.$visible"}
+        "Delete"]
        [:a.btn.btn-default
         {:ng-hide "textBtnForm.$visible"
          :href "{{ '#/profile/' + profile.id }}"} "Edit"]]]]
@@ -153,6 +157,8 @@
 (defcontroller profiles-ctrl
   [$scope]
   ($->atom profiles profiles)
+  (defn$ remove-profile [id]
+    (remove-entity! profiles id))
   (defn$ add-profile []
     (let [profile-id (gen-unique-id :profiles)
           default-keys (.split (get @config :profile-keys "") " ")]
