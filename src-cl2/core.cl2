@@ -129,6 +129,11 @@
       [:span {:editable-text "config.tableKeys"
               :e-name "tableKeys"}
        "{{ config.tableKeys || 'empty' }}"]]
+     [:div
+      [:span.title "Search columns"]
+      [:span {:editable-text "config.searchColumns"
+              :e-name "searchColumns"}
+       "{{ config.searchColumns || 'empty' }}"]]
      [:div.buttons
       [:button.btn.btn-default
        {:type "button"
