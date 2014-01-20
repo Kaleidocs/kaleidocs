@@ -74,6 +74,54 @@
        [:a.btn.btn-default
         {:ng-hide "textBtnForm.$visible"
          :href "{{ '#/profile/' + profile.id }}"} "Edit"]]]])}
+  "/config"
+  {:controller 'config-ctrl
+   :template
+   (hiccup
+    [:div "{{config}}"]
+    [:form
+     {:editable-form ""
+      :name "configForm"}
+     [:div
+      [:span.title "Suffixes for amount of money"]
+      [:span {:editable-text "config.amount_suffixes"
+              :e-name "amountSuffixes"
+              ;;:onbeforesave ""
+              :e-required ""}
+       "{{ config.amountSuffixes || 'empty' }}"]]
+     [:div
+      [:span.title "Suffixes for amounts in words"]
+      [:span {:editable-text "config.amountIwSuffixes"
+              :e-name "amountIwSuffixes"
+              ;;:onbeforesave ""
+              :e-required ""}
+       "{{ config.amountIwSuffixes || 'empty' }}"]]
+     [:div
+      [:span.title "Default profile keys"]
+      [:span {:editable-text "config.profileKeys"
+              :e-name "profileKeys"}
+       "{{ config.profileKeys || 'empty' }}"]]
+     [:div
+      [:span.title "Default produce keys"]
+      [:span {:editable-text "config.produceKeys"
+              :e-name "produceKeys"}
+       "{{ config.produceKeys || 'empty' }}"]]
+     [:div.buttons
+      [:button.btn.btn-default
+       {:type "button"
+        :ng-click "configForm.$show()"
+        :ng-show "!configForm.$visible"}
+       "Edit"]
+      [:span {:ng-show "configForm.$visible"}
+       [:button.btn.btn-primary
+        {:type "submit"
+         :ng-disabled "configForm.$waiting"}
+        "Save"]
+       [:button.btn.btn-default
+        {:type "submit"
+         :ng-disabled "configForm.$waiting"
+         :ng-click "configForm.$cancel()"}
+        "Cancel"]]]])}
   :default "/default")
 
 (defdirective my-directive
