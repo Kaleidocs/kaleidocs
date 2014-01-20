@@ -37,7 +37,7 @@
        [:form.form-buttons.form-inline
         {:editable-form ""
          :name "rowform"
-         ;; :onbeforesave "saveUser($data, user.id)"
+         :onbeforesave "syncProfile()"
          :ng-show "rowform.$visible"
          :shown "inserted == field"}
         [:button.btn.btn-primary
@@ -147,11 +147,15 @@
 
 (defcontroller profile-ctrl
   [$scope $routeParams]
+  (def profile-id (parseInt (:profile-id $routeParams)))
   (def$ fields
     (-> profiles
-        (find-entities {:id (parseInt (:profile-id $routeParams))})
+        (find-entities {:id profile-id})
         first
         (get :fields)))
+  (defn$ sync-profile []
+    (swap! profiles
+           #(assoc-in % [profile-id :fields] ($- fields))))
   (defn$ remove-field [index]
     (.splice ($- fields)
              index 1))
