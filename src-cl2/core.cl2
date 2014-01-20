@@ -160,6 +160,12 @@
       (conj ($- fields)
             {:name "" :value ""}))))
 
+(def config (atom {}))
+
+(defcontroller config-ctrl
+  [$scope]
+  ($->atom config config))
+
 (defcontroller empty-ctrl
   [$scope])
 
