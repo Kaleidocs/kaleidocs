@@ -64,9 +64,9 @@
     [:div {:ng-repeat "profile in profiles"}
      [:div "{{profile}}"]
      [:div
-      [:h3 {:editable-text "profile.id"
+      [:h3 {:editable-text "profile.name"
             :e-form "textBtnForm"}
-       "{{ profile.id || 'empty' }}"
+       "{{ profile.name || 'empty' }}"
        [:button.btn.btn-default
         {:ng-click "textBtnForm.$show()"
          :ng-hide "textBtnForm.$visible"}
@@ -101,7 +101,7 @@
   [$scope $routeParams]
   (def$ fields
     (-> profiles
-        (find-entities  {:id (:profile-id $routeParams)})
+        (find-entities {:id (parseInt (:profile-id $routeParams))})
         first
         (get :fields)))
   (defn$ remove-field [index]
