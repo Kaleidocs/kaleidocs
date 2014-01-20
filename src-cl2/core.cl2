@@ -7,7 +7,13 @@
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
 (defroute
-  "/default" ['my-ctrl "partials/default.html"]
+  ;;"/default" ['my-ctrl "partials/default.html"]
+  "/default"
+  {:controller 'empty-ctrl
+   :template
+   (hiccup
+    [:div "{{config}}"]
+    [:div "{{profiles}}"])}
   "/profile/:profileId"
   {:controller 'profile-ctrl
    :template
@@ -171,7 +177,9 @@
   ($->atom config config))
 
 (defcontroller empty-ctrl
-  [$scope])
+  [$scope]
+  ($->atom profiles profiles)
+  ($->atom config config))
 
 ;; example of specifying app name
 (defservice my-app my-service
