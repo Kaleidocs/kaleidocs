@@ -12,6 +12,7 @@
   {:controller 'empty-ctrl
    :template
    (hiccup
+    [:div "{{tables}}"]
     [:div "{{config}}"]
     [:div "{{profiles}}"])}
   "/profile/:profileId"
@@ -98,6 +99,70 @@
   {:controller 'nil-ctrl
    :template
    (hiccup
+    [:div {:ng-controller "tablesCtrl"}
+     "{{tables}}"
+     [:div {:ng-repeat "table in tables | filterDeleted"
+            :ng-init "tableIndex = $index"}
+      [:h3
+       "Table: {{table.name}}{{tableIndex}}"]
+      [:form {:editable-form ""
+              :name "tableForm"
+              :onaftersave "syncTable(tableIndex, table)"
+              :oncancel "reset(tableIndex, table)"}
+       [:table.table.table-bordered.table-hover.table-condensed
+        [:tr
+         [:td {:ng-repeat "column in table.columns"} "{{column}}"]
+         [:td {:style "width:10%"}
+          [:span {:ng-show "tableForm.$visible"}
+           "Action"]]]
+        [:tr {:ng-repeat "field in table.fields | filterDeleted"
+              :ng-init "fieldIndex = $index"}
+         [:td {:ng-repeat "column in table.columns"
+               :ng-init "columnIndex = $index"}
+          [:span {:editable-text "field[column]"
+                  :e-form "tableForm"
+                  ;;:onbeforesave "check"
+                  :e-required ""}
+           "{{ field[column] || 'empty' }}"]]
+         [:td [:button.btn.btn-danger.pull-right
+               {:type "button"
+                :ng-show "tableForm.$visible"
+                :ng-click "table.fields[fieldIndex] = 'deleted'"}
+               "Delete row {{fieldIndex}}"]]]]
+       [:div.btn-edit
+        [:button.btn.btn-warning
+         {:type "button"
+          :ng-show "!tableForm.$visible"
+          :ng-click "tableForm.$show()"}
+         "edit table {{table.name}}"]]
+       [:div.btn-form {:ng-show "tableForm.$visible"}
+        [:button.btn.btn-success.pull-right
+         {:type "button"
+          :ng-disabled "tableForm.$waiting || !newColumnName"
+          :ng-click
+          "table.columns.push(newColumnName) && (newColumnName = '')"}
+         "add column"]
+        [:input.pull-right {:type "text" :ng-model "newColumnName"}]
+        [:button.btn.btn-success.pull-right
+         {:type "button"
+          :ng-disabled "tableForm.$waiting"
+          :ng-click "table.fields.push({})"}
+         "add row"]
+        [:button.btn.btn-primary
+         {:type "submit"
+          :ng-disabled "tableForm.$waiting"}
+         "save"]
+        [:button.btn.btn-default
+         {:type "button"
+          :ng-disabled "tableForm.$waiting"
+          :ng-click "tableForm.$cancel()"}
+         "cancel"]]
+       [:div.btn-edit
+        [:button.btn.btn-danger
+         {:type "button"
+          :ng-click "tables[tableIndex] = 'deleted'"}
+         "delete table {{table.name}}"]]]]]
+
     [:div {:ng-controller "produceCtrl"}
      [:h3 "Fields: {{fields}}"]
      [:form {:editable-form ""
@@ -297,15 +362,18 @@
 
 (defcontroller empty-ctrl
   [$scope]
+  ($->atom tables tables)
   ($->atom profiles profiles)
   ($->atom config config))
 
 (defcontroller nil-ctrl
   [$scope])
 
-(defcontroller table-ctrl
+(defcontroller tables-ctrl
   [$scope]
-  (def$ items [1 2 3 4]))
+  ($->atom tables tables)
+  (defn$ reset-table [table-index]
+    (def$ tables @tables)))
 
 ;; example of specifying app name
 (defservice my-app my-service
@@ -320,3 +388,7 @@
 (deffilter your-filter []
   [s]
   (+ s 6))
+
+(deffilter filter-deleted []
+  [items]
+  (filter #(not (= :deleted %)) items))

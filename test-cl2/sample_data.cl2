@@ -36,3 +36,15 @@
                           :value "Some texty"}
                          {:name "BAR"
                           :value "Some text"}]}))
+
+(def tables (atom [{:name "Tatoo"
+                    :columns [:cname :address :talk]
+                    :fields [{:cname "Fu" :address "f"}
+                             {:cname "Ku" :address "k"}
+                             {:cname "Du" :address "d"}
+                             {:cname "Nu" :address "n"}
+                             {:cname "Ba" :address "b"}]}
+                   {:name "Lalo"
+                    :columns [:mname :city]
+                    :fields [{:mname "Mu" :city "x"}
+                             {:mname "Nar" :city "yy"}]}]))
