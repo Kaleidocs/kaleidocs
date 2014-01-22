@@ -361,6 +361,12 @@
     (true? (:deleted? field)))
   (defn$ reset []
     (def$ fields @produce))
+  (if (= [] @produce)
+    (let [default-keys
+          (.split (get @config :produce-keys "") " ")]
+      (reset! produce (map (fn [field]
+                             {:name field
+                              :value ""}) default-keys))))
   (($- reset))
   (defn$ sync-produce []
     (reset! produce ($- fields)))
