@@ -104,10 +104,10 @@
    :template
    (hiccup
     [:div {:ng-controller "tablesCtrl"}
-     "{{tables}}"
+     [:h1 "Tables:"]
      [:div {:ng-repeat "table in tables"}
       [:h3 {:editable-text "table.name"}
-       "Table {{table.name}}"]
+       "table {{table.name}}"]
       [:div.btn-form {:ng-show "tableForm.$visible"}
        [:div.input-group.col-lg-3
         [:input
@@ -182,7 +182,7 @@
        "create table"]]]
 
     [:div {:ng-controller "produceCtrl"}
-     [:h3 "Fields: {{fields}}"]
+     [:h1 "Fields:"]
      [:form {:editable-form ""
              :name "produceForm"
              :onaftersave "syncProduce()"
@@ -235,7 +235,7 @@
         "cancel"]]]
 
      [:div {:ng-controller "generatedCtrl"}
-      [:h3 "Fields: {{fields}}"]
+      [:h1 "Auto generated fields"]
       [:table.table.table-bordered.table-hover.table-condensed
        [:tr {:style "font-weight: bold"}
         [:td {:style "width:35%"} "Name"]
