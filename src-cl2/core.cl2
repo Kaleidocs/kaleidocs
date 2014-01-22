@@ -246,9 +246,10 @@
         [:td
          [:span "{{ field.name + config.amountIwSuffixes }}"]]
         [:td
-         [:span "{{ field.value | amountInWords}}"]]]]]]
-
-    )}
+         [:span "{{ field.value | amountInWords}}"]]]]
+      [:button.btn.btn-success
+       [:span.glyphicon.glyphicon-play]
+       "Produce documents"]]])}
   "/config"
   {:controller 'config-ctrl
    :template
@@ -420,6 +421,7 @@
 (defcontroller generated-ctrl
   [$scope]
   ($->atom config config)
+  ($->atom tables tables)
   )
 
 (defcontroller tables-ctrl
