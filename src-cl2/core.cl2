@@ -232,7 +232,23 @@
         {:type "button"
          :ng-disabled "produceForm.$waiting"
          :ng-click "produceForm.$cancel()"}
-        "cancel"]]]])}
+        "cancel"]]]
+
+     [:div {:ng-controller "generatedCtrl"}
+      [:h3 "Fields: {{fields}}"]
+      [:table.table.table-bordered.table-hover.table-condensed
+       [:tr {:style "font-weight: bold"}
+        [:td {:style "width:35%"} "Name"]
+        [:td {:style "width:65%"} "Value"]]
+       [:tr
+        {:ng-repeat
+         "field in fields | filterAmountFields:config.amountSuffixes"}
+        [:td
+         [:span "{{ field.name + config.amountIwSuffixes }}"]]
+        [:td
+         [:span "{{ field.value | amountInWords}}"]]]]]]
+
+    )}
   "/config"
   {:controller 'config-ctrl
    :template
@@ -401,6 +417,11 @@
   [$scope]
   )
 
+(defcontroller generated-ctrl
+  [$scope]
+  ($->atom config config)
+  )
+
 (defcontroller tables-ctrl
   [$scope]
   ($->atom tables tables)
@@ -433,6 +454,19 @@
 (deffilter filter-deleted []
   [items]
   (filter #(not (= :deleted %)) items))
+
+(defn end-with? [x s]
+  (== s (.match x (+ s "$"))))
+
+(deffilter filter-amount-fields []
+  [fields suffix]
+  (filter
+   #(end-with? (:name %) suffix)
+   fields))
+
+(deffilter amount-in-words []
+  [amount]
+  "An amount")
 
 (.run my-app
       (fn-di [editableOptions]
