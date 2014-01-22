@@ -77,17 +77,16 @@
    (hiccup
     [:div {:ng-repeat "profile in profiles"}
      [:div "{{profile}}"]
-     [:div
-      [:h3
-       [:a {:editable-text "profile.name"}
-        "{{ profile.name || 'empty' }}"]
-       [:button.btn.btn-danger
-        {:ng-click "removeProfile(profile.id)"
-         :ng-hide "textBtnForm.$visible"}
-        "Delete"]
-       [:a.btn.btn-default
-        {:ng-hide "textBtnForm.$visible"
-         :href "{{ '#/profile/' + profile.id }}"} "Edit"]]]]
+     [:h3
+      [:a {:editable-text "profile.name"}
+       "{{ profile.name || 'empty' }}"]]
+     [:a.btn.btn-warning
+      {:ng-hide "textBtnForm.$visible"
+       :href "{{ '#/profile/' + profile.id }}"} "Edit"]
+     [:button.btn.btn-danger
+      {:ng-click "removeProfile(profile.id)"
+       :ng-hide "textBtnForm.$visible"}
+      "Delete"]]
     [:button.btn.btn-default
      {:ng-click "addProfile()"}
      "Add profile"])}
