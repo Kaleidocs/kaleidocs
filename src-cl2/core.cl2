@@ -225,7 +225,7 @@
       :name "configForm"}
      [:div
       [:span.title "Suffixes for amount of money"]
-      [:span {:editable-text "config.amount_suffixes"
+      [:span {:editable-text "config.amountSuffixes"
               :e-name "amountSuffixes"
               ;;:onbeforesave ""
               :e-required ""}
@@ -354,7 +354,14 @@
       (conj ($- fields)
             {:name "" :value ""}))))
 
-(def config (atom {}))
+(def config
+  (atom {:profile-keys "NAME ADDRESS",
+         :search-columns "NAME ADDRESS",
+         :produce-keys "CITY CONTRACT",
+         :amount-suffixes "_AMOUNT",
+         :amount-iw-suffixes "_IW",
+         :table-keys "TASK MONEY_AMOUNT",
+         :sum-column "MONEY_AMOUNT"}))
 
 (defcontroller config-ctrl
   [$scope]
