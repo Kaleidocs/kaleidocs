@@ -213,13 +213,13 @@
                :ng-click "removeField($index)"}
               "Del"]]]]
       [:div.btn-edit
-       [:button.btn.btn-default
+       [:button.btn.btn-warning
         {:type "button"
          :ng-show "!produceForm.$visible"
          :ng-click "produceForm.$show()"}
         "edit"]]
       [:div.btn-form {:ng-show "produceForm.$visible"}
-       [:button.btn.btn-default.pull-right
+       [:button.btn.btn-success.pull-right
         {:type "button"
          :ng-disabled "produceForm.$waiting"
          :ng-click "addField()"}
