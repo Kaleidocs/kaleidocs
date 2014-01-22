@@ -44,31 +44,36 @@
                 ;;:onbeforesave "check"
                 :e-required ""}
          "{{ field.value || 'empty' }}"]]
-       [:td [:button.btn.btn-danger.pull-right
+       [:td [:button.btn.btn-danger.btn-xs.pull-right
              {:type "button"
               :ng-show "profileForm.$visible"
               :ng-click "removeField($index)"}
-             "Del"]]]]
+             [:span.glyphicon.glyphicon-remove-circle]
+             "delete"]]]]
      [:div.btn-edit
       [:button.btn.btn-warning
        {:type "button"
         :ng-show "!profileForm.$visible"
         :ng-click "profileForm.$show()"}
+       [:span.glyphicon.glyphicon-pencil]
        "edit"]]
      [:div.btn-form {:ng-show "profileForm.$visible"}
       [:button.btn.btn-success.pull-right
        {:type "button"
         :ng-disabled "profileForm.$waiting"
         :ng-click "addField()"}
-       "add row"]
-      [:button.btn.btn-primary
+       [:span.glyphicon.glyphicon-plus-sign]
+       "add field"]
+      [:button.btn.btn-primary.btn-lg
        {:type "submit"
         :ng-disabled "profileForm.$waiting"}
+       [:span.glyphicon.glyphicon-ok]
        "save"]
-      [:button.btn.btn-default
+      [:button.btn.btn-default.btn-lg
        {:type "button"
         :ng-disabled "profileForm.$waiting"
         :ng-click "profileForm.$cancel()"}
+       [:span.glyphicon.glyphicon-trash]
        "cancel"]]])}
 
   "/profiles"
