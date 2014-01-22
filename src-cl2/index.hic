@@ -14,6 +14,29 @@
    {:href
     "http://fonts.googleapis.com/css?family=Arimo|Open+Sans+Condensed:300|Noto+Serif:700italic&subset=latin"
     :rel "stylesheet"}]
+  [:style
+   "
+   form[name='configForm'] > div {
+     height: auto;
+     padding: 5px 0;
+   }
+
+   form[name='configForm'] .title {
+     display: inline-block;
+     font-weight: bold;
+     padding-top: 5px;
+     vertical-align: top;
+     min-width: 90px;
+   }
+
+   form[name='configForm'] .editable {
+     display: inline-block;
+     padding-top: 5px;
+     vertical-align: top;
+   }
+
+   form[name='configForm'] select { width: 120px; }
+   "]
   [:script
    "document.write('<base href=\"' + document.location + '\" />')"]
   [:script {:src "vendor/angular/angular.js"}]
