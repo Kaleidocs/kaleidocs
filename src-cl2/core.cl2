@@ -101,14 +101,13 @@
    (hiccup
     [:div {:ng-controller "tablesCtrl"}
      "{{tables}}"
-     [:div {:ng-repeat "table in tables | filterDeleted"
-            :ng-init "tableIndex = $index"}
+     [:div {:ng-repeat "table in tables"}
       [:h3 {:editable-text "table.name"}
-       "Table #{{tableIndex}}: {{table.name}}"]
+       "Table #{{table.id}}: {{table.name}}"]
       [:form {:editable-form ""
               :name "tableForm"
-              :onaftersave "syncTable(tableIndex, table)"
-              :oncancel "reset(tableIndex, table)"}
+              :onaftersave "syncTable(table.id, table)"
+              :oncancel "reset(table.id, table)"}
        [:table.table.table-bordered.table-hover.table-condensed
         [:tr
          [:td {:ng-repeat "column in table.columns"} "{{column}}"]
@@ -160,12 +159,12 @@
        [:div.btn-edit
         [:button.btn.btn-danger
          {:type "button"
-          :ng-click "tables[tableIndex] = 'deleted'"}
+          :ng-click "removeTable(table.id)"}
          "delete table {{table.name}}"]]]]
      [:div.btn-edit
       [:button.btn.btn-success
        {:type "button"
-        :ng-click "createTable()"}
+        :ng-click "addTable()"}
        "create table"]]]
 
     [:div {:ng-controller "produceCtrl"}
@@ -379,19 +378,23 @@
   ($->atom config config))
 
 (defcontroller nil-ctrl
-  [$scope])
+  [$scope]
+  )
 
 (defcontroller tables-ctrl
   [$scope]
   ($->atom tables tables)
-  (defn$ reset-table [table-index]
-    (def$ tables @tables))
-  (defn$ create-table []
-    (let [table-keys (.split (:table-keys @config) " ")]
-      (def$ tables (conj ($- tables)
-                         {:name "New table"
-                          :columns table-keys
-                          :fields []})))))
+  (defn$ remove-table [id]
+    (remove-entity! tables id))
+  (defn$ add-table []
+    (let [table-id (gen-unique-id :tables)
+          default-keys (.split (get @config :table-keys "") " ")]
+      (add-entity! tables
+                   nil
+                   {:id table-id
+                    :name (+ "new_table_" table-id)
+                    :columns default-keys
+                    :fields []}))))
 
 ;; example of specifying app name
 (defservice my-app my-service
