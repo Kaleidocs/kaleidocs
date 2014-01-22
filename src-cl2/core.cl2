@@ -107,7 +107,21 @@
      "{{tables}}"
      [:div {:ng-repeat "table in tables"}
       [:h3 {:editable-text "table.name"}
-       "Table #{{table.id}}: {{table.name}}"]
+       "Table {{table.name}}"]
+      [:div.btn-form {:ng-show "tableForm.$visible"}
+       [:div.input-group.col-lg-3
+        [:input
+         {:class "form-control"
+          :placeholder "new column name..."
+          :type "text" :ng-model "newColumnName"}]
+        [:span.input-group-btn
+         [:button.btn.btn-success
+          {:type "button"
+           :ng-disabled "tableForm.$waiting || !newColumnName"
+           :ng-click
+           "table.columns.push(newColumnName) && (newColumnName = '')"}
+          "add column"]]]]
+      [:br]
       [:form {:editable-form ""
               :name "tableForm"
               :onaftersave "syncTable(table.id, table)"
@@ -127,53 +141,44 @@
                   ;;:onbeforesave "check"
                   :e-required ""}
            "{{ field[column] || 'empty' }}"]]
-         [:td [:button.btn.btn-danger.pull-right
+         [:td [:button.btn.btn-danger.btn-xs.pull-right
                {:type "button"
                 :ng-show "tableForm.$visible"
                 :ng-click "table.fields[fieldIndex] = 'deleted'"}
                "Delete row {{fieldIndex}}"]]]]
-       [:div.btn-edit
-        [:button.btn.btn-warning
-         {:type "button"
-          :ng-show "!tableForm.$visible"
-          :ng-click "tableForm.$show()"}
-         "edit table {{table.name}}"]]
+       [:button.btn.btn-warning
+        {:type "button"
+         :ng-show "!tableForm.$visible"
+         :ng-click "tableForm.$show()"}
+        "edit table {{table.name}}"]
        [:div.btn-form {:ng-show "tableForm.$visible"}
-        [:div.input-group.col-lg-3.pull-right
-         [:input
-          {:class "form-control"
-           :placeholder "new column name..."
-           :type "text" :ng-model "newColumnName"}]
-         [:span.input-group-btn
-          [:button.btn.btn-success
-           {:type "button"
-            :ng-disabled "tableForm.$waiting || !newColumnName"
-            :ng-click
-            "table.columns.push(newColumnName) && (newColumnName = '')"}
-           "add column"]]]
         [:button.btn.btn-success.pull-right
          {:type "button"
           :ng-disabled "tableForm.$waiting"
           :ng-click "table.fields.push({})"}
          "add row"]
-        [:button.btn.btn-primary
+        [:button.btn.btn-primary.btn-lg
          {:type "submit"
           :ng-disabled "tableForm.$waiting"}
          "save"]
-        [:button.btn.btn-default
+        [:button.btn.btn-default.btn-lg
          {:type "button"
           :ng-disabled "tableForm.$waiting"
           :ng-click "tableForm.$cancel()"}
          "cancel"]]
        [:div.btn-edit
+        [:br]
         [:button.btn.btn-danger
          {:type "button"
           :ng-click "removeTable(table.id)"}
+         [:span.glyphicon.glyphicon-remove-circle]
          "delete table {{table.name}}"]]]]
      [:div.btn-edit
-      [:button.btn.btn-success
+      [:br]
+      [:button.btn.btn-success.btn-lg
        {:type "button"
         :ng-click "addTable()"}
+       [:span.glyphicon.glyphicon-plus-sign]
        "create table"]]]
 
     [:div {:ng-controller "produceCtrl"}
