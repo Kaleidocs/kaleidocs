@@ -50,13 +50,13 @@
               :ng-click "removeField($index)"}
              "Del"]]]]
      [:div.btn-edit
-      [:button.btn.btn-default
+      [:button.btn.btn-warning
        {:type "button"
         :ng-show "!profileForm.$visible"
         :ng-click "profileForm.$show()"}
        "edit"]]
      [:div.btn-form {:ng-show "profileForm.$visible"}
-      [:button.btn.btn-default.pull-right
+      [:button.btn.btn-success.pull-right
        {:type "button"
         :ng-disabled "profileForm.$waiting"
         :ng-click "addField()"}
@@ -78,10 +78,10 @@
     [:div {:ng-repeat "profile in profiles"}
      [:div "{{profile}}"]
      [:div
-      [:h3 {:editable-text "profile.name"
-            :e-form "textBtnForm"}
-       "{{ profile.name || 'empty' }}"
-       [:button.btn.btn-default
+      [:h3
+       [:a {:editable-text "profile.name"}
+        "{{ profile.name || 'empty' }}"]
+       #_[:button.btn.btn-default
         {:ng-click "textBtnForm.$show()"
          :ng-hide "textBtnForm.$visible"}
         "Rename"]
@@ -312,7 +312,7 @@
       (add-entity! profiles
                    nil
                    {:id profile-id
-                    :name "New profile"
+                    :name (+ "New profile #" profile-id)
                     :fields
                     (map (fn [k] {:name k
                                   :value ""})
@@ -413,3 +413,7 @@
 (deffilter filter-deleted []
   [items]
   (filter #(not (= :deleted %)) items))
+
+(.run my-app
+      (fn-di [editableOptions]
+        (set! (:theme editableOptions) "bs3")))
