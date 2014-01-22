@@ -466,7 +466,8 @@
 
 (deffilter amount-in-words []
   [amount]
-  "An amount")
+  (load-file "n2w_vi.cl2")
+  (number->word-helper (seq amount)))
 
 (.run my-app
       (fn-di [editableOptions]
