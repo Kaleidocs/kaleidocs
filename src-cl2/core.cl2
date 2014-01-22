@@ -81,10 +81,6 @@
       [:h3
        [:a {:editable-text "profile.name"}
         "{{ profile.name || 'empty' }}"]
-       #_[:button.btn.btn-default
-        {:ng-click "textBtnForm.$show()"
-         :ng-hide "textBtnForm.$visible"}
-        "Rename"]
        [:button.btn.btn-danger
         {:ng-click "removeProfile(profile.id)"
          :ng-hide "textBtnForm.$visible"}
@@ -135,13 +131,18 @@
           :ng-click "tableForm.$show()"}
          "edit table {{table.name}}"]]
        [:div.btn-form {:ng-show "tableForm.$visible"}
-        [:button.btn.btn-success.pull-right
-         {:type "button"
-          :ng-disabled "tableForm.$waiting || !newColumnName"
-          :ng-click
-          "table.columns.push(newColumnName) && (newColumnName = '')"}
-         "add column"]
-        [:input.pull-right {:type "text" :ng-model "newColumnName"}]
+        [:div.input-group.col-lg-3.pull-right
+         [:input
+          {:class "form-control"
+           :placeholder "new column name..."
+           :type "text" :ng-model "newColumnName"}]
+         [:span.input-group-btn
+          [:button.btn.btn-success
+           {:type "button"
+            :ng-disabled "tableForm.$waiting || !newColumnName"
+            :ng-click
+            "table.columns.push(newColumnName) && (newColumnName = '')"}
+           "add column"]]]
         [:button.btn.btn-success.pull-right
          {:type "button"
           :ng-disabled "tableForm.$waiting"
