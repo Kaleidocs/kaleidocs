@@ -103,8 +103,8 @@
      "{{tables}}"
      [:div {:ng-repeat "table in tables | filterDeleted"
             :ng-init "tableIndex = $index"}
-      [:h3
-       "Table: {{table.name}}{{tableIndex}}"]
+      [:h3 {:editable-text "table.name"}
+       "Table #{{tableIndex}}: {{table.name}}"]
       [:form {:editable-form ""
               :name "tableForm"
               :onaftersave "syncTable(tableIndex, table)"
@@ -161,7 +161,12 @@
         [:button.btn.btn-danger
          {:type "button"
           :ng-click "tables[tableIndex] = 'deleted'"}
-         "delete table {{table.name}}"]]]]]
+         "delete table {{table.name}}"]]]]
+     [:div.btn-edit
+      [:button.btn.btn-success
+       {:type "button"
+        :ng-click "createTable()"}
+       "create table"]]]
 
     [:div {:ng-controller "produceCtrl"}
      [:h3 "Fields: {{fields}}"]
@@ -380,7 +385,13 @@
   [$scope]
   ($->atom tables tables)
   (defn$ reset-table [table-index]
-    (def$ tables @tables)))
+    (def$ tables @tables))
+  (defn$ create-table []
+    (let [table-keys (.split (:table-keys @config) " ")]
+      (def$ tables (conj ($- tables)
+                         {:name "New table"
+                          :columns table-keys
+                          :fields []})))))
 
 ;; example of specifying app name
 (defservice my-app my-service
