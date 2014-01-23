@@ -1,39 +1,53 @@
 [:form {:editable-form ""
         :name "tableForm"
-        :onaftersave "syncTable(table.id, table)"
-        :oncancel "reset(table.id, table)"}
+        :onaftersave "syncTable()"
+        :oncancel "loadTable()"}
+ [:div.input-group.col-lg-3.pull-right
+  {:ng-show "tableForm.$visible"}
+  [:input
+   {:class "form-control"
+    :placeholder "new column name..."
+    :type "text" :ng-model "newColumnName"}]
+  [:span.input-group-btn
+   [:button.btn.btn-success
+    {:type "button"
+     :ng-disabled "tableForm.$waiting || !newColumnName"
+     :ng-click
+     "addColumn(newColumnName) ; (newColumnName = '')"}
+    [:span.glyphicon.glyphicon-plus-sign]
+    "add column"]]]
+ [:br]
+ [:br]
  [:table.table.table-bordered.table-hover.table-condensed
   [:tr
-   [:td {:ng-repeat "column in table.columns"} "{{column}}"]
+   [:td {:ng-repeat "column in table.columns"} "{{column.name}}"]
    [:td {:style "width:10%"}
     [:span {:ng-show "tableForm.$visible"}
      "Action"]]]
-  [:tr {:ng-repeat "field in table.fields | filterDeleted"
-        :ng-init "fieldIndex = $index"}
-   [:td {:ng-repeat "column in table.columns"
-         :ng-init "columnIndex = $index"}
-    [:span {:editable-text "field[column]"
+  [:tr {:ng-repeat "row in table.rows"}
+   [:td {:ng-repeat "column in table.columns"}
+    [:span {:editable-text "row.values[column.id]"
             :e-form "tableForm"
             ;;:onbeforesave "check"
             :e-required ""}
-     "{{ field[column] || 'empty' }}"]]
+     "{{ row.values[column.id] || 'empty' }}"]]
    [:td [:button.btn.btn-danger.btn-xs.pull-right
          {:type "button"
           :ng-show "tableForm.$visible"
-          :ng-click "table.fields[fieldIndex] = 'deleted'"}
+          :ng-click "removeRow(row.id)"}
          [:span.glyphicon.glyphicon-remove-circle]
-         "Delete row {{fieldIndex}}"]]]]
+         "Delete"]]]]
  [:button.btn.btn-warning
   {:type "button"
    :ng-show "!tableForm.$visible"
-   :ng-click "tableForm.$show()"}
+   :ng-click "loadTable ; tableForm.$show()"}
   [:span.glyphicon.glyphicon-pencil]
   "edit"]
  [:div.btn-form {:ng-show "tableForm.$visible"}
   [:button.btn.btn-success.pull-right
    {:type "button"
     :ng-disabled "tableForm.$waiting"
-    :ng-click "table.fields.push({})"}
+    :ng-click "addRow()"}
    [:span.glyphicon.glyphicon-plus-sign]
    "add row"]
   [:button.btn.btn-primary

@@ -142,6 +142,20 @@
   ($->atom tables tables)
   )
 
+(defcontroller table-ctrl
+  [$scope]
+  (defn$ sync-table []
+    (swap! tables
+           #(assoc % (:id ($- table))
+                   ($- table))))
+  (defn$ load-table []
+    (def$ table (get @tables (:id ($- table)))))
+
+  (def$ addRow #(add-row! ($- table)))
+  (def$ removeRow #(remove-row! ($- table) %))
+  (def$ addColumn #(add-column! ($- table) %))
+  (def$ removeColumn #(remove-column! ($- table) %)))
+
 (defcontroller tables-ctrl
   [$scope]
   ($->atom tables tables)
@@ -152,10 +166,16 @@
           default-keys (.split (get @config :table-keys "") " ")]
       (add-entity! tables
                    nil
-                   {:id table-id
-                    :name (+ "new_table_" table-id)
-                    :columns default-keys
-                    :fields []}))))
+                   (let [column-count (count default-keys)
+                         ids (range column-count)]
+                     {:id table-id
+                      :name (+ "new_table_" table-id)
+                      :column-count column-count
+                      :row-count 0
+                      :columns (zipmap ids
+                                      (for [[id column] default-keys]
+                                        {:id id :name column}))
+                      :rows {}})))))
 
 ;; example of specifying app name
 (defservice my-app my-service
