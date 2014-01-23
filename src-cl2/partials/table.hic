@@ -21,31 +21,29 @@
          {:type "button"
           :ng-show "tableForm.$visible"
           :ng-click "table.fields[fieldIndex] = 'deleted'"}
+         [:span.glyphicon.glyphicon-remove-circle]
          "Delete row {{fieldIndex}}"]]]]
  [:button.btn.btn-warning
   {:type "button"
    :ng-show "!tableForm.$visible"
    :ng-click "tableForm.$show()"}
-  "edit table {{table.name}}"]
+  [:span.glyphicon.glyphicon-pencil]
+  "edit"]
  [:div.btn-form {:ng-show "tableForm.$visible"}
   [:button.btn.btn-success.pull-right
    {:type "button"
     :ng-disabled "tableForm.$waiting"
     :ng-click "table.fields.push({})"}
+   [:span.glyphicon.glyphicon-plus-sign]
    "add row"]
   [:button.btn.btn-primary
    {:type "submit"
     :ng-disabled "tableForm.$waiting"}
+   [:span.glyphicon.glyphicon-ok]
    "save"]
   [:button.btn.btn-default
    {:type "button"
     :ng-disabled "tableForm.$waiting"
     :ng-click "tableForm.$cancel()"}
-   "cancel"]]
- [:div.btn-edit
-  [:br]
-  [:button.btn.btn-danger
-   {:type "button"
-    :ng-click "removeTable(table.id)"}
-   [:span.glyphicon.glyphicon-remove-circle]
-   "delete table {{table.name}}"]]]
+   [:span.glyphicon.glyphicon-trash]
+   "cancel"]]]
