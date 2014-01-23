@@ -33,11 +33,11 @@
     :ng-disabled "tableForm.$waiting"
     :ng-click "table.fields.push({})"}
    "add row"]
-  [:button.btn.btn-primary.btn-lg
+  [:button.btn.btn-primary
    {:type "submit"
     :ng-disabled "tableForm.$waiting"}
    "save"]
-  [:button.btn.btn-default.btn-lg
+  [:button.btn.btn-default
    {:type "button"
     :ng-disabled "tableForm.$waiting"
     :ng-click "tableForm.$cancel()"}
