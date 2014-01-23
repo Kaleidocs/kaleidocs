@@ -141,6 +141,9 @@
   ($->atom tables tables)
   )
 
+(defcontroller select-ctrl
+  [$scope])
+
 (defcontroller table-ctrl
   [$scope]
   (defn$ sync-table []

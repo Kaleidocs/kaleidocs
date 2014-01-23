@@ -55,3 +55,5 @@
    "cancel"]]]
 [:div {:ng-controller "generatedCtrl"
        :ng-include "'partials/generated.html'"}]
+[:div {:ng-controller "selectCtrl"
+       :ng-include "'partials/select.html'"}]
