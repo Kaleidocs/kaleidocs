@@ -1,4 +1,4 @@
-[:h1 "Fields:"]
+[:h3 "Fields:"]
 [:form {:editable-form ""
         :name "produceForm"
         :onaftersave "syncProduce()"
@@ -14,40 +14,44 @@
    [:td
     [:span {:editable-text "field.name"
             :e-form "produceForm"
-            ;;:onbeforesave "check"
             :e-required ""}
      "{{ field.name || 'empty' }}"]]
    [:td
     [:span {:editable-text "field.value"
             :e-form "produceForm"
-            ;;:onbeforesave "check"
             :e-required ""}
      "{{ field.value || 'empty' }}"]]
-   [:td [:button.btn.btn-danger.pull-right
-         {:type "button"
-          :ng-show "produceForm.$visible"
-          :ng-click "removeField($index)"}
-         "Del"]]]]
+   [:td
+    [:button.btn.btn-danger.btn-xs.pull-right
+     {:type "button"
+      :ng-show "produceForm.$visible"
+      :ng-click "removeField($index)"}
+     [:span.glyphicon.glyphicon-remove-circle]
+     "remove"]]]]
  [:div.btn-edit
   [:button.btn.btn-warning
    {:type "button"
     :ng-show "!produceForm.$visible"
     :ng-click "produceForm.$show()"}
+   [:span.glyphicon.glyphicon-pencil]
    "edit"]]
  [:div.btn-form {:ng-show "produceForm.$visible"}
   [:button.btn.btn-success.pull-right
    {:type "button"
     :ng-disabled "produceForm.$waiting"
     :ng-click "addField()"}
+   [:span.glyphicon.glyphicon-plus-sign]
    "add row"]
   [:button.btn.btn-primary
    {:type "submit"
     :ng-disabled "produceForm.$waiting"}
+   [:span.glyphicon.glyphicon-ok]
    "save"]
   [:button.btn.btn-default
    {:type "button"
     :ng-disabled "produceForm.$waiting"
     :ng-click "produceForm.$cancel()"}
+   [:span.glyphicon.glyphicon-trash]
    "cancel"]]]
 [:div {:ng-controller "generatedCtrl"
        :ng-include "'partials/generated.html'"}]
