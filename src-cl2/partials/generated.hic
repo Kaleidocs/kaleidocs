@@ -5,9 +5,9 @@
   [:td {:style "width:65%"} "Value"]]
  [:tr
   {:ng-repeat
-   "field in fields | filterAmountFields:config.amountSuffixes"}
+   "field in fields | filterAmountFields:config.amountSuffix"}
   [:td
-   [:span "{{ field.name + config.amountIwSuffixes }}"]]
+   [:span "{{ field.name + config.amountIwSuffix }}"]]
   [:td
    [:span "{{ field.value | amountInWords}}"]]]]
 [:button.btn.btn-success

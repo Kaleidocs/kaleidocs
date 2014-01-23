@@ -4,13 +4,13 @@
   [:td [:h5 "ID"]]
   [:td
    {:ng-repeat
-    "column in table.columns | filterAmountTableFields:config.amountSuffixes"}
-   [:h5 "{{column.name + config.amountIwSuffixes }}"]]]
+    "column in table.columns | filterAmountTableFields:config.amountSuffix"}
+   [:h5 "{{column.name + config.amountIwSuffix }}"]]]
  [:tr {:ng-repeat "row in table.rows"}
   [:td "{{$index + 1}}"]
   [:td
    {:ng-repeat
-    "column in table.columns | filterAmountTableFields:config.amountSuffixes"}
+    "column in table.columns | filterAmountTableFields:config.amountSuffix"}
    [:span {:editable-text "row.values[column.id]"
            :e-form "tableForm"
            :e-required ""}
@@ -29,6 +29,6 @@
    [:span "{{ tableSum }}"]]]
  [:tr
   [:td
-   [:span "{{ table.name + '_SUM' + config.amountIwSuffixes }}"]]
+   [:span "{{ table.name + '_SUM' + config.amountIwSuffix }}"]]
   [:td
    [:span "{{ tableSum | amountInWords }}"]]]]

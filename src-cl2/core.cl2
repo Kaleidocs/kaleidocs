@@ -61,7 +61,7 @@
     (remove-entity! profiles id))
   (defn$ add-profile []
     (let [profile-id (gen-unique-id :profiles)
-          default-keys (.split (get @config :profile-keys "") " ")]
+          default-keys (get @config :profile-keys [])]
       (add-entity! profiles
                    nil
                    {:id profile-id
@@ -100,8 +100,7 @@
   (defn$ reset []
     (def$ fields @produce))
   (if (= [] @produce)
-    (let [default-keys
-          (.split (get @config :produce-keys "") " ")]
+    (let [default-keys (get @config :produce-keys [])]
       (reset! produce (map (fn [field]
                              {:name field
                               :value ""}) default-keys))))
@@ -120,8 +119,8 @@
   (atom {:profile-keys ["NAME" "ADDRESS"],
          :search-columns ["NAME" "ADDRESS"],
          :produce-keys ["CITY" "CONTRACT"],
-         :amount-suffixes ["_AMOUNT"],
-         :amount-iw-suffixes "_IW",
+         :amount-suffix "_AMOUNT",
+         :amount-iw-suffix "_IW",
          :table-keys ["TASK" "MONEY_AMOUNT"],
          :sum-column "MONEY_AMOUNT"}))
 
@@ -163,7 +162,7 @@
     (remove-entity! tables id))
   (defn$ add-table []
     (let [table-id (gen-unique-id :tables)
-          default-keys (.split (get @config :table-keys "") " ")]
+          default-keys (get @config :table-keys [])]
       (add-entity! tables
                    nil
                    (let [column-count (count default-keys)

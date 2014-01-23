@@ -1,4 +1,3 @@
-[:h1 "Tables:"]
 [:div.well {:ng-repeat "table in tables"}
  [:button.btn.btn-danger.pull-right.btn-sm
   {:type "button"

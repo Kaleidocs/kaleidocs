@@ -1,17 +1,18 @@
 [:form.form-horizontal {:role "form"}
  [:div.form-group
-  [:label.col-sm-4.control-label "Suffixes for amount of money"]
+  [:label.col-sm-4.control-label "Suffix for amount of money"]
   [:div.col-sm-8
-   [:tags-input {:ng-model "config.amountSuffixes"
-                 :add-on-space "true"
-                 :min-length "1"
-                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
+   [:input.form-control
+    {:type "text"
+     :ng-model "config.amountSuffix"
+     :ng-trim "true"
+     :ng-pattern "/^[a-zA-Z0-9\\_]*$/"}]]]
  [:div.form-group
   [:label.col-sm-4.control-label "Suffix for amounts in words"]
   [:div.col-sm-8
    [:input.form-control
     {:type "text"
-     :ng-model "config.amountIwSuffixes"
+     :ng-model "config.amountIwSuffix"
      :ng-trim "true"
      :ng-pattern "/^[a-zA-Z0-9\\_]*$/"}]]]
  [:div.form-group
