@@ -8,7 +8,9 @@
  [:h3 {:editable-text "table.name"}
   "{{table.name}}"]
  [:div {:ng-include "'partials/table.html'"
-        :ng-controller "tableCtrl"}]]
+        :ng-controller "tableCtrl"}]
+ [:div {:ng-controller "generatedCtrl"
+        :ng-include "'partials/table-generated.html'"}]]
 [:div.btn-edit
  [:br]
  [:button.btn.btn-success.btn-lg
