@@ -20,7 +20,12 @@
  [:br]
  [:table.table.table-bordered.table-hover.table-condensed
   [:tr
-   [:td {:ng-repeat "column in table.columns"} "{{column.name}}"]
+   [:td {:ng-repeat "column in table.columns"}
+    [:h5 "{{column.name}} "
+     [:span.glyphicon.glyphicon-minus-sign.text-danger
+      {:ng-click "removeColumn(column.id)"
+       :ng-show "tableForm.$visible"
+       :title "remove column"}]]]
    [:td {:style "width:10%"}
     [:span {:ng-show "tableForm.$visible"}
      "Action"]]]
