@@ -10,16 +10,18 @@
 (defn set-counter!
   "Set counter number for a given key."
   [k n]
-  (swap! id-counter #(assoc % k n)))
+  (swap! id-counter #(assoc % (serialize k) n)))
 
 (defn gen-unique-id
-  "Generates unique id for a given key."
+  "Generates unique id for a given key.
+  Keys can be integers, strings or arrays of those
+  as they are serialized/deserialized via JSON."
   [k]
-  (if (contains? @id-counter k)
+  (if (contains? @id-counter (serialize k))
     (swap! id-counter
-           #(update-in % [k] inc))
+           #(update-in % [(serialize k)] inc))
     (set-counter! k 0))
-  (get @id-counter k))
+  (get @id-counter (serialize k)))
 
 (let [profile-id (gen-unique-id :profiles)]
   (add-entity! profiles
