@@ -71,20 +71,19 @@
                          default-keys)}))))
 
 (defcontroller profile-ctrl
-  [$scope $routeParams]
-  (def profile-id (parseInt (:profile-id $routeParams)))
+  [$scope]
   (defn$ filter-field [field]
     (true? (:deleted? field)))
   (defn$ reset []
     (def$ fields
       (-> profiles
-          (find-entities {:id profile-id})
+          (find-entities {:id (:id ($- profile))})
           first
           (get :fields))))
   (($- reset))
   (defn$ sync-profile []
     (swap! profiles
-           #(assoc-in % [profile-id :fields] ($- fields))))
+           #(assoc-in % [(:id ($- profile)) :fields] ($- fields))))
   (defn$ remove-field [index]
     (.splice ($- fields)
              index 1))
@@ -133,7 +132,7 @@
   [$scope]
   ($->atom tables tables)
   ($->atom profiles profiles)
-  ($->atom profiles produce)
+  ($->atom produce produce)
   ($->atom config config))
 
 (defcontroller generated-ctrl
