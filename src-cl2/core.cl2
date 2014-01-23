@@ -227,7 +227,9 @@
 (deffilter amount-in-words []
   [amount]
   (load-file "n2w_vi.cl2")
-  (number->word-helper (seq amount)))
+  (number->word-helper (seq (if (number? amount)
+                              (+ "" amount)
+                              amount))))
 
 (.run my-app
       (fn-di [editableOptions]
