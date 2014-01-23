@@ -117,12 +117,12 @@
             {:name "" :value ""}))))
 
 (def config
-  (atom {:profile-keys "NAME ADDRESS",
-         :search-columns "NAME ADDRESS",
-         :produce-keys "CITY CONTRACT",
-         :amount-suffixes "_AMOUNT",
+  (atom {:profile-keys ["NAME" "ADDRESS"],
+         :search-columns ["NAME" "ADDRESS"],
+         :produce-keys ["CITY" "CONTRACT"],
+         :amount-suffixes ["_AMOUNT"],
          :amount-iw-suffixes "_IW",
-         :table-keys "TASK MONEY_AMOUNT",
+         :table-keys ["TASK" "MONEY_AMOUNT"],
          :sum-column "MONEY_AMOUNT"}))
 
 (defcontroller config-ctrl
