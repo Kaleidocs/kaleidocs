@@ -12,7 +12,7 @@
         :ng-include "'partials/table-generated.html'"}]]
 [:div.btn-edit
  [:br]
- [:button.btn.btn-success.btn-lg
+ [:button.btn.btn-success
   {:type "button"
    :ng-click "addTable()"}
   [:span.glyphicon.glyphicon-plus-sign]
