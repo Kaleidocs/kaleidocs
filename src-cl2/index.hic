@@ -14,6 +14,8 @@
    {:href
     "http://fonts.googleapis.com/css?family=Arimo|Open+Sans+Condensed:300|Noto+Serif:700italic&subset=latin"
     :rel "stylesheet"}]
+  [:link {:rel "stylesheet"
+          :href "vendor/ng-tags-input/ng-tags-input.min.css"}]
   [:style
    "
    form[name='configForm'] > div {
@@ -42,6 +44,7 @@
   [:script {:src "vendor/angular/angular.js"}]
   [:script {:src "vendor/angular-route/angular-route.js"}]
   [:script {:src "vendor/angular-xeditable/dist/js/xeditable.min.js"}]
+  [:script {:src "vendor/ng-tags-input/ng-tags-input.min.js"}]
   [:script {:src "core.js"}]]
  [:body
   [:div.container

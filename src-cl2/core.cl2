@@ -3,7 +3,7 @@
 (load-file "../test-cl2/sample_data.cl2")
 (load-file "table_operations.cl2")
 
-(defapp my-app [ngRoute xeditable])
+(defapp my-app [ngRoute xeditable ngTagsInput])
 
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`

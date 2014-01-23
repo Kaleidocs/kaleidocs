@@ -24,6 +24,7 @@
                        [angular "~1.2.9"]
                        [angular-route "~1.2.9"]
                        [angular-xeditable  "~0.1.8"]
+                       [ng-tags-input "~1.1.1"]
                        [ng-file-upload "1.2.4"]
                        [bootstrap "~3.0.3"]]
   :cl2c {:prod
