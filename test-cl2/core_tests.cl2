@@ -1,5 +1,83 @@
 (load-file "core.cl2")
 
+(defn make-sample-table []
+  {:id 0
+   :name "tabtab"
+   :column-count 1
+   :row-count 1
+   :columns {0 {:id 0 :name "foo"}
+             1 {:id 1 :name "bar"}}
+   :rows {0 {:id 0
+             :values {0 "some text"       ;; col `foo`
+                      1 "an other text"}} ;; col `bar`
+          1 {:id 1
+             :values {0 "cell"
+                      1 "value"}}}})
+
+(deftest table-rows-operations
+  (let [sample-table (make-sample-table)]
+    (add-row! sample-table)
+    (is (= sample-table
+           {:id 0
+            :name "tabtab"
+            :column-count 1
+            :row-count 2
+            :columns {0 {:id 0 :name "foo"}
+                      1 {:id 1 :name "bar"}}
+            :rows {0 {:id 0
+                      :values {0 "some text"
+                               1 "an other text"}}
+                   1 {:id 1
+                      :values {0 "cell"
+                              1 "value"}}
+                   2 {:id 2
+                      :values {}}}}))
+    (remove-row! sample-table 1)
+    (is (= sample-table
+           {:id 0
+            :name "tabtab"
+            :column-count 1
+            :row-count 2
+            :columns {0 {:id 0 :name "foo"}
+                      1 {:id 1 :name "bar"}}
+            :rows {0 {:id 0
+                      :values {0 "some text"
+                               1 "an other text"}}
+                   2 {:id 2
+                      :values {}}}}))))
+
+(deftest table-columns-operations
+  (let [sample-table (make-sample-table)]
+    (add-column! sample-table "boo")
+    (is (= sample-table
+           {:id 0
+            :name "tabtab"
+            :column-count 2
+            :row-count 1
+            :columns {0 {:id 0 :name "foo"}
+                      1 {:id 1 :name "bar"}
+                      2 {:id 2 :name "boo"}}
+            :rows {0 {:id 0
+                      :values {0 "some text" ;; col `foo`
+                               1 "an other text"}} ;; col `bar`
+                   1 {:id 1
+                      :values {0 "cell"
+                               1 "value"}}}}))
+    (remove-column! sample-table 1)
+    (is (= sample-table
+           {:id 0
+            :name "tabtab"
+            :column-count 2
+            :row-count 1
+            :columns {0 {:id 0 :name "foo"}
+                      2 {:id 2 :name "boo"}}
+            :rows {0 {:id 0
+                      :values {0 "some text" ;; col `foo`
+                               }} ;; col `bar`
+                   1 {:id 1
+                      :values {0 "cell"
+                               }}}}))))
+
 (ng-test myApp
   (:controller myCtrl
     (:tabular
