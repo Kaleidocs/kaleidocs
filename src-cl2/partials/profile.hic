@@ -42,12 +42,12 @@
     :ng-click "addField()"}
    [:span.glyphicon.glyphicon-plus-sign]
    "add field"]
-  [:button.btn.btn-primary.btn-lg
+  [:button.btn.btn-primary
    {:type "submit"
     :ng-disabled "profileForm.$waiting"}
    [:span.glyphicon.glyphicon-ok]
    "save"]
-  [:button.btn.btn-default.btn-lg
+  [:button.btn.btn-default
    {:type "button"
     :ng-disabled "profileForm.$waiting"
     :ng-click "profileForm.$cancel()"}
