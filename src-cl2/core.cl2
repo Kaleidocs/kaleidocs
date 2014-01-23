@@ -204,6 +204,12 @@
    #(end-with? (:name %) suffix)
    fields))
 
+(deffilter filter-amount-table-fields []
+  [columns suffix]
+  (for [[_ v] columns
+        :when (end-with? (:name v) suffix)]
+    v))
+
 (deffilter amount-in-words []
   [amount]
   (load-file "n2w_vi.cl2")
