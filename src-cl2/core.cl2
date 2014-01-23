@@ -7,33 +7,34 @@
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
 (defroute
-  ;;"/default" ['my-ctrl "partials/default.html"]
-  "/default"
-  {:controller 'empty-ctrl
+  "/debug"
+  {:controller 'debug-ctrl
    :template
    (hiccup
-    [:div "{{tables}}"]
+    [:h3 "Config"]
     [:div "{{config}}"]
-    [:div "{{profiles}}"])}
+    [:h3 "Profiles"]
+    [:div "{{profiles}}"]
+    [:h3 "Tables"]
+    [:div "{{tables}}"]
+    [:h3 "Produce"]
+    [:div "{{produce}}"])}
   "/profile/:profileId"
   ['profile-ctrl "partials/profile.html"]
 
   "/profiles"
   ['profiles-ctrl "partials/profiles.html"]
 
-  "/produce"
-  {:controller 'nil-ctrl
-   :template
-   (hiccup
-    [:div {:ng-controller "tablesCtrl"
-           :ng-include "'partials/tables.html'"}]
+  "/tables"
+  ['tables-ctrl "partials/tables.html"]
 
-    [:div {:ng-controller "produceCtrl"
-           :ng-include "'partials/produce.html'"}])}
+  "/produce"
+  ['produce-ctrl "partials/produce.html"]
+
   "/config"
   ['config-ctrl "partials/config.html"]
 
-  :default "/default")
+  :default "/debug")
 
 (defdirective my-directive
   []
@@ -128,15 +129,12 @@
   [$scope]
   ($->atom config config))
 
-(defcontroller empty-ctrl
+(defcontroller debug-ctrl
   [$scope]
   ($->atom tables tables)
   ($->atom profiles profiles)
+  ($->atom profiles produce)
   ($->atom config config))
-
-(defcontroller nil-ctrl
-  [$scope]
-  )
 
 (defcontroller generated-ctrl
   [$scope]
