@@ -210,6 +210,20 @@
         :when (end-with? (:name v) suffix)]
     v))
 
+(deffilter sum-by-column []
+  [table col-name]
+  (let [col-id nil]
+    (if (not (= {} (:rows table)))
+      (doseq [[k v] (:columns table)]
+        (when (= col-name (:name v))
+          (set! col-id k))))
+    (when (not (nil? col-id))
+      (let [rows (for [[_ row] (:rows table)
+                       [k v] (:values row)
+                       :when (= col-id k)]
+                   (parseInt v))]
+        (apply + (filter #(not (=== NaN %)) rows))))))
+
 (deffilter amount-in-words []
   [amount]
   (load-file "n2w_vi.cl2")
