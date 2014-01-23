@@ -1,58 +1,52 @@
-[:form
- {:editable-form ""
-  :name "configForm"}
- [:div
-  [:span.title "Suffixes for amount of money"]
-  [:span {:editable-text "config.amountSuffixes"
-          :e-name "amountSuffixes"
-          ;;:onbeforesave ""
-          :e-required ""}
-   "{{ config.amountSuffixes || 'empty' }}"]]
- [:div
-  [:span.title "Suffixes for amounts in words"]
-  [:span {:editable-text "config.amountIwSuffixes"
-          :e-name "amountIwSuffixes"
-          ;;:onbeforesave ""
-          :e-required ""}
-   "{{ config.amountIwSuffixes || 'empty' }}"]]
- [:div
-  [:span.title "Columns to calculate sum"]
-  [:span {:editable-text "config.sumColumn"
-          :e-name "sumColmn"}
-   "{{ config.sumColumn || 'empty' }}"]]
- [:div
-  [:span.title "Default profile keys"]
-  [:span {:editable-text "config.profileKeys"
-          :e-name "profileKeys"}
-   "{{ config.profileKeys || 'empty' }}"]]
- [:div
-  [:span.title "Default produce keys"]
-  [:span {:editable-text "config.produceKeys"
-          :e-name "produceKeys"}
-   "{{ config.produceKeys || 'empty' }}"]]
- [:div
-  [:span.title "Default table keys"]
-  [:span {:editable-text "config.tableKeys"
-          :e-name "tableKeys"}
-   "{{ config.tableKeys || 'empty' }}"]]
- [:div
-  [:span.title "Search columns"]
-  [:span {:editable-text "config.searchColumns"
-          :e-name "searchColumns"}
-   "{{ config.searchColumns || 'empty' }}"]]
- [:div.buttons
-  [:button.btn.btn-default
-   {:type "button"
-    :ng-click "configForm.$show()"
-    :ng-show "!configForm.$visible"}
-   "Edit"]
-  [:span {:ng-show "configForm.$visible"}
-   [:button.btn.btn-primary
-    {:type "submit"
-     :ng-disabled "configForm.$waiting"}
-    "Save"]
-   [:button.btn.btn-default
-    {:type "submit"
-     :ng-disabled "configForm.$waiting"
-     :ng-click "configForm.$cancel()"}
-    "Cancel"]]]]
+[:form.form-horizontal {:role "form"}
+ [:div.form-group
+  [:label.col-sm-4.control-label "Suffixes for amount of money"]
+  [:div.col-sm-8
+   [:tags-input {:ng-model "config.amountSuffixes"
+                 :add-on-space "true"
+                 :min-length "1"
+                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
+ [:div.form-group
+  [:label.col-sm-4.control-label "Suffix for amounts in words"]
+  [:div.col-sm-8
+   [:input.form-control
+    {:type "text"
+     :ng-model "config.amountIwSuffixes"
+     :ng-trim "true"
+     :ng-pattern "/^[a-zA-Z0-9\\_]*$/"}]]]
+ [:div.form-group
+  [:label.col-sm-4.control-label "Column to calculate sum"]
+  [:div.col-sm-8
+   [:input.form-control
+    {:type "text"
+     :ng-model "config.sumColumn"
+     :ng-trim "true"
+     :ng-pattern "/^[a-zA-Z0-9\\_]*$/"}]]]
+ [:div.form-group
+  [:label.col-sm-4.control-label "Default profile keys"]
+  [:div.col-sm-8
+   [:tags-input {:ng-model "config.profileKeys"
+                 :add-on-space "true"
+                 :min-length "1"
+                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
+ [:div.form-group
+  [:label.col-sm-4.control-label "Default produce keys"]
+  [:div.col-sm-8
+   [:tags-input {:ng-model "config.produceKeys"
+                 :add-on-space "true"
+                 :min-length "1"
+                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
+ [:div.form-group
+  [:label.col-sm-4.control-label "Default table keys"]
+  [:div.col-sm-8
+   [:tags-input {:ng-model "config.tableKeys"
+                 :add-on-space "true"
+                 :min-length "1"
+                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
+ [:div.form-group
+  [:label.col-sm-4.control-label "Search columns"]
+  [:div.col-sm-8
+   [:tags-input {:ng-model "config.searchColumns"
+                 :add-on-space "true"
+                 :min-length "1"
+                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]]
