@@ -7,6 +7,7 @@
   [:script {:src "/testem.js"}]
   [:script {:src "/vendor/angular/angular.js"}]
   [:script {:src "vendor/angular-route/angular-route.js"}]
+  [:script {:src "vendor/angular-xeditable/dist/js/xeditable.min.js"}]
   [:script {:src "/test-cl2/test_runner.js"}]]
  [:body {:ng-app "myApp"}
   [:div#qunit-userAgent]
