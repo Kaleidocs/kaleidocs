@@ -7,6 +7,15 @@
 (def id-counter
   (atom {}))
 
+(def config
+  (atom {:profile-keys [],
+         :search-columns [],
+         :produce-keys [],
+         :amount-suffix "",
+         :amount-iw-suffix "",
+         :table-keys [],
+         :sum-column ""}))
+
 (defn set-counter!
   "Set counter number for a given key."
   [k n]

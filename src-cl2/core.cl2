@@ -145,15 +145,6 @@
       (conj ($- fields)
             {:name "" :value ""}))))
 
-(def config
-  (atom {:profile-keys ["NAME" "ADDRESS"],
-         :search-columns ["NAME" "ADDRESS"],
-         :produce-keys ["CITY" "CONTRACT"],
-         :amount-suffix "_AMOUNT",
-         :amount-iw-suffix "_IW",
-         :table-keys ["TASK" "MONEY_AMOUNT"],
-         :sum-column "MONEY_AMOUNT"}))
-
 (defcontroller config-ctrl
   [$scope]
   ($->atom config config))
