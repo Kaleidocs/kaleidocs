@@ -4,3 +4,5 @@ node_modules/
 *.html
 resources/public/vendor
 target/
+.lein-repl-history
+sdb.db
