@@ -1,5 +1,6 @@
 (ns kaleidocs.core
   (:require [methojure.sockjs.session :refer :all]
+            [clojure.java.browse :refer [browse-url]]
             [simpledb.core :as db]
             [cheshire.core :refer [generate-string parse-string]]
             [clojure.string :as str]
@@ -138,4 +139,5 @@
   (run-server
    (if (dev? args) (wrap-reload app) app)
    {:port (port args)})
+  (browse-url (str "http://localhost:" (port args) "/index.html"))
   (timbre/info "server started on port" (port args)))
