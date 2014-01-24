@@ -41,6 +41,7 @@
    "]
   [:script
    "document.write('<base href=\"' + document.location + '\" />')"]
+  [:script {:src "vendor/sockjs/sockjs.min.js"}]
   [:script {:src "vendor/angular/angular.js"}]
   [:script {:src "vendor/angular-route/angular-route.js"}]
   [:script {:src "vendor/angular-xeditable/dist/js/xeditable.min.js"}]

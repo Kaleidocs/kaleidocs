@@ -1,7 +1,34 @@
 (load-file "angular-cl2/src/core.cl2")
+(load-file "socket-cl2/src/client.cl2")
 (load-file "atom-crud/src/core.cl2")
 (load-file "../test-cl2/sample_data.cl2")
 (load-file "table_operations.cl2")
+
+(def sockjs-url (+* window.location.protocol "//"
+                    window.location.host
+                    "/socket"))
+
+(defsocket socket #(SockJS. sockjs-url nil
+                            #_{:protocols_whitelist
+                               ['xhr-polling]})
+    {:debug true})
+
+(. socket on :config
+   (fn [msg-type data respond! _]
+     (reset! config data)))
+
+(. socket on :profiles
+   (fn [msg-type data respond! _]
+     (reset! profiles data)))
+
+(. socket on :counter
+   (fn [msg-type data respond! _]
+     (reset! id-counter data)))
+
+(defn save-all []
+  (. socket emit :profiles @profiles)
+  (. socket emit :counter @id-counter)
+  (. socket emit :config @config))
 
 (defapp my-app [ngRoute xeditable ngTagsInput angularFileUpload])
 
