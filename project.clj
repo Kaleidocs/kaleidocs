@@ -4,6 +4,10 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
+                 [http-kit-sockjs "0.2.0-SNAPSHOT"]
+                 [lib-noir "0.7.5"]
+                 [com.taoensso/timbre "2.7.1"]
+                 [ring/ring-devel "1.1.8"]
                  [kaleidocs/convert "0.1.0-SNAPSHOT"]
                  [kaleidocs/merge "0.1.0-SNAPSHOT"]
                  [simpledb "0.1.4"]]
@@ -30,6 +34,7 @@
                        [ng-tags-input "~1.1.1"]
                        [ng-file-upload "~1.2.5"]
                        [bootstrap "~3.0.3"]]
+  :main kaleidocs.core
   :cl2c {:prod
          {:watch ["src-cl2", "test-cl2"]
           :filter "src-cl2/"
