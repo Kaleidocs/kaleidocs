@@ -11,10 +11,7 @@
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.params :refer [wrap-params]])
-  ;;(:gen-class)
-  )
-
-(db/init)
+  (:gen-class))
 
 (defn dev? [args] (some #{"-dev"} args))
 
@@ -136,6 +133,7 @@
       (wrap-params)))
 
 (defn -main [& args]
+  (db/init)
   (run-server
    (if (dev? args) (wrap-reload app) app)
    {:port (port args)})
