@@ -3,7 +3,7 @@
 (load-file "../test-cl2/sample_data.cl2")
 (load-file "table_operations.cl2")
 
-(defapp my-app [ngRoute xeditable ngTagsInput])
+(defapp my-app [ngRoute xeditable ngTagsInput angularFileUpload])
 
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
@@ -22,6 +22,9 @@
     [:div "{{produce}}"])}
   "/profile/:profileId"
   ['profile-ctrl "partials/profile.html"]
+
+  "/templates"
+  ['templates-ctrl "partials/templates.html"]
 
   "/profiles"
   ['profiles-ctrl "partials/profiles.html"]
@@ -143,6 +146,21 @@
 
 (defcontroller select-ctrl
   [$scope])
+
+(defcontroller templates-ctrl
+  [$scope $upload]
+  (defn$ onFileSelect [files]
+    (doseq [file files]
+      (def$ upload
+        (-> $upload
+            (.upload
+             {:url "upload"
+              :method "POST"
+              :data {:hello "world"}
+              :file file})
+            (.success (fn [data status]))
+            (.error (fn [data status]
+                      (alert (+ "Error" data status)))))))))
 
 (defcontroller table-ctrl
   [$scope]

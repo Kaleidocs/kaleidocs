@@ -45,6 +45,7 @@
   [:script {:src "vendor/angular-route/angular-route.js"}]
   [:script {:src "vendor/angular-xeditable/dist/js/xeditable.min.js"}]
   [:script {:src "vendor/ng-tags-input/ng-tags-input.min.js"}]
+  [:script {:src "vendor/ng-file-upload/angular-file-upload.min.js"}]
   [:script {:src "core.js"}]]
  [:body
   [:div.container
