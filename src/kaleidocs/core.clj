@@ -2,6 +2,9 @@
   (:require [methojure.sockjs.session :refer :all]
             [clojure.java.browse :refer [browse-url]]
             [simpledb.core :as db]
+            [noir.io :as io]
+            [kaleidocs.merge :refer [merge-doc]]
+            [noir.response :as response]
             [cheshire.core :refer [generate-string parse-string]]
             [clojure.string :as str]
             [taoensso.timbre :as timbre]
@@ -10,7 +13,8 @@
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.resource :refer [wrap-resource]]
-            [ring.middleware.params :refer [wrap-params]])
+            [ring.middleware.params :refer [wrap-params]]
+            [ring.middleware.multipart-params :refer [wrap-multipart-params]])
   (:gen-class))
 
 (defn dev? [args] (some #{"-dev"} args))
@@ -123,14 +127,17 @@
     client-session))
 
 (defroutes my-routes
-  (POST "/upload" [] "hello world")
+  (POST "/upload" [file]
+        (io/upload-file "templates" file :create-path? true)
+        (:filename file))
   (sockjs-handler
    "/socket" (->ChatConnection) {:response-limit 4096}))
 
 (def app
   (-> my-routes
       (wrap-resource "public")
-      (wrap-params)))
+      wrap-params
+      wrap-multipart-params))
 
 (defn -main [& args]
   (db/init)
