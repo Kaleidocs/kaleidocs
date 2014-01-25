@@ -68,7 +68,8 @@
       [:li [:a {:href "#/templates"} "Templates"]]
       [:li [:a {:href "#/profiles"} "Profiles"]]
       [:li [:a {:href "#/tables"} "Tables"]]
-      [:li [:a {:href "#/produce"} "Produce"]]]]]
+      [:li [:a {:href "#/produce"} "Produce"]]
+      [:li [:a {:href "#/history"} "History"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
      [:ng-view]]]]]]
