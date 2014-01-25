@@ -6,3 +6,4 @@ resources/public/vendor
 target/
 .lein-repl-history
 sdb.db
+templates/
