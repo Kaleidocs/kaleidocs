@@ -89,8 +89,8 @@
   "Handles messages when an on-data event happens"
   [msg-type data client-session]
   ;; TODO: max data size?
-  (timbre/info "Data: " data
-               " from session of " (:id client-session))
+  (timbre/info "Data: " data "with type " msg-type
+               " from session " (:id client-session))
   (cond
    (= msg-type "init")
    (on-init (:id client-session))
