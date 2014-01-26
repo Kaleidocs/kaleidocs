@@ -123,20 +123,6 @@
             (.error (fn [data status]
                       (alert (+ "Error" data status)))))))))
 
-;; example of specifying app name
-(defservice my-app my-service
- []
- (this->!)
- (defn! add-three [n] (+ n 3)))
-
-;; generic defmodule usage
-(defmodule my-app
-  (:filter (my-filter [] [s] (+ s 5))))
-
-(deffilter your-filter []
-  [s]
-  (+ s 6))
-
 (deffilter filter-deleted []
   [items]
   (filter #(not (= :deleted %)) items))
