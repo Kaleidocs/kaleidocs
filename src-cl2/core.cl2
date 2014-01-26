@@ -58,6 +58,8 @@
     [:div "{{profiles}}"]
     [:h3 "Tables"]
     [:div "{{tables}}"]
+    [:h3 "Templates"]
+    [:div "{{templates}}"]
     [:h3 "Produce"]
     [:div "{{produce}}"])}
   "/profile/:profileId"
