@@ -95,8 +95,8 @@
    (= msg-type "init")
    (on-init (:id client-session))
 
-   (contains? #{"config" "profiles" "counter"}
-              msg-type )
+   (contains? #{"config" "profiles" "counter" "templates"}
+              msg-type)
    (db/put! (keyword msg-type) data)
 ))
 
