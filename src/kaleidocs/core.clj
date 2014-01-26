@@ -46,9 +46,9 @@
 (defn generate-cl2-string
   "Converts Clojure maps to JSON-encoded ChlorineJs-friendly ones
   by camel-casing their keys."
-  [data]
+  [[msg-type data]]
   (generate-string
-   data
+   [(->camelCase (name msg-type)) data]
    {:key-fn (fn [k] (->camelCase (name k)))}))
 
 (defn whisper
@@ -134,7 +134,7 @@
         ;; else, inform clients about new template
         (when-not (.exists (clojure.java.io/file
                             (str templates-dir "/" (:filename file))))
-          (broadcast [:new-template (:filename file)]))
+          (broadcast [:new-template {:filename (:filename file)}]))
         (io/upload-file templates-dir file :create-path? true)
         (:filename file))
   (sockjs-handler
