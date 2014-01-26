@@ -17,6 +17,8 @@
             [ring.middleware.multipart-params :refer [wrap-multipart-params]])
   (:gen-class))
 
+(def templates-dir "templates")
+
 (defn dev? [args] (some #{"-dev"} args))
 
 (defn port [args]
@@ -128,7 +130,12 @@
 
 (defroutes my-routes
   (POST "/upload" [file]
-        (io/upload-file "templates" file :create-path? true)
+        ;; if file exists, just overwrite with new one
+        ;; else, inform clients about new template
+        (when-not (.exists (clojure.java.io/file
+                            (str templates-dir "/" (:filename file))))
+          (broadcast [:new-template (:filename file)]))
+        (io/upload-file templates-dir file :create-path? true)
         (:filename file))
   (sockjs-handler
    "/socket" (->ChatConnection) {:response-limit 4096}))
