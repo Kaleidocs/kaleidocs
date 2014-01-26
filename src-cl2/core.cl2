@@ -82,83 +82,9 @@
 
   :default "/debug")
 
-(defdirective my-directive
-  []
-  ;; can be a directive-definition object or a link function
-  (fn [scope elm attrs]
-    (.
-     scope
-     ($watch
-      (:my-directive attrs)
-      (fn [value] (. elm (text (+ value 4))))))))
-
-(defcontroller my-ctrl
-  [$scope my-service]
-  (def$ some-number 12)
-  (defn$ add-two [n] {:result (+ n 2)})
-  (defn$ service-add [n]
-    (my-service.add-three n)))
-
-(defcontroller profiles-ctrl
-  [$scope]
-  ($->atom profiles profiles)
-  (defn$ remove-profile [id]
-    (remove-entity! profiles id))
-  (defn$ add-profile []
-    (let [profile-id (gen-unique-id :profiles)
-          default-keys (get @config :profile-keys [])]
-      (add-entity! profiles
-                   nil
-                   {:id profile-id
-                    :name (+ "New profile #" profile-id)
-                    :fields
-                    (map (fn [k] {:name k
-                                  :value ""})
-                         default-keys)}))))
-
-(defcontroller profile-ctrl
-  [$scope]
-  (defn$ filter-field [field]
-    (true? (:deleted? field)))
-  (defn$ reset []
-    (def$ fields
-      (-> profiles
-          (find-entities {:id (:id ($- profile))})
-          first
-          (get :fields))))
-  (($- reset))
-  (defn$ sync-profile []
-    (swap! profiles
-           #(assoc-in % [(:id ($- profile)) :fields] ($- fields))))
-  (defn$ remove-field [index]
-    (.splice ($- fields)
-             index 1))
-  (defn$ add-field []
-    (def$ fields
-      (conj ($- fields)
-            {:name "" :value ""}))))
-
-(defcontroller produce-ctrl
-  [$scope]
-  (defn$ filter-field [field]
-    (true? (:deleted? field)))
-  (defn$ reset []
-    (def$ fields @produce))
-  (if (= [] @produce)
-    (let [default-keys (get @config :produce-keys [])]
-      (reset! produce (map (fn [field]
-                             {:name field
-                              :value ""}) default-keys))))
-  (($- reset))
-  (defn$ sync-produce []
-    (reset! produce ($- fields)))
-  (defn$ remove-field [index]
-    (.splice ($- fields)
-             index 1))
-  (defn$ add-field []
-    (def$ fields
-      (conj ($- fields)
-            {:name "" :value ""}))))
+(load-file "ctrls/profiles.cl2")
+(load-file "ctrls/tables.cl2")
+(load-file "ctrls/produce.cl2")
 
 (defcontroller config-ctrl
   [$scope]
@@ -196,41 +122,6 @@
             (.success (fn [data status]))
             (.error (fn [data status]
                       (alert (+ "Error" data status)))))))))
-
-(defcontroller table-ctrl
-  [$scope]
-  (defn$ sync-table []
-    (swap! tables
-           #(assoc % (:id ($- table))
-                   ($- table))))
-  (defn$ load-table []
-    (def$ table (get @tables (:id ($- table)))))
-
-  (def$ addRow #(add-row! ($- table)))
-  (def$ removeRow #(remove-row! ($- table) %))
-  (def$ addColumn #(add-column! ($- table) %))
-  (def$ removeColumn #(remove-column! ($- table) %)))
-
-(defcontroller tables-ctrl
-  [$scope]
-  ($->atom tables tables)
-  (defn$ remove-table [id]
-    (remove-entity! tables id))
-  (defn$ add-table []
-    (let [table-id (gen-unique-id :tables)
-          default-keys (get @config :table-keys [])]
-      (add-entity! tables
-                   nil
-                   (let [column-count (count default-keys)
-                         ids (range column-count)]
-                     {:id table-id
-                      :name (+ "new_table_" table-id)
-                      :column-count column-count
-                      :row-count 0
-                      :columns (zipmap ids
-                                      (for [[id column] default-keys]
-                                        {:id id :name column}))
-                      :rows {}})))))
 
 ;; example of specifying app name
 (defservice my-app my-service
