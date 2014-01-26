@@ -43,6 +43,9 @@
   (. socket emit :config @config)
   (. socket emit :templates @templates))
 
+(defn load-all []
+  (. socket emit :init))
+
 (defapp my-app [ngRoute xeditable ngTagsInput angularFileUpload])
 
 ;; don't have to specify app name as compiler remember the last app name
@@ -52,6 +55,8 @@
   {:controller 'debug-ctrl
    :template
    (hiccup
+    [:a {:ng-click "loadAll()"} [:h2 "Load all"]]
+    [:a {:ng-click "saveAll()"} [:h2 "Save all"]]
     [:h3 "Config"]
     [:div "{{config}}"]
     [:h3 "Profiles"]
@@ -93,6 +98,8 @@
 
 (defcontroller debug-ctrl
   [$scope]
+  (def$ save-all save-all)
+  (def$ load-all load-all)
   ($->atom tables tables)
   ($->atom profiles profiles)
   ($->atom templates templates)
