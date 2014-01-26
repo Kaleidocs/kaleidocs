@@ -40,6 +40,11 @@
    }
 
    form[name='configForm'] select { width: 120px; }
+
+   .gridStyle {
+     border: 1px solid rgb(212,212,212);
+     height: 300px;
+   }
    "]
   [:script
    "document.write('<base href=\"' + document.location + '\" />')"]
