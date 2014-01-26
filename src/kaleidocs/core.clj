@@ -95,14 +95,9 @@
    (= msg-type "init")
    (on-init (:id client-session))
 
-   (= msg-type "config")
-   (db/put! :config data)
-
-   (= msg-type "profiles")
-   (db/put! :profiles data)
-
-   (= msg-type "counter")
-   (db/put! :counter data)
+   (contains? #{"config" "profiles" "counter"}
+              msg-type )
+   (db/put! (keyword msg-type) data)
 ))
 
 (defrecord ChatConnection []
