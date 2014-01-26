@@ -76,12 +76,9 @@
 (defn on-init
   [id]
   (timbre/info "init message from " id)
-  (whisper id
-           ["counter" (db/get :counter)])
-  (whisper id
-           ["profiles" (db/get :profiles)])
-  (whisper id
-           ["config" (db/get :config)]))
+  (doseq [data-type [:templates :counter :profiles :config]]
+    (whisper id
+             [data-type (db/get data-type)])))
 
 (defn truncate
   "truncates a string to the given length"
