@@ -183,6 +183,7 @@
 
 (defcontroller templates-ctrl
   [$scope $upload]
+  ($->atom templates templates)
   (defn$ onFileSelect [files]
     (doseq [file files]
       (def$ upload
