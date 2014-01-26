@@ -61,9 +61,6 @@
   {:controller 'history-ctrl
    :template
    (hiccup
-    [:div "Records {{records}}"]
-    [:div "History {{history}}"]
-    [:div "Record keys {{config.recordKeys}}"]
     [:div.gridStyle {:ng-grid "gridOptions"}])}
   "/debug"
   {:controller 'debug-ctrl
