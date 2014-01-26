@@ -13,4 +13,4 @@
     {:data "history"
      :show-filter true
      :column-defs (map (fn [k] {:field k})
-                       (:record-keys @config))}))
+                       (:search-columns @config))}))
