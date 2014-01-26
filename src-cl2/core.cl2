@@ -168,6 +168,7 @@
   [$scope]
   ($->atom tables tables)
   ($->atom profiles profiles)
+  ($->atom templates templates)
   ($->atom produce produce)
   ($->atom config config))
 
