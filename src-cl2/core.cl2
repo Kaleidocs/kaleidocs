@@ -13,6 +13,10 @@
                                ['xhr-polling]})
     {:debug true})
 
+(. socket on :templates
+   (fn [msg-type data respond! _]
+     (reset! templates data)))
+
 (. socket on :config
    (fn [msg-type data respond! _]
      (reset! config data)))
