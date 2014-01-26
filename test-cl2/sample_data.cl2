@@ -7,6 +7,9 @@
 (def id-counter
   (atom {}))
 
+(def templates
+  (atom {}))
+
 (def config
   (atom {:profile-keys [],
          :search-columns [],
