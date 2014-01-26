@@ -82,6 +82,7 @@
 
   :default "/debug")
 
+(load-file "ctrls/templates.cl2")
 (load-file "ctrls/profiles.cl2")
 (load-file "ctrls/tables.cl2")
 (load-file "ctrls/produce.cl2")
@@ -106,22 +107,6 @@
 
 (defcontroller select-ctrl
   [$scope])
-
-(defcontroller templates-ctrl
-  [$scope $upload]
-  ($->atom templates templates)
-  (defn$ onFileSelect [files]
-    (doseq [file files]
-      (def$ upload
-        (-> $upload
-            (.upload
-             {:url "upload"
-              :method "POST"
-              :data {:hello "world"}
-              :file file})
-            (.success (fn [data status]))
-            (.error (fn [data status]
-                      (alert (+ "Error" data status)))))))))
 
 (deffilter filter-deleted []
   [items]
