@@ -29,10 +29,19 @@
    (fn [msg-type data respond! _]
      (reset! id-counter data)))
 
+(. socket on :new-template
+   (fn [msg-type data respond! _]
+     (let [template-id (gen-unique-id :templates)]
+       (add-entity! templates
+                    nil
+                    {:id template-id
+                     :filename (:filename data)}))))
+
 (defn save-all []
   (. socket emit :profiles @profiles)
   (. socket emit :counter @id-counter)
-  (. socket emit :config @config))
+  (. socket emit :config @config)
+  (. socket emit :templates @templates))
 
 (defapp my-app [ngRoute xeditable ngTagsInput angularFileUpload])
 
