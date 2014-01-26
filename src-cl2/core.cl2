@@ -25,6 +25,10 @@
    (fn [msg-type data respond! _]
      (reset! profiles data)))
 
+(. socket on :records
+   (fn [msg-type data respond! _]
+     (reset! records data)))
+
 (. socket on :counter
    (fn [msg-type data respond! _]
      (reset! id-counter data)))
@@ -39,6 +43,7 @@
 
 (defn save-all []
   (. socket emit :profiles @profiles)
+  (. socket emit :records @records)
   (. socket emit :counter @id-counter)
   (. socket emit :config @config)
   (. socket emit :templates @templates))
@@ -61,6 +66,8 @@
     [:div "{{config}}"]
     [:h3 "Profiles"]
     [:div "{{profiles}}"]
+    [:h3 "Records"]
+    [:div "{{records}}"]
     [:h3 "Tables"]
     [:div "{{tables}}"]
     [:h3 "Templates"]
@@ -73,6 +80,9 @@
 
   "/profiles"
   ['profiles-ctrl "partials/profiles.html"]
+
+  "/records"
+  ['records-ctrl "partials/records.html"]
 
   "/tables"
   ['tables-ctrl "partials/tables.html"]
@@ -87,6 +97,7 @@
 
 (load-file "ctrls/templates.cl2")
 (load-file "ctrls/profiles.cl2")
+(load-file "ctrls/records.cl2")
 (load-file "ctrls/tables.cl2")
 (load-file "ctrls/produce.cl2")
 
@@ -100,6 +111,7 @@
   (def$ load-all load-all)
   ($->atom tables tables)
   ($->atom profiles profiles)
+  ($->atom records records)
   ($->atom templates templates)
   ($->atom produce produce)
   ($->atom config config))

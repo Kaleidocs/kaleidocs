@@ -31,6 +31,13 @@
                  :min-length "1"
                  :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
  [:div.form-group
+  [:label.col-sm-4.control-label "Default record keys"]
+  [:div.col-sm-8
+   [:tags-input {:ng-model "config.recordKeys"
+                 :add-on-space "true"
+                 :min-length "1"
+                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
+ [:div.form-group
   [:label.col-sm-4.control-label "Default produce keys"]
   [:div.col-sm-8
    [:tags-input {:ng-model "config.produceKeys"

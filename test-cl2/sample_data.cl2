@@ -1,6 +1,9 @@
 (def profiles
   (atom {}))
 
+(def records
+  (atom {}))
+
 (def produce
   (atom []))
 
@@ -13,6 +16,7 @@
 (def config
   (atom {:profile-keys [],
          :search-columns [],
+         :record-keys [],
          :produce-keys [],
          :amount-suffix "",
          :amount-iw-suffix "",
