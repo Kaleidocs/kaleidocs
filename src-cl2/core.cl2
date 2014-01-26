@@ -67,8 +67,6 @@
     [:div "{{templates}}"]
     [:h3 "Produce"]
     [:div "{{produce}}"])}
-  "/profile/:profileId"
-  ['profile-ctrl "partials/profile.html"]
 
   "/templates"
   ['templates-ctrl "partials/templates.html"]
