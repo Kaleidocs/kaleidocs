@@ -1,12 +1,18 @@
 [:div {:ng-repeat "record in records"}
- [:button.btn.btn-danger.btn-xs.pull-right
-  {:ng-click "removeRecord(record.id)"
-   :ng-hide "textBtnForm.$visible"}
-  [:span.glyphicon.glyphicon-remove-circle]
-  "Delete"]
- [:h3
-  [:a {:editable-text "record.name"}
-   "{{ record.name || 'empty' }}"]]
+ [:div.row
+  [:button.btn.btn-danger.btn-xs.pull-right
+   {:ng-click "removeRecord(record.id)"
+    :ng-hide "textBtnForm.$visible"}
+   [:span.glyphicon.glyphicon-remove-circle]
+   "Delete"]
+  [:h3
+   [:a {:editable-text "record.name"}
+    "{{ record.name || 'empty' }}"]]
+  [:div.col-xs-4
+   [:select.form-control
+    {:ng-model "record.profile"
+     :ng-options "p.id as p.name for p in profiles"}
+    [:option {:value ""} "-- choose a profile --"]]]]
  [:div {:ng-include "'partials/record.html'"
         :ng-controller "recordCtrl"}]]
 [:br]

@@ -1,6 +1,7 @@
 (defcontroller records-ctrl
   [$scope]
   ($->atom records records)
+  ($->atom profiles profiles vals)
   (defn$ remove-record [id]
     (remove-entity! records id))
   (defn$ add-record []
