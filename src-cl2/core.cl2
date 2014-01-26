@@ -51,11 +51,20 @@
 (defn load-all []
   (. socket emit :init))
 
-(defapp my-app [ngRoute xeditable ngTagsInput angularFileUpload])
+(defapp my-app [ngRoute xeditable ngTagsInput angularFileUpload
+                ngGrid])
 
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
 (defroute
+  "/history"
+  {:controller 'history-ctrl
+   :template
+   (hiccup
+    [:div "Records {{records}}"]
+    [:div "History {{history}}"]
+    [:div "Record keys {{config.recordKeys}}"]
+    [:div.gridStyle {:ng-grid "gridOptions"}])}
   "/debug"
   {:controller 'debug-ctrl
    :template
@@ -98,6 +107,7 @@
 (load-file "ctrls/templates.cl2")
 (load-file "ctrls/profiles.cl2")
 (load-file "ctrls/records.cl2")
+(load-file "ctrls/history.cl2")
 (load-file "ctrls/tables.cl2")
 (load-file "ctrls/produce.cl2")
 
