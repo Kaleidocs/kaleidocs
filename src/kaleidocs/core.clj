@@ -76,7 +76,7 @@
 (defn on-init
   [id]
   (timbre/info "init message from " id)
-  (doseq [data-type [:templates :counter :profiles :config]]
+  (doseq [data-type [:templates :counter :profiles :config :records]]
     (whisper id
              [data-type (db/get data-type)])))
 
@@ -95,7 +95,7 @@
    (= msg-type "init")
    (on-init (:id client-session))
 
-   (contains? #{"config" "profiles" "counter" "templates"}
+   (contains? #{"config" "profiles" "counter" "templates" "records"}
               msg-type)
    (db/put! (keyword msg-type) data)
 ))
