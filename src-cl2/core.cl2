@@ -172,6 +172,17 @@
                    (parseInt v))]
         (apply + (filter #(not (=== NaN %)) rows))))))
 
+(deffilter sum-of-column []
+  [records col-name]
+  (->> records
+        (map #(:fields %))
+        (map #(fields->map %))
+        (map #(get % col-name))
+        (map #(parseInt %))
+        (remove isNaN)
+        (remove nil?)
+        (apply +)))
+
 (deffilter amount-in-words []
   [amount]
   (load-file "n2w_vi.cl2")
