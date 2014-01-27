@@ -211,3 +211,7 @@
     (set! (get v "ID") (inc (parseInt k))))
   coll)
 
+(defn export-records [records]
+  (index->id!
+   (map #(add-iw! (fields->map (:fields %)))
+        records)))
