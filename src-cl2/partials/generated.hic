@@ -12,3 +12,21 @@
    [:span "{{ field.name + config.amountIwSuffix }}"]]
   [:td
    [:span "{{ field.value | amountInWords}}"]]]]
+[:br]
+[:h3 "Auto generated table"]
+[:div {:ng-show "false"}
+ "{{tableSum = (produce.records | sumOfColumn:config.sumColumn)}}"]
+[:table.table.table-bordered.table-hover.table-condensed
+ [:tr {:style "font-weight: bold"}
+  [:td {:style "width:35%"} "Name"]
+  [:td {:style "width:65%"} "Value"]]
+ [:tr
+  [:td
+   [:span "{{ 'TABLE' + '_SUM' }}"]]
+  [:td
+   [:span "{{ tableSum }}"]]]
+ [:tr
+  [:td
+   [:span "{{ 'TABLE' + '_SUM' + config.amountIwSuffix }}"]]
+  [:td
+   [:span "{{ tableSum | amountInWords }}"]]]]
