@@ -35,12 +35,13 @@
                        [ng-file-upload "~1.2.5"]
                        [bootstrap "~3.0.3"]]
   :main kaleidocs.core
-  :cl2c {:prod
+  :cl2c {:frontend
          {:watch ["src-cl2", "test-cl2"]
-          :filter "src-cl2/"
+          :filter (or "src-cl2/core.cl2"
+                      (and "src-cl2" ".hic$"))
           :path-map ["src-cl2/" => "resources/public/"]
           :paths ["node_modules/"]
-          :strategy "prod"
+          :strategy "dev"
           ;; some files may take too long to compile. We need a limit
           :timeout 2000
           }
