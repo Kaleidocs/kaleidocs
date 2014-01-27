@@ -1,7 +1,8 @@
-[:h3 "Auto generated fields"]
+[:h3 "Auto generated table"]
 [:table.table.table-bordered.table-hover.table-condensed
- {:ng-repeat "record in produce.records"}
- [:tr [:td [:h4 "{{record.name}}"]]]
+ {:ng-repeat "record in produce.records"
+  :ng-init "rowId = $index"}
+ [:tr [:td [:h4 "ID {{rowId}}"]]]
  [:tr {:style "font-weight: bold"}
   [:td {:style "width:35%"} "Name"]
   [:td {:style "width:65%"} "Value"]]
