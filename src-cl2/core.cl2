@@ -197,3 +197,12 @@
 (.run my-app
       (fn-di [editableOptions]
         (set! (:theme editableOptions) "bs3")))
+
+(defn add-iw! [obj]
+  (doseq [[k v] obj]
+    (if (end-with? k (:amount-suffix @config))
+      (set! (get obj
+                 (+ k (:amount-iw-suffix @config)))
+            (amount-in-words v))))
+  obj)
+
