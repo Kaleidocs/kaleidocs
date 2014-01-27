@@ -9,7 +9,7 @@
  "HTML5 Drop File is not supported!"]
 #_[:div {:ng-click "upload.abort()"}
  "Cancel Upload"]
-[:div {:ng-repeat "template in templates"}
+[:div.row {:ng-repeat "template in templates"}
  [:button.btn.btn-danger.btn-xs.pull-right
   {:ng-click "removeTemplate(template.id, template.filename)"
    :ng-hide "textBtnForm.$visible"}
@@ -17,6 +17,8 @@
   "Delete"]
 
  [:h3 "{{ template.filename }}"]
- [:select {:ng-model "template.type"
-           :ng-options "type for type in ['multiple', 'single']"}
-  [:option {:value ""} "-- choose template type --"]]]
+ [:div.col-xs-4
+  [:select.form-control
+   {:ng-model "template.type"
+    :ng-options "type for type in ['multiple', 'single']"}
+   [:option {:value ""} "-- choose template type --"]]]]
