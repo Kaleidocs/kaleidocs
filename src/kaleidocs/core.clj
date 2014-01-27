@@ -19,6 +19,19 @@
 
 (def templates-dir "templates")
 
+(defn gen-doc [single-templates multiple-templates table-keys
+               m1 m2 records]
+  (doseq [t multiple-templates]
+    (merge-doc (str templates-dir "/" t)
+               (str "output/" t)
+               (map #(str "TABLE." %) table-keys)
+               (merge m1 m2 {"TABLE" records})))
+  (doseq [t single-templates]
+    (merge-doc (str templates-dir "/" t)
+               (str "output/" t)
+               []
+               (map #(merge m1 m2 %) records))))
+
 (defn dev? [args] (some #{"-dev"} args))
 
 (defn port [args]
@@ -98,6 +111,8 @@
    (contains? #{"config" "profiles" "counter" "templates" "records"}
               msg-type)
    (db/put! (keyword msg-type) data)
+   (= msg-type "genDoc")
+   (apply gen-doc data)
 ))
 
 (defrecord ChatConnection []
