@@ -183,12 +183,16 @@
         (remove nil?)
         (apply +)))
 
-(deffilter amount-in-words []
+(defn amount-in-words
   [amount]
   (load-file "n2w_vi.cl2")
   (number->word-helper (seq (if (number? amount)
                               (+ "" amount)
                               amount))))
+
+(deffilter amount-in-words []
+  [amount]
+  (amount-in-words amount))
 
 (.run my-app
       (fn-di [editableOptions]
