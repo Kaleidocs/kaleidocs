@@ -14,7 +14,7 @@
   [:td
    [:span "{{ field.value | amountInWords}}"]]]]
 [:br]
-[:h3 "Auto generated table"]
+[:h3 "Auto generated fields"]
 [:div {:ng-show "false"}
  "{{ tableSum = (produce.records | sumOfColumn:config.sumColumn)}}
   {{ tableSumIW = (tableSum | amountInWords) }}
@@ -37,6 +37,6 @@
    [:span "{{ tableSumIW }}"]]]]
 [:br]
 [:button.btn.btn-success.btn-lg
- {:ng-click "{{}}"}
+ {:ng-click "{{genDoc(getSingleTemplates(), getMultipleTemplates(), config.tableKeys, produce.profile, produce.table, exportRecords(produce.records))}}"}
  [:span.glyphicon.glyphicon-play]
  "Produce documents"]
