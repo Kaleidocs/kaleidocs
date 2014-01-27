@@ -151,6 +151,13 @@
         :when (end-with? (:name v) suffix)]
     v))
 
+(defn fields->map
+  "Converts vector of fields to a single map.
+  Works on profiles and records"
+  [x]
+  (zipmap (map #(:name %) x)
+          (map #(:value %) x)))
+
 (deffilter sum-by-column []
   [table col-name]
   (let [col-id nil]

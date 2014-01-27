@@ -3,11 +3,7 @@
   ($->atom records records)
   ($->atom history records
            (fn [x]
-             (let [fields (map #(:fields %) (vals x))
-                   fields->map
-                   (fn [x]
-                     (zipmap (map #(:name %) x)
-                             (map #(:value %) x)))]
+             (let [fields (map #(:fields %) (vals x))]
                (map fields->map fields))))
   (def$ grid-options
     {:data "history"
