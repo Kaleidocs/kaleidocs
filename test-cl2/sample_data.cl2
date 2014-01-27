@@ -5,7 +5,7 @@
   (atom {}))
 
 (def produce
-  (atom []))
+  (atom {:recordIds []}))
 
 (def id-counter
   (atom {}))
