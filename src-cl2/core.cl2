@@ -206,3 +206,8 @@
             (amount-in-words v))))
   obj)
 
+(defn index->id! [coll]
+  (doseq [[k v] coll]
+    (set! (get v "ID") (inc (parseInt k))))
+  coll)
+
