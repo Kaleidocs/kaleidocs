@@ -82,4 +82,8 @@
       [:li [:a {:href "#/history"} "History"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
-     [:ng-view]]]]]]
+     [:ng-view]]
+    [:div.span8.offset2
+     {:ng-controller "statusCtrl"}
+     [:h3 "Status"]
+     "{{status}}"]]]]]
