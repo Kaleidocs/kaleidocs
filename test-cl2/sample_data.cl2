@@ -23,6 +23,9 @@
          :table-keys [],
          :sum-column ""}))
 
+(def status
+  (atom nil))
+
 (defn set-counter!
   "Set counter number for a given key."
   [k n]
