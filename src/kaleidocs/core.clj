@@ -27,10 +27,11 @@
                (map #(str "TABLE." %) table-keys)
                (merge m1 m2 {"TABLE" records})))
   (doseq [t single-templates]
-    (merge-doc (str templates-dir "/" t)
-               (str "output/" t)
-               []
-               (map #(merge m1 m2 %) records))))
+    (map #(merge-doc (str templates-dir "/" t)
+                     (str "output/" t)
+                     []
+                     (merge m1 m2 %))
+         records)))
 
 (defn dev? [args] (some #{"-dev"} args))
 
