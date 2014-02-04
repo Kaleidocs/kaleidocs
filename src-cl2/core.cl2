@@ -29,6 +29,10 @@
    (fn [msg-type data respond! _]
      (reset! records data)))
 
+(. socket on :status
+   (fn [msg-type data respond! _]
+     (reset! status data)))
+
 (. socket on :counter
    (fn [msg-type data respond! _]
      (reset! id-counter data)))
