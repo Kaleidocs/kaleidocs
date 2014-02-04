@@ -132,6 +132,10 @@
 (defcontroller select-ctrl
   [$scope])
 
+(defcontroller status-ctrl
+  [$scope]
+  ($->atom status status))
+
 (deffilter filter-deleted []
   [items]
   (filter #(not (= :deleted %)) items))
