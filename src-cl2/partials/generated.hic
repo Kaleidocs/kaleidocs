@@ -37,6 +37,6 @@
    [:span "{{ tableSumIW }}"]]]]
 [:br]
 [:button.btn.btn-success.btn-lg
- {:ng-click "{{genDoc(getSingleTemplates(), getMultipleTemplates(), config.tableKeys, produce.profile, produce.table, exportRecords(produce.records))}}"}
+ {:ng-click "genDoc(getSingleTemplates(), getMultipleTemplates(), config.tableKeys, produce.profile, produce.table, exportRecords(produce.records))"}
  [:span.glyphicon.glyphicon-play]
  "Produce documents"]
