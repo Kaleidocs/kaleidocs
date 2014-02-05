@@ -128,7 +128,7 @@
 
   ;; on message is call when a new message arrives at the server.
   (on-message [this client-session raw-msg]
-    (let [[msg-type data] (parse-string raw-msg true)]
+    (let [[msg-type data] (parse-string raw-msg)]
       (on-data msg-type data client-session))
     client-session)
 
