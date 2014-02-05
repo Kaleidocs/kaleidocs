@@ -33,7 +33,7 @@
                        [angular-xeditable  "~0.1.8"]
                        [ng-tags-input "~1.1.1"]
                        [ng-file-upload "~1.2.5"]
-                       [bootstrap "~3.0.3"]]
+                       [bootstrap "~3.1.0"]]
   :main kaleidocs.core
   :cl2c {:frontend
          {:watch ["src-cl2", "test-cl2"]
