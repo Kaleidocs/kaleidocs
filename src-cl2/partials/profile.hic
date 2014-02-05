@@ -15,7 +15,7 @@
             :e-form "profileForm"
             ;;:onbeforesave "check"
             :e-required ""}
-     "{{ field.name || 'empty' }}"]]
+     "${{ field.name || 'empty' }}"]]
    [:td
     [:span {:editable-text "field.value"
             :e-form "profileForm"
