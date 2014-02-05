@@ -77,7 +77,6 @@
       [:li [:a {:href "#/templates"} "Templates"]]
       [:li [:a {:href "#/profiles"} "Profiles"]]
       [:li [:a {:href "#/records"} "Records"]]
-      [:li [:a {:href "#/tables"} "Tables"]]
       [:li [:a {:href "#/produce"} "Produce"]]
       [:li [:a {:href "#/history"} "History"]]]]]
    [:div.container.row.span12
