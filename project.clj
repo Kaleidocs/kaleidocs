@@ -8,8 +8,8 @@
                  [lib-noir "0.7.8"]
                  [com.taoensso/timbre "2.7.1"]
                  [ring/ring-devel "1.1.8"]
-                 [kaleidocs/convert "0.2.0"]
-                 [kaleidocs/merge "0.1.0-SNAPSHOT"]
+                 [kaleidocs/convert "0.1.0-SNAPSHOT"]
+                 [kaleidocs/merge "0.2.0"]
                  [simpledb "0.1.4"]]
   :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]]
   :nodejs {:keywords ["chlorinejs",
