@@ -78,7 +78,13 @@
       [:li [:a {:href "#/profiles"} "Profiles"]]
       [:li [:a {:href "#/records"} "Records"]]
       [:li [:a {:href "#/produce"} "Produce"]]
-      [:li [:a {:href "#/history"} "History"]]]]]
+      [:li [:a {:href "#/history"} "History"]]]
+     [:form.navbar-form.navbar-right
+      {:ng-controller "debugCtrl"}
+      [:button.btn.btn-primary
+       {:ng-click "saveAll()"} "Save"]
+      [:button.btn.btn-warning
+       {:ng-click "loadAll()"} "Reset"]]]]
    [:div.container.row.span12
     [:div.span8.offset2
      [:ng-view]]
