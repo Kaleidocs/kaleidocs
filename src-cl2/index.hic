@@ -83,7 +83,9 @@
    [:div.container.row.span12
     [:div.span8.offset2
      [:ng-view]]
+    [:br]
     [:div.span8.offset2
      {:ng-controller "statusCtrl"}
-     [:h3 "Status"]
-     "{{status}}"]]]]]
+     [:div.well.well-sm
+      {:ng-show "status"}
+      "Status: {{status}}"]]]]]]
