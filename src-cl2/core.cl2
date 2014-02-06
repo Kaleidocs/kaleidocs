@@ -50,10 +50,12 @@
   (. socket emit :records @records)
   (. socket emit :counter @id-counter)
   (. socket emit :config @config)
-  (. socket emit :templates @templates))
+  (. socket emit :templates @templates)
+  (reset! status "Data saved"))
 
 (defn load-all []
-  (. socket emit :init))
+  (. socket emit :init)
+  (reset! status "Data loaded"))
 
 (defapp my-app [ngRoute xeditable ngTagsInput angularFileUpload
                 ngGrid])
