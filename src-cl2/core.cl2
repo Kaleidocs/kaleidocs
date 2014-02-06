@@ -161,6 +161,13 @@
         :when (end-with? (:name v) suffix)]
     v))
 
+(deffilter filter-by-profile []
+  [records profile-id]
+  (for [[_ v] records
+        :when (== profile-id (:profile v))
+        #_(end-with? (:name v) suffix)]
+    v))
+
 (defn fields->map
   "Converts vector of fields to a single map.
   Works on profiles and records"
