@@ -17,6 +17,15 @@
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]])
   (:gen-class))
+(defn get-libreoffice-executable []
+  (let [os (.toLowerCase (System/getProperty "os.name"))]
+    (cond
+     (.startsWith os "windows")
+     "c:\\program files\\libreoffice 4\\program\\soffice.exe"
+
+     :default
+     "libreoffice")))
+
 
 (def templates-dir "templates")
 
