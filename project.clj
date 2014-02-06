@@ -10,6 +10,7 @@
                  [ring/ring-devel "1.1.8"]
                  [kaleidocs/convert "0.1.0-SNAPSHOT"]
                  [kaleidocs/merge "0.2.0"]
+                 [org.clojars.hozumi/clj-commons-exec "1.0.7"]
                  [simpledb "0.1.4"]]
   :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]]
   :nodejs {:keywords ["chlorinejs",

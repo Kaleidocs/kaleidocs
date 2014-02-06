@@ -8,6 +8,7 @@
             [cheshire.core :refer [generate-string parse-string]]
             [clojure.string :as str]
             [taoensso.timbre :as timbre]
+            [clj-commons-exec :as exec]
             [methojure.sockjs.core :refer :all]
             [compojure.core :refer [GET POST defroutes]]
             [org.httpkit.server :refer [run-server]]
