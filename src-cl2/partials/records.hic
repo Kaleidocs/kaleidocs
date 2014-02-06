@@ -6,6 +6,8 @@
   [:option {:value ""}
    "-- no profile --"]]]
 
+[:div
+ {:ng-repeat "record in ( records | filterByProfile:profileFilter)"}
  [:div.row
   [:button.btn.btn-danger.btn-xs.pull-right
    {:ng-click "removeRecord(record.id)"
