@@ -3,8 +3,12 @@
   ($->atom records records)
   ($->atom history records
            (fn [x]
-             (let [fields (map #(:fields %) (vals x))]
-               (map fields->map fields))))
+             (let [ids-&-fields (map (fn [y]
+                                       [(:id y) (:fields y)])
+                                     (vals x))]
+               (map #(merge (fields->map (second %))
+                            {:id (first %)})
+                    ids-&-fields))))
   (def$ selection [])
   (def$ grid-options
     {:data "history"
