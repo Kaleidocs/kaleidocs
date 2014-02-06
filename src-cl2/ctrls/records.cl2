@@ -13,7 +13,9 @@
                     :fields
                     (map (fn [k] {:name k
                                   :value ""})
-                         default-keys)}))))
+                         default-keys)})
+      (reset! status (+ "New record #" record-id
+                        " added")))))
 
 (defcontroller record-ctrl
   [$scope]
