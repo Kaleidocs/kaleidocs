@@ -6,12 +6,7 @@
    [:span.glyphicon.glyphicon-remove-circle]
    "Delete"]
   [:h3
-   "Record #{{ record.id }}"]
-  [:div.col-xs-4
-   [:select.form-control
-    {:ng-model "record.profile"
-     :ng-options "p.id as p.name for p in profiles"}
-    [:option {:value ""} "-- choose a profile --"]]]]
+   "Record #{{ record.id }}"]]
  [:div {:ng-include "'partials/record.html'"
         :ng-controller "recordCtrl"}]]
 [:br]
