@@ -21,7 +21,7 @@
   [:tr {:ng-repeat "field in profile.fields"}
    [:td
     [:span
-     "{{ field.name || 'empty' }}"]]
+     "${{ field.name || 'empty' }}"]]
    [:td
     [:span
      "{{ field.value || 'empty' }}"]]
