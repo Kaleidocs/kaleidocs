@@ -9,13 +9,13 @@
 [:div
  {:ng-repeat "record in ( records | filterByProfile:profileFilter)"}
  [:div.row
-  [:button.btn.btn-danger.btn-xs.pull-right
-   {:ng-click "removeRecord(record.id)"
-    :ng-hide "textBtnForm.$visible"}
-   [:span.glyphicon.glyphicon-remove-circle]
-   "Delete"]
   [:h3
-   "Record #{{ record.id }}"]]
+   "Record #{{ record.id }}"
+   [:button.btn.btn-danger.btn-xs.pull-right
+    {:ng-click "removeRecord(record.id)"
+     :ng-hide "textBtnForm.$visible"}
+    [:span.glyphicon.glyphicon-remove-circle]
+    "Delete"]]]
  [:div {:ng-include "'partials/record.html'"
         :ng-controller "recordCtrl"}]]
 
