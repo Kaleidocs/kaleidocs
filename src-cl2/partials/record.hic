@@ -35,6 +35,7 @@
           :ng-click "removeField($index)"}
          [:span.glyphicon.glyphicon-remove-circle]
          "delete"]]]]
+
  [:div.btn-edit
   [:button.btn.btn-warning
    {:type "button"

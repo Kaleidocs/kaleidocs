@@ -18,6 +18,7 @@
    "Record #{{ record.id }}"]]
  [:div {:ng-include "'partials/record.html'"
         :ng-controller "recordCtrl"}]]
+
 [:br]
 [:button.btn.btn-success.btn-lg
  {:ng-click "addRecord()"}
