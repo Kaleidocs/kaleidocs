@@ -10,7 +10,6 @@
       (add-entity! records
                    nil
                    {:id record-id
-                    :name (+ "New record #" record-id)
                     :fields
                     (map (fn [k] {:name k
                                   :value ""})

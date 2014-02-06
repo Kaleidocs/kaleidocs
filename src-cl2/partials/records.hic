@@ -6,8 +6,7 @@
    [:span.glyphicon.glyphicon-remove-circle]
    "Delete"]
   [:h3
-   [:a {:editable-text "record.name"}
-    "{{ record.name || 'empty' }}"]]
+   "Record #{{ record.id }}"]
   [:div.col-xs-4
    [:select.form-control
     {:ng-model "record.profile"
