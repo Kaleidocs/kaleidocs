@@ -35,7 +35,18 @@
   [:td
    [:span "${{ tableSumIWTitle }}"]]
   [:td
-   [:span "{{ tableSumIW }}"]]]]
+   [:span "{{ tableSumIW }}"]]]
+ [:tr
+  [:td
+   [:span "$PID"]]
+  [:td
+   [:span "{{ PID }}"]]]
+ [:tr
+  [:td
+   [:span "$DD/$MM/$YYYY"]]
+  [:td
+   [:span "{{ DD }}/{{ MM }}/{{ YYYY }}"]]]]
+
 [:br]
 [:button.btn.btn-success.btn-lg
  {:ng-click "genDoc(getSingleTemplates(), getMultipleTemplates(), config.tableKeys, produce.profile, produce.table, exportRecords(produce.records))"}
