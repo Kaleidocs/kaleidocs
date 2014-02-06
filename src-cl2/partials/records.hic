@@ -1,4 +1,11 @@
-[:div {:ng-repeat "record in records"}
+[:h2 "Filter records by profile"]
+[:div
+ [:select.form-control
+  {:ng-model "profileFilter"
+   :ng-options "p.id as p.name for p in profiles"}
+  [:option {:value ""}
+   "-- no profile --"]]]
+
  [:div.row
   [:button.btn.btn-danger.btn-xs.pull-right
    {:ng-click "removeRecord(record.id)"
