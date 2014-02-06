@@ -1,21 +1,20 @@
-[:h3 "Auto generated table"]
+[:h3 "Auto generated row values"]
 [:table.table.table-bordered.table-hover.table-condensed
- {:ng-repeat "record in produce.records"
-  :ng-init "rowId = $index"}
- [:tr {:style "font-weight: bold"}
-  [:td {:style "width:35%"} "Name"]
-  [:td {:style "width:65%"} "Value"]]
  [:tr
   [:td [:span "$TABLE.ID"]]
-  [:td [:span "{{rowId}}"]]]
+  [:td
+   {:ng-repeat
+    "field in produce.records[0].fields | filterAmountFields:config.amountSuffix"}
+   [:span "$TABLE.{{ field.name + config.amountIwSuffix }}"]]]
  [:tr
-  {:ng-repeat
-   "field in record.fields | filterAmountFields:config.amountSuffix"}
+  {:ng-repeat "record in produce.records"
+   :ng-init "rowId = $index"}
+  [:td [:span "{{rowId}}"]]
   [:td
-   [:span "$TABLE.{{ field.name + config.amountIwSuffix }}"]]
-  [:td
+   {:ng-repeat
+    "field in record.fields | filterAmountFields:config.amountSuffix"}
    [:span "{{ field.value | amountInWords}}"]]]]
-[:br]
+
 [:h3 "Auto generated fields"]
 [:div {:ng-show "false"}
  "{{ tableSum = (produce.records | sumOfColumn:config.sumColumn)}}
