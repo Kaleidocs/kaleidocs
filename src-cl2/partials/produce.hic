@@ -1,7 +1,7 @@
 [:h3 "Records:"]
 
 [:div.form-group
-  [:label.col-sm-4.control-label "Search columns"]
+  [:label.col-sm-4.control-label "Record IDs"]
   [:div.col-sm-8
    [:tags-input {:ng-model "produce.recordIds"
                  :add-on-space "true"
