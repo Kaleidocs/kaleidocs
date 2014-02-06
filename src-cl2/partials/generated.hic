@@ -27,12 +27,12 @@
   [:td {:style "width:65%"} "Value"]]
  [:tr
   [:td
-   [:span "{{ tableSumTitle }}"]]
+   [:span "${{ tableSumTitle }}"]]
   [:td
    [:span "{{ tableSum }}"]]]
  [:tr
   [:td
-   [:span "{{ tableSumIWTitle }}"]]
+   [:span "${{ tableSumIWTitle }}"]]
   [:td
    [:span "{{ tableSumIW }}"]]]]
 [:br]
