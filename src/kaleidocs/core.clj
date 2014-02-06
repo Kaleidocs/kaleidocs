@@ -19,19 +19,24 @@
 
 (def templates-dir "templates")
 
+(declare broadcast)
+
 (defn gen-doc [single-templates multiple-templates table-keys
                m1 m2 records]
   (doseq [t multiple-templates]
+    (broadcast [:status (str "Merging " t)])
     (merge-doc (str templates-dir "/" t)
                (str "output/" t)
                (map #(str "TABLE." %) table-keys)
-               (merge m1 m2 {"TABLE" records})))
-  (doseq [t single-templates]
-    (map #(merge-doc (str templates-dir "/" t)
-                     (str "output/" t)
-                     []
-                     (merge m1 m2 %))
-         records)))
+               (merge m1 m2 {"TABLE" records}))
+    (broadcast [:status (str "Finished " t)]))
+  (doseq [t single-templates
+          r records]
+    (broadcast [:status (str "Merging " t)])
+    (merge-doc (str templates-dir "/" t)
+               (str "output/" (get r "id") "_" t)
+               (merge m1 m2 r))
+    (broadcast [:status (str "Finished " t)])))
 
 (defn dev? [args] (some #{"-dev"} args))
 
