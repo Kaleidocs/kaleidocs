@@ -13,7 +13,9 @@
                     :fields
                     (map (fn [k] {:name k
                                   :value ""})
-                         default-keys)}))))
+                         default-keys)})
+      (reset! status (+ "New profile #" profile-id
+                        " added")))))
 
 (defcontroller profile-ctrl
   [$scope]
