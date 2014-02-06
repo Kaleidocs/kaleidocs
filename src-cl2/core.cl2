@@ -230,5 +230,6 @@
 
 (defn export-records [records]
   (index->id!
-   (map #(add-iw! (fields->map (:fields %)))
+   (map #(merge (add-iw! (fields->map (:fields %)))
+                {:id (:id %)})
         records)))
