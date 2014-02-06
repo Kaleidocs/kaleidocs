@@ -26,6 +26,18 @@
      :default
      "libreoffice")))
 
+(defn convert-doc [target-format input out-dir]
+  (let [exec-out
+        (:out @(exec/sh [(get-libreoffice-executable)
+                         "--headless"
+                         "--convert-to"
+                         target-format
+                         (.getAbsolutePath
+                          (clojure.java.io/file input))
+                         "--outdir"
+                         (.getAbsolutePath
+                          (clojure.java.io/file out-dir))]))]
+    (.startsWith exec-out "convert ")))
 
 (def templates-dir "templates")
 
