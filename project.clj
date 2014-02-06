@@ -33,6 +33,7 @@
                        [angular-xeditable  "~0.1.8"]
                        [ng-tags-input "~1.1.1"]
                        [ng-file-upload "~1.2.5"]
+                       [ng-grid "~2.0.7"]
                        [bootstrap "~3.1.0"]]
   :main kaleidocs.core
   :cl2c {:frontend
