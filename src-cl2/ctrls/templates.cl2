@@ -2,7 +2,7 @@
   [$scope $upload]
   ($->atom templates templates)
   (defn$ remove-template [id filename]
-    (. socket emit [:delete-file filename])
+    (. socket emit :delete-file filename)
     (remove-entity! templates id))
   (defn$ onFileSelect [files]
     (doseq [file files]
