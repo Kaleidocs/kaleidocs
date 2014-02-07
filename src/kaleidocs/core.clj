@@ -19,6 +19,7 @@
   (:gen-class))
 
 (def templates-dir "templates")
+(def output-dir "output")
 
 (declare broadcast)
 
