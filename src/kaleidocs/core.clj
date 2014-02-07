@@ -23,18 +23,19 @@
 
 (declare broadcast)
 
+(defn odf-template [s]
+  (str templates-dir "/" (odf-filename s)))
+
 (defn gen-doc [single-templates multiple-templates table-keys
                m1 m2 records m3]
   (doseq [t multiple-templates
           :let
           [extension
            (filename->extension t)
-           template-odf
-           (str templates-dir "/" (odf-filename t))
            generated-odf
            (str output-dir "/" (get m3 "PID") "_" (odf-filename t))]]
     (broadcast [:status (str "Merging " generated-odf)])
-    (merge-doc template-odf
+    (merge-doc (odf-template t)
                generated-odf
                (map #(str "TABLE." %) table-keys)
                (merge m1 m2 m3 {"TABLE" records}))
@@ -50,12 +51,10 @@
           :let
           [extension
            (filename->extension t)
-           template-odf
-           (str templates-dir "/" (odf-filename t))
            generated-odf
            (str output-dir "/" (get r "id") "_" (odf-filename t))]]
     (broadcast [:status (str "Merging " t)])
-    (merge-doc template-odf
+    (merge-doc (odf-template t)
                generated-odf
                (merge m1 m2 m3 r))
     (when (mso-file? t)
