@@ -5,18 +5,17 @@
  "Drop files here"]
 [:div.jumbotron
  {:ng-file-drop-available "dropSupported=true"
-  :ng-show "!dropSupported"}
+  :ng-hide "dropSupported"}
  "HTML5 Drop File is not supported!"]
 #_[:div {:ng-click "upload.abort()"}
  "Cancel Upload"]
 [:div.row {:ng-repeat "template in templates"}
- [:button.btn.btn-danger.btn-xs.pull-right
-  {:ng-click "removeTemplate(template.id, template.filename)"
-   :ng-hide "textBtnForm.$visible"}
-  [:span.glyphicon.glyphicon-remove-circle]
-  "Delete"]
-
- [:h3 "{{ template.filename }}"]
+ [:h3 "{{ template.filename }}"
+  [:button.btn.btn-danger.btn-xs.pull-right
+   {:ng-click "removeTemplate(template.id, template.filename)"
+    :ng-hide "textBtnForm.$visible"}
+   [:span.glyphicon.glyphicon-remove-circle]
+   "Delete"]]
  [:div.col-xs-4
   [:select.form-control
    {:ng-model "template.type"
