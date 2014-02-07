@@ -25,20 +25,48 @@
 
 (defn gen-doc [single-templates multiple-templates table-keys
                m1 m2 records m3]
-  (doseq [t multiple-templates]
-    (broadcast [:status (str "Merging " t)])
-    (merge-doc (str templates-dir "/" t)
-               (str "output/" t)
+  (doseq [t multiple-templates
+          :let
+          [extension
+           (filename->extension t)
+           template-odf
+           (str templates-dir "/" (odf-filename t))
+           generated-odf
+           (str output-dir "/" (get m3 "PID") "_" (odf-filename t))]]
+    (broadcast [:status (str "Merging " generated-odf)])
+    (merge-doc template-odf
+               generated-odf
                (map #(str "TABLE." %) table-keys)
                (merge m1 m2 m3 {"TABLE" records}))
+    (when (mso-file? t)
+      (broadcast [:status (str "Exporting " generated-odf
+                               " to " extension)])
+      (convert-doc extension generated-odf output-dir)
+      (.delete (clojure.java.io/file generated-odf)))
     (broadcast [:status (str "Finished " t)]))
+
   (doseq [t single-templates
-          r records]
+          r records
+          :let
+          [extension
+           (filename->extension t)
+           template-odf
+           (str templates-dir "/" (odf-filename t))
+           generated-odf
+           (str output-dir "/" (get r "id") "_" (odf-filename t))]]
     (broadcast [:status (str "Merging " t)])
-    (merge-doc (str templates-dir "/" t)
-               (str "output/" (get r "id") "_" t)
+    (merge-doc template-odf
+               generated-odf
                (merge m1 m2 m3 r))
-    (broadcast [:status (str "Finished " t)])))
+    (when (mso-file? t)
+      (broadcast [:status (str "Exporting " generated-odf
+                               " to " extension)])
+      (convert-doc extension generated-odf output-dir)
+      (.delete (clojure.java.io/file generated-odf)))
+    (broadcast [:status (str "Finished " t)]))
+
+  (broadcast [:status (format "Producing documents #%s finished!"
+                              (get m3 "PID"))]))
 
 (defn dev? [args] (some #{"-dev"} args))
 
