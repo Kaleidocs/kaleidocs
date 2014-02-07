@@ -175,11 +175,31 @@
   (POST "/upload" [file]
         ;; if file exists, just overwrite with new one
         ;; else, inform clients about new template
-        (when-not (.exists (clojure.java.io/file
-                            (str templates-dir "/" (:filename file))))
-          (broadcast [:new-template {:filename (:filename file)}]))
-        (io/upload-file templates-dir file :create-path? true)
-        (:filename file))
+        (let [filename (:filename file)
+              odf-template (str templates-dir "/"
+                                (odf-filename filename))]
+          (if-not (or (mso-file? filename)
+                      (odf-file? filename))
+            (broadcast [:status "Error: Unknown file format"])
+            (do
+              (if (.exists (clojure.java.io/file odf-template))
+                (broadcast [:status (str "Updating template " filename)])
+                (broadcast [:new-template {:filename filename}]))
+              ;; copy to templates dir
+
+              (io/upload-file templates-dir file :create-path? true)
+
+              (when (mso-file? filename)
+                (broadcast [:status (str "Importing template " filename)])
+                (let [mso-template (str templates-dir "/" filename)]
+                  ;; convert to odf
+                  (convert-doc (filename->target-format filename)
+                               mso-template
+                               templates-dir)
+                  (.delete (clojure.java.io/file mso-template)))
+                (broadcast [:status
+                            (str "Importing template " filename " finished")]))))
+          filename))
   (sockjs-handler
    "/socket" (->ChatConnection) {:response-limit 4096}))
 
