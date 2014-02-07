@@ -17,27 +17,6 @@
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]])
   (:gen-class))
-(defn get-libreoffice-executable []
-  (let [os (.toLowerCase (System/getProperty "os.name"))]
-    (cond
-     (.startsWith os "windows")
-     "c:\\program files\\libreoffice 4\\program\\soffice.exe"
-
-     :default
-     "libreoffice")))
-
-(defn convert-doc [target-format input out-dir]
-  (let [exec-out
-        (:out @(exec/sh [(get-libreoffice-executable)
-                         "--headless"
-                         "--convert-to"
-                         target-format
-                         (.getAbsolutePath
-                          (clojure.java.io/file input))
-                         "--outdir"
-                         (.getAbsolutePath
-                          (clojure.java.io/file out-dir))]))]
-    (.startsWith exec-out "convert ")))
 
 (def templates-dir "templates")
 
