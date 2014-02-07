@@ -146,6 +146,11 @@
    (contains? #{"config" "profiles" "counter" "templates" "records"}
               msg-type)
    (db/put! (keyword msg-type) data)
+
+   (= msg-type "deleteFile")
+   (do (.delete (clojure.java.io/file (odf-template data)))
+       (broadcast [:status (format "Template %s deleted." data)]))
+
    (= msg-type "genDoc")
    (apply gen-doc data)
 ))
