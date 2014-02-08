@@ -4,12 +4,13 @@
   ($->atom profiles profiles vals)
   (defn$ remove-record [id]
     (remove-entity! records id))
-  (defn$ add-record []
+  (defn$ add-record [profile-id]
     (let [record-id (gen-unique-id :records)
           default-keys (get @config :record-keys [])]
       (add-entity! records
                    nil
                    {:id record-id
+                    :profile profile-id
                     :fields
                     (map (fn [k] {:name k
                                   :value ""})
