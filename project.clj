@@ -40,7 +40,9 @@
                        [ng-file-upload "~1.2.5"]
                        [ng-grid "~2.0.7"]
                        [bootstrap "~3.1.0"]]
+  :uberjar-name "kaleidocs.jar"
   :main kaleidocs.core
+  :aot :all
   :cl2c {:frontend
          {:watch ["src-cl2", "test-cl2"]
           :filter (or "src-cl2/core.cl2"
