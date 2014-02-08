@@ -210,9 +210,10 @@
 (defn amount-in-words
   [amount]
   (load-file "n2w_vi.cl2")
-  (number->word-helper (seq (if (number? amount)
+  (number->words* (seq (if (number? amount)
                               (+ "" amount)
-                              amount))))
+                              amount))
+                  ","))
 
 (deffilter amount-in-words []
   [amount]
