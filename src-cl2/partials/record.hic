@@ -22,7 +22,9 @@
             :e-form "recordForm"
             ;;:onbeforesave "check"
             :e-required ""}
-     "${{ field.name || 'empty' }}"]]
+     "${{ field.name || 'empty' }}"]
+    [:span.glyphicon.glyphicon-star.text-danger
+     {:ng-show "field.name | amountField_p"} " "]]
    [:td
     [:span {:editable-text "field.value"
             :e-form "recordForm"
