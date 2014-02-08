@@ -9,3 +9,4 @@ sdb.db
 templates/
 /output/
 /deploy/
+/.lein-failures
