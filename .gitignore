@@ -7,3 +7,5 @@ target/
 .lein-repl-history
 sdb.db
 templates/
+/output/
+/deploy/
