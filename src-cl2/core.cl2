@@ -200,6 +200,13 @@
         (remove nil?)
         (apply +)))
 
+(defn amount-field? [field-name]
+  (end-with? field-name (:amount-suffix @config)))
+
+(deffilter amount-field? []
+  [field-name]
+  (amount-field? field-name))
+
 (defn amount-in-words
   [amount]
   (load-file "n2w_vi.cl2")
