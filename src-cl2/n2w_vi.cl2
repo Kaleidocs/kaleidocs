@@ -1,21 +1,18 @@
-(defn str [& xs]
-  (.join xs ""))
-
-(def digit->word-map
+(def digit->words-map
   (zipmap (map #(first (str %)) (range 10))
           (map str '(không một hai ba bốn năm sáu bảy tám chín))))
 
-(defn digit->word [z]
-  (get digit->word-map z))
+(defn digit->words [z]
+  (get digit->words-map z))
 
-(defn group-of-two->word [y z]
+(defn group-of-two->words [y z]
   (if (= \1 y)
     (let [tail (if-not (= \0 z)
-                 (str " " (digit->word z)))]
+                 (str " " (digit->words z)))]
       (str "mười"
            tail))
 
-    (str (digit->word y) " mươi"
+    (str (digit->words y) " mươi"
          (when (not= \0 z)
            (str " "
                 (cond
@@ -26,26 +23,29 @@
                  (and (= \5 z) (not= \0 y))
                  "lăm"
                  :default
-                 (digit->word z)))))))
+                 (digit->words z)))))))
 
-(defn group-of-three->word [x y z]
+(defn group-of-three->words [x y z]
   (str
-   (digit->word x)
+   (digit->words x)
    (if-not (= \0 x y z) " trăm")
    (cond
     (= \0 y z)
     ""
 
     (= \0 y)
-    (str " linh " (digit->word z))
+    (str " linh " (digit->words z))
 
     :default
-    (str " " (group-of-two->word y z)))))
+    (str " " (group-of-two->words y z)))))
 
-(defn number->word [n]
-  (number->word-helper (seq (str n))))
+(defn number->words
+  ([n]
+     (number->words* (seq (str n)) nil))
+  ([n separator]
+     (number->words* (seq (str n)) separator)))
 
-(defn link-groups [digits level paster]
+(defn link-groups [digits level paster separator]
   (let [n-of-digits (count digits)
         remainder (rem n-of-digits level)
         digits-to-process (if (zero? remainder)
@@ -55,30 +55,33 @@
                          level))
         head (take digits-to-process digits)
         tail (drop digits-to-process digits)]
-    (str (number->word-helper head) " "
+    (str (number->words* head) " "
          paster
          (if (apply = (cons \0 tail))
            (when (< 0 repeated)
              (apply str " " (interpose " " (repeat repeated paster))))
-           (str ", " (number->word-helper tail))))))
+           (str separator " " (number->words* tail))))))
 
-(defn number->word-helper [digits]
-  (let [n-of-digits (count digits)]
-    (cond
-     (< 9 n-of-digits)
-     (link-groups digits 9 "tỷ")
+(defn number->words*
+  ([digits]
+     (number->words* digits nil))
+  ([digits separator]
+     (let [n-of-digits (count digits)]
+       (cond
+        (< 9 n-of-digits)
+        (link-groups digits 9 "tỷ" separator)
 
-     (< 6 n-of-digits)
-     (link-groups digits 6 "triệu")
+        (< 6 n-of-digits)
+        (link-groups digits 6 "triệu" separator)
 
-     (< 3 n-of-digits)
-     (link-groups digits 3 "nghìn")
+        (< 3 n-of-digits)
+        (link-groups digits 3 "nghìn" separator)
 
-     (= 3 n-of-digits)
-     (apply group-of-three->word digits)
+        (= 3 n-of-digits)
+        (apply group-of-three->words digits)
 
-     (= 2 n-of-digits)
-     (apply group-of-two->word digits)
+        (= 2 n-of-digits)
+        (apply group-of-two->words digits)
 
-     (= 1 n-of-digits)
-     (apply digit->word digits))))
+        (= 1 n-of-digits)
+        (apply digit->words digits)))))
