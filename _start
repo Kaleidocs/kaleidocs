@@ -1,0 +1,1 @@
+java -classpath "kaleidocs.jar:fr.opensagres.xdocreport.document.odt-1.0.3.jar:fr.opensagres.xdocreport.document.ods-1.0.3.jar" kaleidocs.core
