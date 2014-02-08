@@ -30,7 +30,7 @@
   [:td
    [:span "${{ tableSumTitle }}"]]
   [:td
-   [:span "{{ tableSum }}"]]]
+   [:span "{{ tableSum | number }}"]]]
  [:tr
   [:td
    [:span "${{ tableSumIWTitle }}"]]
