@@ -30,7 +30,18 @@
             :e-form "recordForm"
             ;;:onbeforesave "check"
             :e-required ""}
-     "{{ field.value || 'empty' }}"]]
+     ;; in Lisp language:
+     #_(or (if (amount-field? field.name)
+           (field.name | number)
+           field.name)
+         "empty")
+     "{{ ((field.name | amountField_p)
+         ? ( (field.value | number)
+           + ' ('
+           +  (field.value | amountInWords)
+           + ')' )
+         : (field.value))
+        || 'empty' }}"]]
    [:td [:button.btn.btn-danger.btn-xs.pull-right
          {:type "button"
           :ng-show "recordForm.$visible"
