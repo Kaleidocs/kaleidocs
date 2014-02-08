@@ -21,6 +21,6 @@
 
 [:br]
 [:button.btn.btn-success.btn-lg
- {:ng-click "addRecord()"}
+ {:ng-click "addRecord(profileFilter)"}
  [:span.glyphicon.glyphicon-plus-sign]
  "Add record"]
