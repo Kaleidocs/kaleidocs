@@ -8,9 +8,14 @@
                  [lib-noir "0.7.8"]
                  [com.taoensso/timbre "2.7.1"]
                  [ring/ring-devel "1.1.8"]
-                 [kaleidocs/merge "0.2.0"]
+                 [kaleidocs/merge "0.3.0"]
                  [org.clojars.hozumi/clj-commons-exec "1.0.7"]
                  [simpledb "0.1.4"]]
+  :profiles
+  {:dev
+   {:dependencies
+    [[fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
+     [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]]}}
   :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]]
   :nodejs {:keywords ["chlorinejs",
                       "clojure",
