@@ -224,7 +224,7 @@
 
 (defn add-iw! [obj]
   (doseq [[k v] obj]
-    (if (end-with? k (:amount-suffix @config))
+    (if (amount-field? k)
       (set! (get obj
                  (+ k (:amount-iw-suffix @config)))
             (amount-in-words v))))
