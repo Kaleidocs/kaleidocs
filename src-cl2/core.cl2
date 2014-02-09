@@ -105,7 +105,7 @@
   "/config"
   ['config-ctrl "partials/config.html"]
 
-  :default "/debug")
+  :default "/records")
 
 (load-file "ctrls/templates.cl2")
 (load-file "ctrls/profiles.cl2")
