@@ -146,3 +146,5 @@
       (fn-di [editableOptions]
         (set! (:theme editableOptions) "bs3")))
 
+(load-file "utils.cl2")
+(load-file "filters.cl2")
