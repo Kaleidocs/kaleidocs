@@ -14,7 +14,7 @@
     (find-entities records #(contains? (set ids) (:id %))))
   (defn$ get-profile [records]
     (first (find-entities profiles {:id (:profile (first records))})))
-  (defn$ get-auto-fields []
+  (defn get-auto-fields []
     {:PID (inc (gen-unique-id :pid))
      :DD ($- DD)
      :MM ($- MM)
