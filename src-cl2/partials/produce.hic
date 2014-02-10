@@ -12,7 +12,7 @@
 [:div {:ng-show "false"}
  "{{profile = getProfile(produce.records)}}"]
 [:div {:ng-show "false"}
- "{{produce.profile = fieldsToMap(profile.fields)}}"]
+ "{{produce.profile = (profile.fields | fieldsToMap) }}"]
 [:h3 "Profile:"]
 [:table.table.table-bordered.table-hover.table-condensed
   [:tr {:style "font-weight: bold"}
