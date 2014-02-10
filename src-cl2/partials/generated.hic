@@ -18,6 +18,7 @@
 [:h3 "Auto generated fields"]
 [:div {:ng-show "false"}
  "{{ tableSum = (produce.records | sumOfColumn:config.sumColumn)}}
+  {{ tableSumAsNumber = (tableSum | number) }}
   {{ tableSumIW = (tableSum | amountInWords) }}
   {{ tableSumTitle = ('TABLE' + '_SUM') }}
   {{ tableSumIWTitle = (tableSumTitle + config.amountIwSuffix) }}
@@ -30,7 +31,7 @@
   [:td
    [:span "${{ tableSumTitle }}"]]
   [:td
-   [:span "{{ tableSum | number }}"]]]
+   [:span "{{ tableSumAsNumber }}"]]]
  [:tr
   [:td
    [:span "${{ tableSumIWTitle }}"]]
