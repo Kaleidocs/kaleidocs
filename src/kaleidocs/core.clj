@@ -27,18 +27,18 @@
   (str templates-dir "/" (odf-filename s)))
 
 (defn gen-doc [single-templates multiple-templates table-keys
-               m1 m2 records m3]
+               records data-map]
   (doseq [t multiple-templates
           :let
           [extension
            (filename->extension t)
            generated-odf
-           (str output-dir "/" (get m3 "PID") "_" (odf-filename t))]]
+           (str output-dir "/" (get data-map "PID") "_" (odf-filename t))]]
     (broadcast [:status (str "Merging " generated-odf)])
     (merge-doc (odf-template t)
                generated-odf
                (map #(str "TABLE." %) table-keys)
-               (merge m1 m2 m3 {"TABLE" records}))
+               (merge data-map {"TABLE" records}))
     (when (mso-file? t)
       (broadcast [:status (str "Exporting " generated-odf
                                " to " extension)])
@@ -56,7 +56,7 @@
     (broadcast [:status (str "Merging " t)])
     (merge-doc (odf-template t)
                generated-odf
-               (merge m1 m2 m3 r))
+               (merge data-map r))
     (when (mso-file? t)
       (broadcast [:status (str "Exporting " generated-odf
                                " to " extension)])
@@ -65,7 +65,7 @@
     (broadcast [:status (str "Finished " t)]))
 
   (broadcast [:status (format "Producing documents #%s finished!"
-                              (get m3 "PID"))]))
+                              (get data-map "PID"))]))
 
 (defn dev? [args] (some #{"-dev"} args))
 
