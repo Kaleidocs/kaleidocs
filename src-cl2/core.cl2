@@ -142,35 +142,7 @@
   [$scope]
   ($->atom status status))
 
-(defn end-with? [x s]
-  (== s (.match x (+ s "$"))))
-
-(defn fields->map
-  "Converts vector of fields to a single map.
-  Works on profiles and records"
-  [x]
-  (zipmap (map #(:name %) x)
-          (map #(:value %) x)))
-
 (.run my-app
       (fn-di [editableOptions]
         (set! (:theme editableOptions) "bs3")))
 
-(defn add-iw! [obj]
-  (doseq [[k v] obj]
-    (if (amount-field? k)
-      (set! (get obj
-                 (+ k (:amount-iw-suffix @config)))
-            (amount-in-words v))))
-  obj)
-
-(defn index->id! [coll]
-  (doseq [[k v] coll]
-    (set! (get v "ID") (inc (parseInt k))))
-  coll)
-
-(defn export-records [records]
-  (index->id!
-   (map #(merge (add-iw! (fields->map (:fields %)))
-                {:id (:id %)})
-        records)))
