@@ -22,7 +22,7 @@
   {{ tableSumIW = (tableSum | amountInWords) }}
   {{ tableSumTitle = ('TABLE' + '_SUM') }}
   {{ tableSumIWTitle = (tableSumTitle + config.amountIwSuffix) }}
-  {{ produce.table =  exportTable(tableSumTitle, tableSumIWTitle, tableSum, tableSumIW)}}"]
+  {{ produce.table =  (tableSumTitle | exportTable:tableSumIWTitle:tableSumAsNumber:tableSumIW) }}"]
 [:table.table.table-bordered.table-hover.table-condensed
  [:tr {:style "font-weight: bold"}
   [:td {:style "width:35%"} "Name"]
