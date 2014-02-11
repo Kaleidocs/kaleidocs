@@ -31,6 +31,11 @@
      :MM ($- MM)
      :YYYY ($- YYYY)})
 
+  (defn filter-single-templates []
+    (->> ($- single-templates)
+         (filter #(true? (:checked %)))
+         (map #(:filename %))))
+
   (defn$ gen-doc []
     (let [data [(get-single-templates)
                 (get-multiple-templates)
