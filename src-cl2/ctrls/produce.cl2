@@ -1,6 +1,12 @@
 (defcontroller produce-ctrl
   [$scope]
   ($->atom produce produce)
+
+  ($->atom multiple-templates templates
+           (fn [x]
+             (filter #(= "multiple" (:type %))
+                     (vals x))))
+
   (let [d (Date.)]
     (def$ DD (.getDate d))
     (def$ MM (inc (.getMonth d)))
