@@ -2,6 +2,7 @@
   [$scope]
   ($->atom records records)
   ($->atom profiles profiles vals)
+  (def$ profile-filter "")
   (defn$ remove-record [id]
     (remove-entity! records id))
   (defn$ add-record [profile-id]
