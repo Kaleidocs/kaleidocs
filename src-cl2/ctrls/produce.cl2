@@ -36,6 +36,11 @@
          (filter #(true? (:checked %)))
          (map #(:filename %))))
 
+  (defn filter-multiple-templates []
+    (->> ($- multiple-templates)
+         (filter #(true? (:checked %)))
+         (map #(:filename %))))
+
   (defn$ gen-doc []
     (let [data [(get-single-templates)
                 (get-multiple-templates)
