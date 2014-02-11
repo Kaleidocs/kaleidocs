@@ -1,3 +1,15 @@
+[:h3 "Multiple Templates"]
+[:label {:ng-repeat "t_ in multipleTemplates"}
+ [:input {:type "checkbox"
+          :ng-model "t_.checked"}]
+ "  {{ t_.filename }}"]
+
+[:h3 "Single Templates"]
+[:label {:ng-repeat "t_ in singleTemplates"}
+ [:input {:type "checkbox"
+          :ng-model "t_.checked"}]
+ "  {{ t_.filename }}"]
+
 [:h3 "Records:"]
 
 [:div.form-group
