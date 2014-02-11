@@ -17,7 +17,7 @@
 (deffilter filter-by-profile []
   [records profile-id]
   (for [[_ v] records
-        :when (== profile-id (:profile v))
+        :when (=== profile-id (:profile v))
         #_(end-with? (:name v) suffix)]
     v))
 
