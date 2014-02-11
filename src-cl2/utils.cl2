@@ -1,13 +1,14 @@
 (defn end-with? [x s]
   (== s (.match x (+ s "$"))))
 
-(defn add-iw! [obj]
 (defn format-number [x]
   ;; TODO: bug in core-cl2's partition
   (.join (remove nil? (partition 3 x)) \.))
 
+(defn format-amount&add-iw! [obj]
   (doseq [[k v] obj]
-    (if (amount-field? k)
+    (when (amount-field? k)
+      (set! (get obj k) (format-number v))
       (set! (get obj
                  (+ k (:amount-iw-suffix @config)))
             (amount-in-words v))))
