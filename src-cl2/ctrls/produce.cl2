@@ -42,8 +42,8 @@
          (map #(:filename %))))
 
   (defn$ gen-doc []
-    (let [data [(get-single-templates)
-                (get-multiple-templates)
+    (let [data [(filter-single-templates)
+                (filter-multiple-templates)
                 (:table-keys @config)
                 (export-records (:records @produce))
                 (merge (:profile @produce)
