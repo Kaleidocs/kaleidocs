@@ -2,6 +2,10 @@
   (== s (.match x (+ s "$"))))
 
 (defn add-iw! [obj]
+(defn format-number [x]
+  ;; TODO: bug in core-cl2's partition
+  (.join (remove nil? (partition 3 x)) \.))
+
   (doseq [[k v] obj]
     (if (amount-field? k)
       (set! (get obj
