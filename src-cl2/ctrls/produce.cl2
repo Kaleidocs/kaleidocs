@@ -7,6 +7,10 @@
              (filter #(= "multiple" (:type %))
                      (vals x))))
 
+  ($->atom single-templates templates
+           (fn [x]
+             (filter #(= "single" (:type %))
+                     (vals x))))
   (let [d (Date.)]
     (def$ DD (.getDate d))
     (def$ MM (inc (.getMonth d)))
