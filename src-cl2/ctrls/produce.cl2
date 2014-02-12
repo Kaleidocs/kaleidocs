@@ -22,9 +22,6 @@
   (defn$ get-records [ids]
     (find-entities records #(contains? (set ids) (:id %))))
 
-  (defn$ get-profile [records]
-    (first (find-entities profiles {:id (:profile (first records))})))
-
   (defn get-auto-fields []
     {:PID (inc (gen-unique-id :pid))
      :DD ($- DD)
@@ -46,7 +43,6 @@
                 (filter-multiple-templates)
                 (:table-keys @config)
                 (export-records (:records @produce))
-                (merge (:profile @produce)
-                       (:table @produce)
+                (merge (:table @produce)
                        (get-auto-fields))]]
       (. socket emit :gen-doc data))))
