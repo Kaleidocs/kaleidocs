@@ -11,7 +11,8 @@
 (defsocket socket #(SockJS. sockjs-url nil
                             #_{:protocols_whitelist
                                ['xhr-polling]})
-    {:debug true})
+    {:debug true
+     :on-open load-all})
 
 (. socket on :templates
    (fn [msg-type data respond! _]
