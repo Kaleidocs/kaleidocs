@@ -6,8 +6,8 @@
 (load-file "socket.cl2")
 
 
-(defapp my-app [ngRoute xeditable ngTagsInput angularFileUpload
-                ngGrid])
+(defapp my-app [ng-route xeditable ng-tags-input angular-file-upload
+                ng-grid])
 
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
