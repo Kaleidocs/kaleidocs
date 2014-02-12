@@ -22,9 +22,8 @@
   (defn$ get-records [ids]
     (find-entities records #(contains? (set ids) (:id %))))
 
-  (defn get-auto-fields []
-    {:PID (inc (gen-unique-id :pid))
-     :DD ($- DD)
+  (defn get-date-fields []
+    {:DD ($- DD)
      :MM ($- MM)
      :YYYY ($- YYYY)})
 
@@ -39,10 +38,13 @@
          (map #(:filename %))))
 
   (defn$ gen-doc []
-    (let [data [(filter-single-templates)
-                (filter-multiple-templates)
+    (let [multiple-templates (filter-multiple-templates)
+          data [(filter-single-templates)
+                multiple-templates
                 (:table-keys @config)
                 (export-records (:records @produce))
                 (merge (:table @produce)
-                       (get-auto-fields))]]
+                       (when (< 0 (count multiple-templates))
+                         {:PID (inc (gen-unique-id :pid))})
+                       (get-date-fields))]]
       (. socket emit :gen-doc data))))
