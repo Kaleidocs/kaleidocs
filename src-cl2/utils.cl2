@@ -32,7 +32,8 @@
 (defn export-records [records]
   (index->id!
    (map #(merge (format-amount&add-iw! (fields->map (:fields %)))
-                {:id (:id %)})
+                {:id (:id %)}
+                (get-profile-as-map (:profile %)))
         records)))
 
 (defn get-single-templates []
