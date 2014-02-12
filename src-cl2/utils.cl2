@@ -26,6 +26,9 @@
     (set! (get v "ID") (inc (parseInt k))))
   coll)
 
+(defn get-profile-as-map [id]
+  (fields->map (:fields (first (find-entities profiles {:id id})))))
+
 (defn export-records [records]
   (index->id!
    (map #(merge (format-amount&add-iw! (fields->map (:fields %)))
