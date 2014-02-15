@@ -53,6 +53,7 @@
   [:script {:src "vendor/angular/angular.js"}]
   [:script {:src "vendor/angular-i18n/angular-locale_vi-vn.js"}]
   [:script {:src "vendor/angular-route/angular-route.js"}]
+  [:script {:src "vendor/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js"}]
   [:script {:src "vendor/angular-xeditable/dist/js/xeditable.min.js"}]
   [:script {:src "vendor/ng-grid/ng-grid-2.0.7.min.js"}]
   [:script {:src "vendor/ng-tags-input/ng-tags-input.min.js"}]
