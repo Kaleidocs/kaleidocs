@@ -34,6 +34,7 @@
   :bower {:directory "resources/public/vendor"}
   :bower-dependencies [[sockjs "~0.3.4"]
                        [angular "~1.2.9"]
+                       [angular-ui-bootstrap-bower "~0.10.0"]
                        [angular-i18n "~1.2.9"]
                        [angular-route "~1.2.9"]
                        [angular-xeditable  "~0.1.8"]
