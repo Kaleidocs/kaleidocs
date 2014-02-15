@@ -18,6 +18,7 @@
   [:a {:editable-text "profile.name"}
    "{{ profile.name || 'empty' }}"]]
  [:div {:ng-include "'partials/profile.html'"
+        :ng-if "profileShow"
         :ng-controller "profileCtrl"}]]
 [:br]
 [:button.btn.btn-success.btn-lg
