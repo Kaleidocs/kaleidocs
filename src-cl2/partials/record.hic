@@ -2,7 +2,8 @@
  [:div.col-xs-4
   [:select.form-control
    {:ng-model "record.profile"
-    :ng-options "p.id as p.name for p in profiles"}
+    :ng-options "p.id as p.name for p in
+  ( profiles | orderBy: 'name' )"}
    [:option {:value ""} "-- choose a profile --"]]]]
 
 [:form {:editable-form ""
