@@ -1,7 +1,13 @@
+[:button.btn.btn-success.btn-lg
+ {:ng-click "orderKey = '-id'; addProfile()"}
+ [:span.glyphicon.glyphicon-plus-sign]
+ "Add profile"]
+[:br]
 [:div.form-group
  [:label "Sort profiles by"]
  [:select {:ng-model "orderKey"
-           :ng-options "k for k in ['name', 'id']"}]]
+           :ng-options "k.value as k.name for k in
+  [{name: 'Name', value: 'name'}, {name: 'Newest', value: '-id'}]"}]]
 [:div {:ng-repeat "profile in ( profiles | orderBy: orderKey)"}
  [:button.btn.btn-danger.btn-xs.pull-right
   {:ng-click "removeProfile(profile.id)"
@@ -24,8 +30,3 @@
  [:div {:ng-include "'partials/profile.html'"
         :ng-if "profileShow"
         :ng-controller "profileCtrl"}]]
-[:br]
-[:button.btn.btn-success.btn-lg
- {:ng-click "addProfile()"}
- [:span.glyphicon.glyphicon-plus-sign]
- "Add profile"]
