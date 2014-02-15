@@ -1,5 +1,5 @@
 (defcontroller produce-ctrl
-  [$scope]
+  [$scope date-filter]
   ($->atom produce produce)
 
   ($->atom multiple-templates templates
@@ -11,10 +11,15 @@
            (fn [x]
              (filter #(= "single" (:type %))
                      (vals x))))
-  (let [d (Date.)]
-    (def$ DD (.getDate d))
-    (def$ MM (inc (.getMonth d)))
-    (def$ YYYY (.getFullYear d)))
+  (let [[d m y]
+        (-> (Date.)
+            .getTime
+            (date-filter
+             "dd/MM/yyyy")
+            (.split "/"))]
+    (def$ DD d)
+    (def$ MM m)
+    (def$ YYYY y))
   ($->atom PID id-counter
            (fn [c]
              (inc (get c :pid 0))))
