@@ -1,7 +1,8 @@
 [:h2 "Filter records by profile"]
 [:div
- [:input {:type "text" :ng-model "profileFilter"
-          :typeahead "p as p.name for p in
+ [:input.form-control
+  {:type "text" :ng-model "profileFilter"
+   :typeahead "p as p.name for p in
   ( profiles | filter: ({name: $viewValue}) | limitTo: 8 )"}]]
 [:div
  {:ng-repeat "record in ( records | filterByProfile: profileFilter.id )"}
