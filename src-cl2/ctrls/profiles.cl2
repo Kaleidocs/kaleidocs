@@ -1,6 +1,6 @@
 (defcontroller profiles-ctrl
   [$scope]
-  ($->atom profiles profiles)
+  ($->atom profiles profiles vals)
   (defn$ remove-profile [id]
     (remove-entity! profiles id))
   (defn$ add-profile []
