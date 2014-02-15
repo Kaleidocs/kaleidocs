@@ -7,7 +7,7 @@
 
 
 (defapp my-app [ng-route xeditable ng-tags-input angular-file-upload
-                ng-grid])
+                ng-grid ui.bootstrap])
 
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
