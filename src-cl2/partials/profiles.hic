@@ -1,4 +1,8 @@
-[:div {:ng-repeat "profile in profiles"}
+[:div.form-group
+ [:label "Sort profiles by"]
+ [:select {:ng-model "orderKey"
+           :ng-options "k for k in ['name', 'id']"}]]
+[:div {:ng-repeat "profile in ( profiles | orderBy: orderKey)"}
  [:button.btn.btn-danger.btn-xs.pull-right
   {:ng-click "removeProfile(profile.id)"
    :ng-hide "textBtnForm.$visible"}
