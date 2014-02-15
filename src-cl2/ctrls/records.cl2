@@ -1,10 +1,15 @@
 (defcontroller records-ctrl
-  [$scope]
+  [$scope date-filter]
   ($->atom records records)
   ($->atom profiles profiles vals)
   (def$ profile-filter "")
   (defn$ remove-record [id]
     (remove-entity! records id))
+  (defn today! []
+    (-> (Date.)
+        .getTime
+        (date-filter
+         "dd/MM/yyyy")))
   (defn$ add-record [profile-id]
     (let [record-id (gen-unique-id :records)
           default-keys (get @config :record-keys [])]
@@ -14,7 +19,9 @@
                     :profile profile-id
                     :fields
                     (map (fn [k] {:name k
-                                  :value ""})
+                                  :value (if (= "date" k)
+                                           (today!)
+                                           "")})
                          default-keys)})
       (reset! status (+ "New record #" record-id
                         " added")))))
