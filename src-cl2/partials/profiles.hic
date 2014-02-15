@@ -5,8 +5,9 @@
 [:br]
 [:div.form-group
  [:label "Sort profiles by"]
- [:select {:ng-model "orderKey"
-           :ng-options "k.value as k.name for k in
+ [:select.form-control
+  {:ng-model "orderKey"
+   :ng-options "k.value as k.name for k in
   [{name: 'Name', value: 'name'}, {name: 'Newest', value: '-id'}]"}]]
 [:div {:ng-repeat "profile in ( profiles | orderBy: orderKey)"}
  [:button.btn.btn-danger.btn-xs.pull-right
