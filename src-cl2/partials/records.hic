@@ -18,6 +18,7 @@
 
 [:br]
 [:button.btn.btn-success.btn-lg
- {:ng-click "addRecord(profileFilter)"}
+ {:ng-click "addRecord(profileFilter.id)"
+  :ng-disabled "profileFilter.id === undefined"}
  [:span.glyphicon.glyphicon-plus-sign]
  "Add record"]
