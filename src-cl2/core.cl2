@@ -16,7 +16,14 @@
   {:controller 'history-ctrl
    :template
    (hiccup
-    [:div.gridStyle {:ng-grid "gridOptions"}])}
+    [:div.gridStyle {:ng-grid "gridOptions"}]
+    [:br]
+    [:button.btn.btn-primary
+     {:type "button"
+      :ng-csv "history"
+      :filename "history.csv"}
+     "Export"]
+    )}
   "/debug"
   {:controller 'debug-ctrl
    :template
