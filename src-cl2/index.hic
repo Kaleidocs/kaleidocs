@@ -84,7 +84,7 @@
       [:li [:a {:href "#/produce"} "Produce"]]
       [:li [:a {:href "#/history"} "History"]]]
      [:form.navbar-form.navbar-right
-      {:ng-controller "debugCtrl"}
+      {:ng-controller "navbarCtrl"}
       [:button.btn.btn-primary
        {:ng-click "saveAll()"} "Save"]
       [:button.btn.btn-warning
