@@ -8,7 +8,8 @@
                                             profiles
                                             {:id (:profile %)}))))
                           (fields->map (:fields %))
-                          {:id (:id %)})
+                          {:id (:id %)
+                           :contract (:contract %)})
                   (vals x))))
   (def$ selection [])
   (def$ grid-options
