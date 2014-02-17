@@ -41,3 +41,16 @@
 
 (defn get-multiple-templates []
   (map #(:filename %) (find-entities templates {:type "multiple"})))
+
+(defn assoc-contract* [pid record]
+  (->> pid
+       (conj (:contract record))
+       set
+       seq
+       (assoc record :contract)))
+
+(defn assoc-contract! [pid record-ids]
+  (find-&-update-entities!
+   records
+   #(contains? (set record-ids) (:id %))
+   #(assoc-contract* pid %)))
