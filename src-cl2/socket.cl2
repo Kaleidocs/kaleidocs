@@ -6,7 +6,16 @@
                             #_{:protocols_whitelist
                                ['xhr-polling]})
     {:debug true
-     :on-open load-all})
+     :on-open socket-ready})
+
+(defn socket-ready []
+  (load-all)
+  (do-timeout
+   2000
+   (when-let [i (:save-interval @config)]
+     (do-interval
+      (* 1000 60 i)
+      (save-all)))))
 
 (. socket on :templates
    (fn [msg-type data respond! _]
