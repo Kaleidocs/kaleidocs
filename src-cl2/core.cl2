@@ -28,8 +28,6 @@
   {:controller 'debug-ctrl
    :template
    (hiccup
-    [:a {:ng-click "loadAll()"} [:h2 "Load all"]]
-    [:a {:ng-click "saveAll()"} [:h2 "Save all"]]
     [:h3 "Config"]
     [:div "{{config}}"]
     [:h3 "Profiles"]
@@ -74,10 +72,13 @@
   [$scope]
   ($->atom config config))
 
-(defcontroller debug-ctrl
+(defcontroller navbar-ctrl
   [$scope]
   (def$ save-all save-all)
-  (def$ load-all load-all)
+  (def$ load-all load-all))
+
+(defcontroller debug-ctrl
+  [$scope]
   ($->atom tables tables)
   ($->atom profiles profiles)
   ($->atom records records)
