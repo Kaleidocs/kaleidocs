@@ -38,12 +38,11 @@
                  :min-length "1"
                  :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
  [:div.form-group
-  [:label.col-sm-4.control-label "Default produce keys"]
+  [:label.col-sm-4.control-label "Auto-save interval (minutes)"]
   [:div.col-sm-8
-   [:tags-input {:ng-model "config.produceKeys"
-                 :add-on-space "true"
-                 :min-length "1"
-                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
+   [:input.form-control {:ng-model "config.saveInterval"
+                         :type "number"
+                         :min "0"}]]]
  [:div.form-group
   [:label.col-sm-4.control-label "Default table keys"]
   [:div.col-sm-8
