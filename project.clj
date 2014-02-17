@@ -41,6 +41,7 @@
                        [ng-tags-input "~1.1.1"]
                        [ng-file-upload "~1.2.5"]
                        [ng-grid "~2.0.7"]
+                       [ng-csv "0.0.1"]
                        [bootstrap "~3.1.0"]]
   :uberjar-name "kaleidocs.jar"
   :main kaleidocs.core
