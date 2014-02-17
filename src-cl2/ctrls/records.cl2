@@ -17,12 +17,15 @@
                    nil
                    {:id record-id
                     :profile profile-id
+                    :contract []
                     :fields
                     (map (fn [k] {:name k
                                   :value (if (= "date" k)
                                            (today!)
                                            "")})
                          default-keys)})
+      (when (true? ($- auto-mode))
+        (.push (:record-ids @produce) record-id))
       (reset! status (+ "New record #" record-id
                         " added")))))
 
