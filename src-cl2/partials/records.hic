@@ -1,3 +1,7 @@
+[:div.form-group
+ [:label.control-label "Auto mode?"]
+ [:input.form-control
+  {:type "checkbox" :ng-model "autoMode"}]]
 [:h2 "Filter records by profile"]
 [:div
  [:input.form-control
