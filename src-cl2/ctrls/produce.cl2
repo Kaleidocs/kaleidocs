@@ -50,6 +50,8 @@
                 (export-records (:records @produce))
                 (merge (:table @produce)
                        (when (< 0 (count multiple-templates))
-                         {:PID (inc (gen-unique-id :pid))})
+                         (let [pid (inc (gen-unique-id :pid))]
+                           (assoc-contract! pid (:record-ids @produce))
+                           {:PID pid}))
                        (get-date-fields))]]
       (. socket emit :gen-doc data))))
