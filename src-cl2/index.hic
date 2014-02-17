@@ -58,6 +58,8 @@
   [:script {:src "vendor/ng-grid/ng-grid-2.0.7.min.js"}]
   [:script {:src "vendor/ng-tags-input/ng-tags-input.min.js"}]
   [:script {:src "vendor/ng-file-upload/angular-file-upload.min.js"}]
+  [:script {:src "vendor/angular-sanitize/angular-sanitize.min.js"}]
+  [:script {:src "vendor/ng-csv/build/ng-csv.min.js"}]
   [:script {:src "core.js"}]]
  [:body
   [:div.container
