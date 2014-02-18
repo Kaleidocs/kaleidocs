@@ -7,7 +7,8 @@
                            (:fields (first (find-entities
                                             profiles
                                             {:id (:profile %)}))))
-                          (fields->map (:fields %))
+                          (format-amount&add-iw!
+                           (fields->map (:fields %)))
                           {:id (:id %)
                            :contract (:contract %)})
                   (vals x))))
