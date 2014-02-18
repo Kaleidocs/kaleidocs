@@ -10,7 +10,7 @@
                           (format-amount&add-iw!
                            (fields->map (:fields %)))
                           {:id (:id %)
-                           :contract (:contract %)})
+                           :contract (.join (:contract %) ",")})
                   (vals x))))
   (def$ selection [])
   (def$ grid-options
