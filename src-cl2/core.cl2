@@ -21,6 +21,7 @@
     [:button.btn.btn-primary
      {:type "button"
       :ng-csv "history"
+      :text-delimiter "\""
       :filename "history.csv"}
      "Export"]
     )}
