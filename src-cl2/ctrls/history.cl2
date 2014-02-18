@@ -15,6 +15,7 @@
   (def$ grid-options
     {:data "history"
      :multi-select false
+     :enable-column-resize true
      :show-filter true
      :selected-items ($- selection)
      :column-defs (map (fn [k] {:field k})
