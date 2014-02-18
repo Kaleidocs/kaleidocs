@@ -1,5 +1,6 @@
 (defcontroller records-ctrl
   [$scope date-filter]
+  (def$ auto-mode true)
   ($->atom records records)
   ($->atom profiles profiles vals)
   (def$ profile-filter "")
