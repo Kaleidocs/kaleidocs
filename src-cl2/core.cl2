@@ -20,9 +20,10 @@
     [:br]
     [:button.btn.btn-primary
      {:type "button"
-      :ng-csv "history"
+      :ng-csv "genCsv()"
       :text-delimiter "\""
-      :filename "history.csv"}
+      :filename "history.csv"
+      :csv-header "csvHeader"}
      "Export"]
     )}
   "/debug"
