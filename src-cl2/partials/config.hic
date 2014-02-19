@@ -56,4 +56,11 @@
    [:tags-input {:ng-model "config.searchColumns"
                  :add-on-space "true"
                  :min-length "1"
+                 :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]
+ [:div.form-group
+  [:label.col-sm-4.control-label "Export columns"]
+  [:div.col-sm-8
+   [:tags-input {:ng-model "config.exportColumns"
+                 :add-on-space "true"
+                 :min-length "1"
                  :allowed-tags-pattern "^[a-zA-Z0-9\\_]*$"}]]]]

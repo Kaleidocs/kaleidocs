@@ -16,6 +16,7 @@
 (def config
   (atom {:profile-keys [],
          :search-columns [],
+         :export-columns [],
          :record-keys [],
          :produce-keys [],
          :amount-suffix "",
