@@ -13,7 +13,8 @@
                            :contract (.join (:contract %) ",")})
                   (vals x))))
   (defn$ gen-csv []
-    (map #(select-keys % (:export-columns @config))
+    (map #(merge (columns->empty-map (:export-columns @config))
+                 (select-keys % (:export-columns @config)))
          ($- history)))
   ($->atom csv-header config #(:export-columns %))
   (def$ selection [])
