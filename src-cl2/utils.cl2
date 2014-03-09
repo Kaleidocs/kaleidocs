@@ -5,12 +5,13 @@
   ;; TODO: bug in core-cl2's partition
   ;;(.join (remove nil? (partition 3 x)) \.)
   ;; TODO: bug in (drop 0 coll) -> nil
-  (let [r (rem (count coll) 3)]
-    (if (zero? r)
-      (.join (map #(.join % "") (partition 3 coll)) \.)
-      (let [tail (partition 3 (drop r coll))
-            head (take r coll)]
-        (.join (map #(.join % "") (cons head tail)) \.)))))
+  (when-not (empty? coll)
+    (let [r (rem (count coll) 3)]
+      (if (zero? r)
+        (.join (map #(.join % "") (partition 3 coll)) \.)
+        (let [tail (partition 3 (drop r coll))
+              head (take r coll)]
+          (.join (map #(.join % "") (cons head tail)) \.))))))
 
 (defn format-amount&add-iw! [obj]
   (doseq [[k v] obj]
