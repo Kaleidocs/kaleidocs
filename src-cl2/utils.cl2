@@ -54,3 +54,9 @@
    records
    #(contains? (set record-ids) (:id %))
    #(assoc-contract* pid %)))
+
+(defn columns->empty-map [columns]
+  (let [m {}]
+    (doseq [c columns]
+      (set! (get m c) ""))
+    m))
