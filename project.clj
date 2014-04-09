@@ -29,8 +29,8 @@
                              :socket-cl2 "0.2.0"}
            :scripts {:testem "testem ci"}}
   :plugins [[lein-cl2c "0.0.1-SNAPSHOT"]
-            [lein-bower "0.3.0"]
-            [lein-npm "0.3.0"]]
+            [lein-bower "0.4.0"]
+            [lein-npm "0.4.0"]]
   :bower {:directory "resources/public/vendor"}
   :bower-dependencies [[sockjs "~0.3.4"]
                        [angular "~1.2.9"]
