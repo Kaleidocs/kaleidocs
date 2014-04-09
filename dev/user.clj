@@ -13,10 +13,9 @@
    [clojure.tools.namespace.repl :refer (refresh refresh-all)]
    [creationism :refer :all]
    [insert :refer :all]
+   [http :refer [http-app]]
    [org.httpkit.server :refer [run-server]]
    [kaleidocs.core :refer [app]]))
-
-(def http-app (atom nil))
 
 (defn http-run [& args]
   (println "Server run @ 3003")
@@ -45,8 +44,10 @@
   "Stops the system if it is currently running, updates the Var
   #'system."
   []
-  (if (fn? @http-app)
-    (@http-app))
+  (when-not (nil? @http-app)
+    (@http-app)
+    (println "Server stopped."))
+  (reset! http-app nil)
   )
 
 (defn go
