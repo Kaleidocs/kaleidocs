@@ -9,11 +9,21 @@
                  [com.taoensso/timbre "2.7.1"]
                  [ring/ring-devel "1.1.8"]
                  [kaleidocs/meld "0.4.0"]
+                 [lobos "1.0.0-beta1"]
+                 [korma "0.3.0-RC5"]
+                 [org.clojure/java.jdbc "0.2.3"]
+                 [com.h2database/h2 "1.3.176"]
                  [org.clojars.hozumi/clj-commons-exec "1.0.7"]]
   :profiles
-  {:dev
-   {:dependencies
-    [[fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
+  {:deploy
+   {:uberjar-name "kaleidocs.jar"
+    :main kaleidocs.core
+    :aot :all}
+   :dev
+   {:source-paths ["dev"]
+    :dependencies
+    [[org.clojure/tools.namespace "0.2.4"]
+     [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]]}}
   :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]]
   :nodejs {:keywords ["chlorinejs",
@@ -35,11 +45,9 @@
                        [angular-strap "~2.0.0"]
                        [ng-table "~0.3.1"]
                        [angular-route "~1.2.16"]
+                       [angular-resource "~1.2.16"]
                        [angular-i18n "~1.2.16"]
                        [ng-file-upload "~1.2.11"]]
-  :uberjar-name "kaleidocs.jar"
-  :main kaleidocs.core
-  :aot :all
   :cl2c {:frontend
          {:watch ["src-cl2", "test-cl2"]
           :filter (or "src-cl2/app.cl2"
