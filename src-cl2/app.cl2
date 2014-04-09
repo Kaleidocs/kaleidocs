@@ -34,14 +34,12 @@
      {:count 10, :page 1}
      {:getData
       (fn [$defer params]
-        (def ordered-data
-          (if-let [f (. params filter)]
-            (($filter "filter") data f)
-            data))
+        (def filtered-data
+          (($filter "filter") data ($- filter-dict)))
         (def sorted-data
           (if(.. params sorting)
-            (($filter "orderBy") ordered-data (. params orderBy))
-            ordered-data))
+            (($filter "orderBy") filtered-data (. params orderBy))
+            filtered-data))
         (.resolve $defer
                   (.slice sorted-data
                           (* (- (. params page) 1) (. params count))
