@@ -177,6 +177,10 @@
 (declare testbed-data)
 
 (defroutes my-routes
+  (GET "/testbed" []
+       (timbre/info "Got a call @testbed")
+       (generate-string {:total (count testbed-data)
+                         :result testbed-data}))
   (POST "/upload" [file]
         ;; if file exists, just overwrite with new one
         ;; else, inform clients about new template
