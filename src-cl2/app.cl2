@@ -3,7 +3,7 @@
 (load-file "atom-crud/src/core.cl2")
 
 (defapp my-app [ng-route angular-file-upload mgcrea.ng-strap
-                ng-table])
+                ng-table ng-resource])
 
 (.config my-app
  (fn-di

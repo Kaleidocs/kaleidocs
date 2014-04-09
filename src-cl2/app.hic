@@ -20,6 +20,7 @@
   [:script {:src "vendor/angular/angular.js"}]
   [:script {:src "vendor/angular-i18n/angular-locale_vi-vn.js"}]
   [:script {:src "vendor/angular-route/angular-route.js"}]
+  [:script {:src "vendor/angular-resource/angular-resource.js"}]
   [:script {:src "vendor/ng-table/ng-table.js"}]
   [:script {:src "vendor/angular-strap/dist/angular-strap.min.js"}]
   [:script {:src "vendor/angular-strap/dist/angular-strap.tpl.min.js"}]
