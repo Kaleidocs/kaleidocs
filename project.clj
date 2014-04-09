@@ -33,16 +33,10 @@
             [lein-npm "0.4.0"]]
   :bower {:directory "resources/public/vendor"}
   :bower-dependencies [[sockjs "~0.3.4"]
-                       [angular "~1.2.9"]
-                       [angular-ui-bootstrap-bower "~0.10.0"]
-                       [angular-i18n "~1.2.9"]
-                       [angular-route "~1.2.9"]
-                       [angular-xeditable  "~0.1.8"]
-                       [ng-tags-input "~1.1.1"]
-                       [ng-file-upload "~1.2.5"]
-                       [ng-grid "~2.0.7"]
-                       [ng-csv "0.0.1"]
-                       [bootstrap "~3.1.0"]]
+                       [angular-strap "~2.0.0"]
+                       [angular-route "~1.2.16"]
+                       [angular-i18n "~1.2.16"]
+                       [ng-file-upload "~1.2.11"]]
   :uberjar-name "kaleidocs.jar"
   :main kaleidocs.core
   :aot :all
