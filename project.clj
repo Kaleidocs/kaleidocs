@@ -8,9 +8,8 @@
                  [lib-noir "0.7.8"]
                  [com.taoensso/timbre "2.7.1"]
                  [ring/ring-devel "1.1.8"]
-                 [kaleidocs/merge "0.3.0"]
-                 [org.clojars.hozumi/clj-commons-exec "1.0.7"]
-                 [simpledb "0.1.4"]]
+                 [kaleidocs/meld "0.4.0"]
+                 [org.clojars.hozumi/clj-commons-exec "1.0.7"]]
   :profiles
   {:dev
    {:dependencies
