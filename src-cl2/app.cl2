@@ -48,8 +48,7 @@
   (def$ edit-id -1)
   (defn$ set-edit-id
     [pid]
-    (def$ edit-id pid)
-    (console.log "pid:" pid)))
+    (def$ edit-id pid)))
 
 (defroute
   "/testbed"
