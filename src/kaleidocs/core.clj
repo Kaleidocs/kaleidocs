@@ -181,10 +181,15 @@
   (second (re-find #"sorting\[([a-zA-Z]+)\]" s)))
 
 (defroutes my-routes
-  (GET "/testbed" []
-       (timbre/info "Got a call @testbed")
-       (generate-string {:total (count testbed-data)
-                         :result testbed-data}))
+  (GET "/testbed" [page count & others]
+       (let [order-by (some find-sort-key (keys others))
+             order (get others (format "sorting[%s]" order-by))]
+         (timbre/info "Got a call @testbed")
+         (timbre/info
+          (format "page %s; count %s; order %s; order-by %s"
+                  page count order order-by))
+         (generate-string {:total (clojure.core/count testbed-data)
+                           :result testbed-data})))
   (POST "/upload" [file]
         ;; if file exists, just overwrite with new one
         ;; else, inform clients about new template
