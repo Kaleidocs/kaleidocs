@@ -33,8 +33,8 @@
   :bower {:directory "resources/public/vendor"}
   :bower-dependencies [[sockjs "~0.3.4"]
                        [angular-strap "~2.0.0"]
+                       [ng-table "~0.3.1"]
                        [angular-route "~1.2.16"]
-                       [angular-animate "~1.2.16"]
                        [angular-i18n "~1.2.16"]
                        [ng-file-upload "~1.2.11"]]
   :uberjar-name "kaleidocs.jar"
