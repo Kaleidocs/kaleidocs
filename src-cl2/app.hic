@@ -8,6 +8,8 @@
   [:title "Kaleidocs"]
   [:link {:rel "stylesheet"
           :href "vendor/bootstrap/dist/css/bootstrap.min.css"}]
+  [:link {:rel "stylesheet"
+          :href "vendor/ng-table/ng-table.css"}]
   [:link
    {:href
     "http://fonts.googleapis.com/css?family=Arimo|Open+Sans+Condensed:300|Noto+Serif:700italic&subset=latin"
@@ -18,6 +20,7 @@
   [:script {:src "vendor/angular/angular.js"}]
   [:script {:src "vendor/angular-i18n/angular-locale_vi-vn.js"}]
   [:script {:src "vendor/angular-route/angular-route.js"}]
+  [:script {:src "vendor/ng-table/ng-table.js"}]
   [:script {:src "vendor/angular-strap/dist/angular-strap.min.js"}]
   [:script {:src "vendor/angular-strap/dist/angular-strap.tpl.min.js"}]
   [:script {:src "vendor/ng-file-upload/angular-file-upload.min.js"}]
