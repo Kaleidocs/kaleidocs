@@ -19,32 +19,36 @@
      :title "Title"}))
 
 (defcontroller testbed-ctrl
-  [$scope $filter ng-table-params]
+  [$scope $filter ng-table-params $resource $timeout]
+  (def API ($resource "/testbed"))
   (def$ filter-dict {})
   (. $scope
      ($watch "filterDict"
-      (fn []
-        (if (and (-> $scope :filter-dict)
-                 (-> $scope :table-params))
-          (.. (-> $scope :table-params) reload)))
-      true))
+             (fn []
+               (if (and (-> $scope :filter-dict)
+                        (-> $scope :table-params))
+                 (.. (-> $scope :table-params) reload)))
+             true))
 
   (def$ table-params
     (ngTableParams.
      {:count 10, :page 1}
      {:getData
       (fn [$defer params]
-        (def filtered-data
-          (($filter "filter") data ($- filter-dict)))
-        (def sorted-data
-          (if(.. params sorting)
-            (($filter "orderBy") filtered-data (. params orderBy))
-            filtered-data))
-        (.resolve $defer
-                  (.slice sorted-data
-                          (* (- (. params page) 1) (. params count))
-                          (* (. params page) (. params count))))),
-      :total (-> data :length)}))
+        (.get API
+              (. params url)
+              (fn [data]
+                (def filtered-data
+                  (($filter "filter") data ($- filter-dict)))
+                (def sorted-data
+                  (if(.. params sorting)
+                    (($filter "orderBy") filtered-data (. params orderBy))
+                    filtered-data))
+                ($timeout
+                 (fn []
+                   (. params (total (-> data :total)))
+                   (. $defer (resolve (-> sorted-data :result))))
+                 500))))}))
   (def$ edit-id -1)
   (defn$ set-edit-id
     [pid]
