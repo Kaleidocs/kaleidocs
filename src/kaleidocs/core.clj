@@ -176,6 +176,10 @@
 
 (declare testbed-data)
 
+(defn find-sort-key
+  [s]
+  (second (re-find #"sorting\[([a-zA-Z]+)\]" s)))
+
 (defroutes my-routes
   (GET "/testbed" []
        (timbre/info "Got a call @testbed")
