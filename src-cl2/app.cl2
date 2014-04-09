@@ -56,36 +56,45 @@
   {:controller 'testbed-ctrl
    :template
    (hiccup
-    ([:table.table
-      {:show-filter "true", :ng-table "tableParams"}
-      [:tbody
-       {:ng-repeat "p in $data"}
-       [:tr
-        {:id "tr{{p.id}}"
-         :ng-class-even "'even'", :ng-class-odd "'odd'"}
-        [:td.rowTd {:sortable "'id'", :data-title "'ID'"} "{{p.id}}"]
-        [:td.rowTd
-         {:filter "{ 'fn': 'text' }",
-          :sortable "'fn'",
-          :data-title "'Firstname'"}
-         "{{p.fn}}"]
-        [:td.rowTd
-         {:sortable "'ln'", :data-title "'Lastname'"}
-         "{{p.ln}}"]
-        [:td.rowTd
-         {:sortable "'dc'", :data-title "'Description'"}
-         "{{p.dc}}"]
-        [:td.rowTd {:sortable "'em'", :data-title "'Email'"} "{{p.em}}"]
-        [:td.rowTd {:sortable "'ph'", :data-title "'Phone'"} "{{p.ph}}"]
-        [:td.rowTd
-         [:input
-          {:ng-click "setEditId(p.id)", :value "edit", :type "button"
-           :id "editRowBtn{{p.id}}"}]]]
-       [:tr
-        {:ng-if "editId===p.id", :ng-show "editId===p.id"}
-        [:td
-         {:ng-include "'edit-row.html'",
-          :colspan "7"}]]]])
+    [:table.table
+     {:show-filter "true", :ng-table "tableParams"}
+     [:thead
+      [:tr
+       [:th.text-center.sortable
+        {:ng-click
+         "tableParams.sorting(key, tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc')",
+         :ng-class
+         "{'sort-asc': tableParams.isSortBy(key, 'asc'),
+           'sort-desc': tableParams.isSortBy(key, 'desc')}",
+         :ng-repeat "key in ['id', 'fn', 'ln', 'em', 'dc', 'ph']"}
+        "{{key}}"]]
+      [:tr
+       [:th.text-center.sortable
+        {:ng-repeat "key in ['id', 'fn', 'ln', 'em', 'dc', 'ph']"}
+        [:input.form-control
+         {:ng-model "filterDict[key]",
+          :type "text"}]]]]
+
+     [:tbody
+      {:ng-repeat "p in $data"}
+      [:tr
+       {:id "tr{{p.id}}"
+        :ng-class-even "'even'", :ng-class-odd "'odd'"}
+       [:td.rowTd
+        {:ng-repeat "key in ['id', 'fn', 'ln', 'em', 'dc', 'ph']"
+         ;;:filter "{ 'fn': 'text' }",
+         :sortable "key",
+         :data-title "key"}
+        "{{p[key]}}"]
+       [:td.rowTd
+        [:input
+         {:ng-click "setEditId(p.id)", :value "edit", :type "button"
+          :id "editRowBtn{{p.id}}"}]]]
+      [:tr
+       {:ng-if "editId===p.id", :ng-show "editId===p.id"}
+       [:td
+        {:ng-include "'edit-row.html'",
+         :colspan "7"}]]]]
 
     #_
     [:form
