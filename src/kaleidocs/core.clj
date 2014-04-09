@@ -1,7 +1,6 @@
 (ns kaleidocs.core
   (:require [methojure.sockjs.session :refer :all]
             [clojure.java.browse :refer [browse-url]]
-            [simpledb.core :as db]
             [noir.io :as io]
             [kaleidocs.merge :refer [merge-doc]]
             [noir.response :as response]
