@@ -213,9 +213,7 @@
       wrap-multipart-params))
 
 (defn -main [& args]
-  (db/init)
   (run-server
    (if (dev? args) (wrap-reload app) app)
    {:port (port args)})
-  (browse-url (str "http://localhost:" (port args) "/index.html"))
   (timbre/info "server started on port" (port args)))
