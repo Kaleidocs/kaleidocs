@@ -42,7 +42,7 @@
   :aot :all
   :cl2c {:frontend
          {:watch ["src-cl2", "test-cl2"]
-          :filter (or "src-cl2/core.cl2"
+          :filter (or "src-cl2/app.cl2"
                       (and "src-cl2" ".hic$"))
           :path-map ["src-cl2/" => "resources/public/"]
           :paths ["node_modules/"]
