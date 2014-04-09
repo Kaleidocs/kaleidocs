@@ -38,16 +38,10 @@
         (.get API
               (. params url)
               (fn [data]
-                (def filtered-data
-                  (($filter "filter") data ($- filter-dict)))
-                (def sorted-data
-                  (if(.. params sorting)
-                    (($filter "orderBy") filtered-data (. params orderBy))
-                    filtered-data))
                 ($timeout
                  (fn []
-                   (. params (total (-> data :total)))
-                   (. $defer (resolve (-> sorted-data :result))))
+                   (. params (total (:total data)))
+                   (. $defer (resolve (:result data))))
                  500))))}))
   (def$ edit-id -1)
   (defn$ set-edit-id
