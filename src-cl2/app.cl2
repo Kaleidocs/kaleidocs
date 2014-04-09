@@ -20,6 +20,15 @@
 
 (defcontroller testbed-ctrl
   [$scope $filter ng-table-params]
+  (def$ filter-dict {})
+  (. $scope
+     ($watch "filterDict"
+      (fn []
+        (if (and (-> $scope :filter-dict)
+                 (-> $scope :table-params))
+          (.. (-> $scope :table-params) reload)))
+      true))
+
   (def$ table-params
     (ngTableParams.
      {:count 10, :page 1}
