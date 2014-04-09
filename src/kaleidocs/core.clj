@@ -125,7 +125,7 @@
   (timbre/info "init message from " id)
   (doseq [data-type [:templates :counter :profiles :config :records]]
     (whisper id
-             [data-type (db/get data-type)])))
+             [data-type "todo"])))
 
 (defn truncate
   "truncates a string to the given length"
@@ -144,7 +144,7 @@
 
    (contains? #{"config" "profiles" "counter" "templates" "records"}
               msg-type)
-   (db/put! (keyword msg-type) data)
+   "todo"
 
    (= msg-type "deleteFile")
    (do (.delete (clojure.java.io/file (odf-template data)))
