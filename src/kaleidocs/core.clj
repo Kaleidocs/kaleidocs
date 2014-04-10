@@ -177,27 +177,32 @@
 
 (declare testbed-data)
 
-(defn find-sort-key
+(defn find-order-key
   [s]
   (second (re-find #"sorting\[([a-zA-Z]+)\]" s)))
 
-(defn find-order-keys
+(defn find-order-kv
   [params]
-  (let [order-key (some find-sort-key (keys params))
-        order (when order-key
-                (case (get params (format "sorting[%s]" order-key))
-                  "asc" :ASC
-                  "desc" :DESC
-                  nil))]
-    [(keyword order-key) order]))
+  (let [order-key (some find-order-key (keys params))
+        order-value (when order-key
+                      (case (get params (format "sorting[%s]" order-key))
+                        "asc" :ASC
+                        "desc" :DESC
+                        nil))]
+    [(keyword order-key) order-value]))
+
 
 (defroutes my-routes
   (GET "/testbed" [page count & other-params]
-       (let [[order-key order] (find-order-keys other-params)]
+       (let [[order-key order-value] (find-order-kv other-params)
+             [filter-key filter-value] (find-filter-kv other-params)]
          (timbre/info "Got a call @testbed" (pr-str other-params))
          (timbre/info
-          (format "page %s; count %s; order %s and order-by %s"
-                  page count order order-key))
+          (format "page %s; count %s"
+                  page count))
+         (timbre/info
+          (format "order-key %s and order-value %s"
+                  order-key order-value))
          (generate-string {:total (clojure.core/count testbed-data)
                            :result testbed-data})))
   (POST "/testbed" [:as item]
