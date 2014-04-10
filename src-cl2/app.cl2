@@ -3,7 +3,7 @@
 (load-file "atom-crud/src/core.cl2")
 
 (defapp my-app [ng-route angular-file-upload mgcrea.ng-strap
-                ng-table ng-resource])
+                ng-table ng-resource ng-sanitize ng-animate])
 
 (.config my-app
  (fn-di
@@ -17,6 +17,19 @@
   (def$ modal
     {:content "Hello Modal<br />This is a multiline message! Have fun",
      :title "Title"}))
+
+#_
+(defcontroller testbed-ctrl
+  [$scope $http]
+  (def$ selected-address "")
+  (defn$ get-address [view-value]
+    (def params {:sensor false, :address view-value})
+    (..
+     $http
+     (get
+      "http://maps.googleapis.com/maps/api/geocode/json"
+      {:params params})
+     (then (fn [res] (-> res :data :results))))))
 
 (defcontroller testbed-ctrl
   [$scope $filter ng-table-params $resource $timeout $http]
@@ -107,6 +120,15 @@
         {:ng-include "'edit-row.html'",
          :colspan "7"}]]]]
 
+    #_
+    [:input.form-control
+     {:bs-typeahead "",
+      :placeholder "Enter address",
+      :ng-options
+      "address.formatted_address as address.formatted_address for address in getAddress($viewValue)",
+      :data-animation "am-flip-x",
+      :ng-model "selectedAddress",
+      :type "text"}]
     #_
     [:form
      [:button.btn.btn-lg.btn-primary
