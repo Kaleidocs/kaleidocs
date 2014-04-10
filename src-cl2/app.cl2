@@ -22,6 +22,8 @@
   [$scope $filter ng-table-params $resource $timeout $http]
   (def API ($resource "/testbed"))
   (def$ filter-dict {})
+  (defn reload-table! []
+    (. ($- table-params) reload))
   (. $scope
      ($watch "filterDict"
              (fn []
