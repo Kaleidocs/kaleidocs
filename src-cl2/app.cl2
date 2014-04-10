@@ -31,9 +31,11 @@
              true))
 
   (def$ table-params
+    ;; https://github.com/esvit/ng-table/wiki/Configuring-your-table-with-ngTableParams#parameters
     (ngTableParams.
      {:count 10, :page 1 :filter ($- filter-dict)}
-     {:getData
+     {:counts [] ;; disable "items per page" toggler
+      :getData
       (fn [$defer params]
         (.get API
               (. params url)
