@@ -203,13 +203,12 @@
     [(keyword filter-key) filter-value]))
 
 (defroutes my-routes
-  (GET "/testbed" [page count & other-params]
+  (GET "/api/:entity-type" [entity-type page count & other-params]
        (let [[order-key order-value] (find-order-kv other-params)
              [filter-key filter-value] (find-filter-kv other-params)]
-         (timbre/info "Got a call @testbed" (pr-str other-params))
          (timbre/info
-          (format "page %s; count %s"
-                  page count))
+          (format "type: %s; page %s; count %s"
+                  entity-type page count))
          (timbre/info
           (format "order-key %s and order-value %s"
                   order-key order-value))
@@ -218,14 +217,13 @@
                   filter-key filter-value))
          (generate-string {:total (clojure.core/count testbed-data)
                            :result testbed-data})))
-  (POST "/testbed" [:as item]
+  (POST "/api/:entity-type" [entity-type :as item]
        (let []
-         (timbre/info "Got a post @testbed" (pr-str item))
+         (timbre/info "Got a post to" entity-type (pr-str item))
          {:status 200}))
-  (DELETE ["/testbed/:id" :id #"[0-9]+"] [id]
-          (timbre/info "Must delete this" id)
-          (when true ;; item exists
-            {:status 200}))
+  (DELETE ["/api/:entity-type/:id" :id #"[0-9]+"] [entity-type id]
+          (timbre/info "Must delete this" entity-type id)
+          {:status 200})
   (POST "/upload" [file]
         ;; if file exists, just overwrite with new one
         ;; else, inform clients about new template
