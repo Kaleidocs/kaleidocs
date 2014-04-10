@@ -25,9 +25,9 @@
   (. $scope
      ($watch "filterDict"
              (fn []
-               (if (and (-> $scope :filter-dict)
-                        (-> $scope :table-params))
-                 (.. (-> $scope :table-params) reload)))
+               (if (and ($- filter-dict)
+                        ($- table-params))
+                 (. ($- table-params) reload)))
              true))
 
   (def$ table-params
