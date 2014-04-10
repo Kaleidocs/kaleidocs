@@ -1,7 +1,7 @@
 [:form.form-horizontal
  [:input {:value "{{p.id}}", :name "id", :type "hidden"}]
  [:div.form-group
-  {:ng-repeat "key in ['fn', 'ln', 'em', 'dc', 'ph']"}
+  {:ng-repeat "key in itemKeys"}
   [:label.col-sm-2.control-label "{{key}}"]
   [:input.w100 {:ng-model "p[key]", :name "{{key}}", :type "text"}]]
  [:div.form-group

@@ -44,6 +44,7 @@
 
 (defcontroller testbed-ctrl
   [$scope $filter ng-table-params $resource $timeout $http]
+  (def$ item-keys ["fn" "ln" "em" "dc" "ph"])
   (def API ($resource "/testbed"))
   (def$ filter-dict {})
   (defn reload-table! []
@@ -101,11 +102,11 @@
          :ng-class
          "{'sort-asc': tableParams.isSortBy(key, 'asc'),
            'sort-desc': tableParams.isSortBy(key, 'desc')}",
-         :ng-repeat "key in ['id', 'fn', 'ln', 'em', 'dc', 'ph']"}
+         :ng-repeat "key in itemKeys"}
         "{{key}}"]]
       [:tr
        [:th.text-center.sortable
-        {:ng-repeat "key in ['id', 'fn', 'ln', 'em', 'dc', 'ph']"}
+        {:ng-repeat "key in itemKeys"}
         [:input.form-control
          {:ng-model "filterDict[key]",
           :type "text"}]]]]
@@ -116,7 +117,7 @@
        {:id "tr{{p.id}}"
         :ng-class-even "'even'", :ng-class-odd "'odd'"}
        [:td.rowTd
-        {:ng-repeat "key in ['id', 'fn', 'ln', 'em', 'dc', 'ph']"
+        {:ng-repeat "key in itemKeys"
          ;;:filter "{ 'fn': 'text' }",
          :sortable "key",
          :data-title "key"}
