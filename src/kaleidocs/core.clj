@@ -204,7 +204,7 @@
        (let []
          (timbre/info "Got a post @testbed" (pr-str item))
          {:status 200}))
-  (DELETE "/testbed/:id" [id]
+  (DELETE ["/testbed/:id" :id #"[0-9]+"] [id]
           (timbre/info "Must delete this" id)
           (when true ;; item exists
             {:status 200}))
