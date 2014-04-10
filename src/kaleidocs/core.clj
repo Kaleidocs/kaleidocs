@@ -9,7 +9,7 @@
             [taoensso.timbre :as timbre]
             [kaleidocs.convert :refer :all]
             [methojure.sockjs.core :refer :all]
-            [compojure.core :refer [GET POST defroutes]]
+            [compojure.core :refer [GET POST DELETE defroutes]]
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.json :refer [wrap-json-body]]
@@ -204,6 +204,10 @@
        (let []
          (timbre/info "Got a post @testbed" (pr-str item))
          {:status 200}))
+  (DELETE "/testbed/:id" [id]
+          (timbre/info "Must delete this" id)
+          (when true ;; item exists
+            {:status 200}))
   (POST "/upload" [file]
         ;; if file exists, just overwrite with new one
         ;; else, inform clients about new template
