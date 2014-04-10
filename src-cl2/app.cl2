@@ -32,7 +32,7 @@
 
   (def$ table-params
     (ngTableParams.
-     {:count 10, :page 1}
+     {:count 10, :page 1 :filter ($- filter-dict)}
      {:getData
       (fn [$defer params]
         (.get API
