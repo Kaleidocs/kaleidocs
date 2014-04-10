@@ -31,6 +31,17 @@
       {:params params})
      (then (fn [res] (-> res :data :results))))))
 
+(defcontroller create-testbed-ctrl
+  [$scope $http]
+  (defn reload-table! []
+    (def$ p {})
+    (. ($- table-params) reload))
+  (def$ p {})
+  (defn$ save-item [item]
+    (.. $http
+        (post "/testbed" item {"Content-Type" "application/json"})
+        (success reload-table!))))
+
 (defcontroller testbed-ctrl
   [$scope $filter ng-table-params $resource $timeout $http]
   (def API ($resource "/testbed"))
@@ -78,6 +89,8 @@
   {:controller 'testbed-ctrl
    :template
    (hiccup
+    [:div {:ng-include "'edit-row.html'"
+           :ng-controller "createTestbedCtrl"}]
     [:table.table
      {:show-filter "true", :ng-table "tableParams"}
      [:thead
