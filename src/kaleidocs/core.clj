@@ -200,6 +200,10 @@
                   page count order order-key))
          (generate-string {:total (clojure.core/count testbed-data)
                            :result testbed-data})))
+  (POST "/testbed" [:as item]
+       (let []
+         (timbre/info "Got a post @testbed" (pr-str item))
+         {:status 200}))
   (POST "/upload" [file]
         ;; if file exists, just overwrite with new one
         ;; else, inform clients about new template
