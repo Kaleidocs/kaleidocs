@@ -19,7 +19,7 @@
      :title "Title"}))
 
 (defcontroller testbed-ctrl
-  [$scope $filter ng-table-params $resource $timeout]
+  [$scope $filter ng-table-params $resource $timeout $http]
   (def API ($resource "/testbed"))
   (def$ filter-dict {})
   (. $scope
