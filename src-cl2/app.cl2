@@ -31,67 +31,77 @@
       {:params params})
      (then (fn [res] (-> res :data :results))))))
 
-(defcontroller create-testbed-ctrl
-  [$scope $http]
-  (defn reload-table! []
-    (def$ p {})
-    (. ($- table-params) reload))
-  (def$ p {})
-  (defn$ save-item [item]
-    (.. $http
-        (post "/testbed" item {"Content-Type" "application/json"})
-        (success reload-table!))))
+(defmacro deftabletype [entity-type fixed-fields & body]
+  (let [ctrl-name (symbol (format "%s-ctrl" (name entity-type)))
+        create-ctrl-name (symbol (format "create-%s-ctrl"
+                                         (name entity-type)))
+        query-url (str "/api/" entity-type)]
+    `(do (defcontroller ~create-ctrl-name
+           [$scope $http]
+           (defn reload-table! []
+             (def$ p {})
+             (. ($- table-params) reload))
+           (def$ p {})
+           (defn$ save-item [item]
+             (.. $http
+                 (post ~query-url
+                       item {"Content-Type" "application/json"})
+                 (success reload-table!))))
 
-(defcontroller testbed-ctrl
-  [$scope $filter ng-table-params $resource $timeout $http]
-  (def$ item-keys ["fn" "ln" "em" "dc" "ph"])
-  (def API ($resource "/testbed"))
-  (def$ filter-dict {})
-  (defn reload-table! []
-    (. ($- table-params) reload))
-  (. $scope
-     ($watch "filterDict"
-             (fn []
-               (if (and ($- filter-dict)
-                        ($- table-params))
-                 (reload-table!)))
-             true))
+         (defcontroller ~ctrl-name
+           [$scope $filter ng-table-params $resource $timeout $http]
+           (def$ item-keys ~fixed-fields)
+           (def API ($resource ~query-url))
+           (def$ filter-dict {})
+           (defn reload-table! []
+             (. ($- table-params) reload))
+           (. $scope
+              ($watch "filterDict"
+                      (fn []
+                        (if (and ($- filter-dict)
+                                 ($- table-params))
+                          (reload-table!)))
+                      true))
 
-  (def$ table-params
-    ;; https://github.com/esvit/ng-table/wiki/Configuring-your-table-with-ngTableParams#parameters
-    (ngTableParams.
-     {:count 10, :page 1 :filter ($- filter-dict)}
-     {:counts [] ;; disable "items per page" toggler
-      :getData
-      (fn [$defer params]
-        (.get API
-              (. params url)
-              (fn [data]
-                ($timeout
-                 (fn []
-                   (. params (total (:total data)))
-                   (. $defer (resolve (:result data))))
-                 500))))}))
-  (def$ edit-id -1)
-  (defn$ set-edit-id
-    [pid]
-    (def$ edit-id pid))
-  (defn$ save-item [item]
-    (.. $http
-        (post "/testbed" item {"Content-Type" "application/json"})
-        (success reload-table!)))
-  (defn$ delete-item [id]
-    (alert (str "/testbed/" id))
-    (. ($http {:method "DELETE" :url (str "/testbed/" id)})
-       (success reload-table!))))
+           (def$ table-params
+             ;; https://github.com/esvit/ng-table/wiki/Configuring-your-table-with-ngTableParams#parameters
+             (ngTableParams.
+              {:count 10, :page 1 :filter ($- filter-dict)}
+              {:counts [] ;; disable "items per page" toggler
+               :getData
+               (fn [$defer params]
+                 (.get API
+                       (. params url)
+                       (fn [data]
+                         ($timeout
+                          (fn []
+                            (. params (total (:total data)))
+                            (. $defer (resolve (:result data))))
+                          500))))}))
+           (def$ edit-id -1)
+           (defn$ set-edit-id
+             [pid]
+             (def$ edit-id pid))
+           (defn$ save-item [item]
+             (.. $http
+                 (post ~query-url
+                       item {"Content-Type" "application/json"})
+                 (success reload-table!)))
+           (defn$ delete-item [id]
+             (. ($http {:method "DELETE" :url (str ~query-url "/" id)})
+                (success reload-table!))))
+         ~@body)))
+
+(deftabletype person ["fn" "ln" "em" "dc" "ph"]
+  (console.log "Welcome to peron's hell"))
 
 (defroute
-  "/testbed"
-  {:controller 'testbed-ctrl
+  "/person"
+  {:controller 'person-ctrl
    :template
    (hiccup
     [:div {:ng-include "'edit-row.html'"
-           :ng-controller "createTestbedCtrl"}]
+           :ng-controller "createPersonCtrl"}]
     [:div {:ng-include "'table.html'"}]
     #_
     [:input.form-control
