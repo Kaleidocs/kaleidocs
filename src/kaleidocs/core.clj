@@ -191,13 +191,12 @@
     [(keyword order-key) order]))
 
 (defroutes my-routes
-  (GET "/testbed" [page count & others]
-       (let [order-by (some find-sort-key (keys others))
-             order (get others (format "sorting[%s]" order-by))]
-         (timbre/info "Got a call @testbed")
+  (GET "/testbed" [page count & other-params]
+       (let [[order-key order] (find-order-keys other-params)]
+         (timbre/info "Got a call @testbed" (pr-str other-params))
          (timbre/info
-          (format "page %s; count %s; order %s; order-by %s"
-                  page count order order-by))
+          (format "page %s; count %s; order %s and order-by %s"
+                  page count order order-key))
          (generate-string {:total (clojure.core/count testbed-data)
                            :result testbed-data})))
   (POST "/upload" [file]
