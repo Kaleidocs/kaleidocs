@@ -29,7 +29,7 @@
              (fn []
                (if (and ($- filter-dict)
                         ($- table-params))
-                 (. ($- table-params) reload)))
+                 (reload-table!)))
              true))
 
   (def$ table-params
@@ -54,8 +54,11 @@
   (defn$ save-item [item]
     (.. $http
         (post "/testbed" item {"Content-Type" "application/json"})
-        (success (fn []
-                   (. ($- table-params) reload))))))
+        (success reload-table!)))
+  (defn$ delete-item [id]
+    (alert (str "/testbed/" id))
+    (. ($http {:method "DELETE" :url (str "/testbed/" id)})
+       (success reload-table!))))
 
 (defroute
   "/testbed"
