@@ -180,6 +180,16 @@
   [s]
   (second (re-find #"sorting\[([a-zA-Z]+)\]" s)))
 
+(defn find-order-keys
+  [params]
+  (let [order-key (some find-sort-key (keys params))
+        order (when order-key
+                (case (get params (format "sorting[%s]" order-key))
+                  "asc" :ASC
+                  "desc" :DESC
+                  nil))]
+    [(keyword order-key) order]))
+
 (defroutes my-routes
   (GET "/testbed" [page count & others]
        (let [order-by (some find-sort-key (keys others))
