@@ -98,7 +98,9 @@
        [:td.rowTd
         [:input
          {:ng-click "setEditId(p.id)", :value "edit", :type "button"
-          :id "editRowBtn{{p.id}}"}]]]
+          :id "editRowBtn{{p.id}}"}]
+        [:input
+         {:ng-click "deleteItem(p.id)", :value "delete", :type "button"}]]]
       [:tr
        {:ng-if "editId===p.id", :ng-show "editId===p.id"}
        [:td
