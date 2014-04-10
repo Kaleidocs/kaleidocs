@@ -48,7 +48,12 @@
   (def$ edit-id -1)
   (defn$ set-edit-id
     [pid]
-    (def$ edit-id pid)))
+    (def$ edit-id pid))
+  (defn$ save-item [item]
+    (.. $http
+        (post "/testbed" item {"Content-Type" "application/json"})
+        (success (fn []
+                   (. ($- table-params) reload))))))
 
 (defroute
   "/testbed"
