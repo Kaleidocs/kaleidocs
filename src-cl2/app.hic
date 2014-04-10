@@ -10,6 +10,8 @@
           :href "vendor/bootstrap/dist/css/bootstrap.min.css"}]
   [:link {:rel "stylesheet"
           :href "vendor/ng-table/ng-table.css"}]
+  [:link {:rel "stylesheet"
+          :href "app.css"}]
   [:link
    {:href
     "http://fonts.googleapis.com/css?family=Arimo|Open+Sans+Condensed:300|Noto+Serif:700italic&subset=latin"
