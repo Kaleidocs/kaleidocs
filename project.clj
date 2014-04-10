@@ -8,6 +8,7 @@
                  [lib-noir "0.7.8"]
                  [com.taoensso/timbre "2.7.1"]
                  [ring/ring-devel "1.1.8"]
+                 [ring/ring-json "0.3.0"]
                  [kaleidocs/meld "0.4.0"]
                  [lobos "1.0.0-beta1"]
                  [korma "0.3.0-RC5"]

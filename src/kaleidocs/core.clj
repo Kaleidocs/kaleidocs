@@ -12,6 +12,7 @@
             [compojure.core :refer [GET POST defroutes]]
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.reload :refer [wrap-reload]]
+            [ring.middleware.json :refer [wrap-json-body]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]])
@@ -234,6 +235,7 @@
   (-> my-routes
       (wrap-resource "public")
       wrap-params
+      wrap-json-body
       wrap-multipart-params))
 
 (defn -main [& args]
