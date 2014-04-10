@@ -7,7 +7,7 @@
  [:div.form-group
   [:div.col-sm-offset-2.col-sm-10
    [:input.btn.btn-default
-    {:onclick "alert('Save :)')",
+    {:ng-click "saveItem(p); setEditId(-1)",
      :value " save ",
      :type "button"}]
    [:input.btn.btn-default
