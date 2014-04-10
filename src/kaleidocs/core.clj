@@ -191,6 +191,16 @@
                         nil))]
     [(keyword order-key) order-value]))
 
+(defn find-filter-key
+  [s]
+  (second (re-find #"filter\[([a-zA-Z]+)\]" s)))
+
+(defn find-filter-kv
+  [params]
+  (let [filter-key (some find-filter-key (keys params))
+        filter-value (when filter-key
+                       (get params (format "filter[%s]" filter-key)))]
+    [(keyword filter-key) filter-value]))
 
 (defroutes my-routes
   (GET "/testbed" [page count & other-params]
@@ -203,6 +213,9 @@
          (timbre/info
           (format "order-key %s and order-value %s"
                   order-key order-value))
+         (timbre/info
+          (format "filter-key %s and filter-value %s"
+                  filter-key filter-value))
          (generate-string {:total (clojure.core/count testbed-data)
                            :result testbed-data})))
   (POST "/testbed" [:as item]
