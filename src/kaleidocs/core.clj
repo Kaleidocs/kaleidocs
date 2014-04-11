@@ -204,6 +204,10 @@
             (get params (format "filter[%s]" k))])
          filter-keys)))
 
+(defn parse-int-or [s default]
+  (try (Integer/parseInt s)
+       (catch Throwable e default)))
+
 (defroutes my-routes
   (GET "/api/:entity-type" [entity-type page count & other-params]
        (let [[order-key order-value] (find-order-kv other-params)
