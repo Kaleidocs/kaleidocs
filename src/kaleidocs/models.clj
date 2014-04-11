@@ -57,6 +57,12 @@
   (insert (name->entity entity-type)
           (values data)))
 
+(defn update-entity
+  [entity-type id data]
+  (update (name->entity entity-type)
+          (set-fields data)
+          (where {:id [= id]})))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
