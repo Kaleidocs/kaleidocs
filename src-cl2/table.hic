@@ -1,4 +1,3 @@
-[:h3 "life rocks"]
 [:table.table
  {:show-filter "true", :ng-table "tableParams"}
  [:thead
