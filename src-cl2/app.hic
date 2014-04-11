@@ -20,15 +20,14 @@
    "document.write('<base href=\"' + document.location + '\" />')"]
   [:script {:src "vendor/sockjs/sockjs.min.js"}]
   [:script {:src "vendor/angular/angular.js"}]
+  [:script {:src "vendor/angular-sanitize/angular-sanitize.min.js"}]
+  [:script {:src "vendor/angular-animate/angular-animate.min.js"}]
   [:script {:src "vendor/angular-i18n/angular-locale_vi-vn.js"}]
   [:script {:src "vendor/angular-route/angular-route.js"}]
   [:script {:src "vendor/angular-resource/angular-resource.js"}]
   [:script {:src "vendor/ng-table/ng-table.js"}]
-  [:script {:src "vendor/angular-strap/dist/angular-strap.min.js"}]
-  [:script {:src "vendor/angular-strap/dist/angular-strap.tpl.min.js"}]
+  [:script {:src "vendor/angular-bootstrap/ui-bootstrap-tpls.js"}]
   [:script {:src "vendor/ng-file-upload/angular-file-upload.min.js"}]
-  [:script {:src "vendor/angular-sanitize/angular-sanitize.min.js"}]
-  [:script {:src "vendor/angular-animate/angular-animate.min.js"}]
   [:script {:src "app.js"}]]
  [:body
   [:div.container

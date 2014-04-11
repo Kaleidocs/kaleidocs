@@ -43,7 +43,7 @@
             [lein-npm "0.4.0"]]
   :bower {:directory "resources/public/vendor"}
   :bower-dependencies [[sockjs "~0.3.4"]
-                       [angular-strap "~2.0.0"]
+                       [angular-bootstrap "0.10.0"]
                        [ng-table "~0.3.1"]
                        [angular-route "~1.2.16"]
                        [angular-resource "~1.2.16"]
