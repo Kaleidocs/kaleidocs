@@ -211,18 +211,23 @@
 (defroutes my-routes
   (GET "/api/:entity-type" [entity-type page count & other-params]
        (let [[order-key order-value] (find-order-kv other-params)
-             filter-kvs (find-filter-kvs other-params)]
-         (timbre/info
-          (format "type: %s; page %s; count %s"
-                  entity-type page count))
-         (timbre/info
-          (format "order-key %s and order-value %s"
-                  order-key order-value))
-         (timbre/info
-          (format "filter-kvs %s"
-                  (pr-str filter-kvs)))
-         (generate-string {:total (clojure.core/count testbed-data)
-                           :result testbed-data})))
+             filter-kvs (find-filter-kvs other-params)
+             page (parse-int-or page 1)
+             count (parse-int-or count 10)]
+         (do (timbre/info
+              (format "type: %s; page %s; count %s"
+                      entity-type page count))
+             (timbre/info
+              (format "order-key %s and order-value %s"
+                      order-key order-value))
+             (timbre/info
+              (format "filter-kvs %s"
+                      (pr-str filter-kvs))))
+         (generate-string
+          (fetch-entities
+           entity-type page count
+           order-key order-value
+           filter-kvs))))
   (POST "/api/:entity-type" [entity-type :as item]
        (let []
          (timbre/info "Got a post to" entity-type (pr-str item))
