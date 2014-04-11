@@ -32,7 +32,8 @@
       {:params (create-query-params filter-key filter-value)})
      (then (fn [res] (-> res :data :result))))))
 
-(defmacro deftabletype [entity-type fixed-fields & body]
+(defmacro deftabletype
+  [entity-type fixed-fields foreign-fields & body]
   (let [ctrl-name (symbol (format "%s-ctrl" (name entity-type)))
         create-ctrl-name (symbol (format "create-%s-ctrl"
                                          (name entity-type)))
@@ -52,6 +53,7 @@
          (defcontroller ~ctrl-name
            [$scope $filter ng-table-params $resource $timeout $http]
            (def$ item-keys ~fixed-fields)
+           (def$ foreign-keys ~foreign-fields)
            (def API ($resource ~query-url))
            (def$ filter-dict {})
            (defn reload-table! []
