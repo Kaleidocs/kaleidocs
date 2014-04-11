@@ -259,7 +259,7 @@
   (-> my-routes
       (wrap-resource "public")
       wrap-params
-      wrap-json-body
+      (wrap-json-body {:keywords? true :bigdecimals? true})
       wrap-multipart-params))
 
 (defn -main [& args]
