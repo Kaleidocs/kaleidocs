@@ -47,6 +47,11 @@
     (zipmap (map name entity-types)
             (map eval entity-types))))
 
+(defn delete-entity
+  [entity-type id]
+  (delete (name->entity entity-type)
+          (where {:id [= id]})))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
