@@ -12,18 +12,23 @@
     {:content "Hello Modal<br />This is a multiline message! Have fun",
      :title "Title"}))
 
-#_
-(defcontroller testbed-ctrl
+(defcontroller query-ctrl
   [$scope $http]
-  (def$ selected-address "")
-  (defn$ get-address [view-value]
-    (def params {:sensor false, :address view-value})
+  (defn$ find-entity [entity-type filter-key filter-value]
+    (def params {:page 0 :count 6})
+    (let [filter-key-string (str "filter[" filter-key "]")
+          sort-key-string (str "sorting[" filter-key "]")]
+      (set! (get params filter-key-string)
+            filter-value)
+      (set! (get params sort-key-string)
+            "asc")
+      nil)
     (..
      $http
      (get
-      "http://maps.googleapis.com/maps/api/geocode/json"
+      (str "/api/" entity-type)
       {:params params})
-     (then (fn [res] (-> res :data :results))))))
+     (then (fn [res] (-> res :data :result))))))
 
 (defmacro deftabletype [entity-type fixed-fields & body]
   (let [ctrl-name (symbol (format "%s-ctrl" (name entity-type)))
@@ -90,6 +95,14 @@
   (console.log "Welcome to peron's hell"))
 
 (defroute
+  "/query"
+  {:controller 'query-ctrl
+   :template
+   (hiccup
+    [:input.form-control
+     {:type "text" :ng-model "queriedEntityId"
+      :typeahead "p.id as p.fn for p in
+  findEntity('demon', 'fn', $viewValue)"}])}
   "/person"
   {:controller 'person-ctrl
    :template
@@ -97,15 +110,6 @@
     [:div {:ng-include "'edit-row.html'"
            :ng-controller "createPersonCtrl"}]
     [:div {:ng-include "'table.html'"}]
-    #_
-    [:input.form-control
-     {:bs-typeahead "",
-      :placeholder "Enter address",
-      :ng-options
-      "address.formatted_address as address.formatted_address for address in getAddress($viewValue)",
-      :data-animation "am-flip-x",
-      :ng-model "selectedAddress",
-      :type "text"}]
     #_
     [:form
      [:button.btn.btn-lg.btn-primary
