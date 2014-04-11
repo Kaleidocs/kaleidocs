@@ -1,6 +1,7 @@
 (ns kaleidocs.models
-  (:use korma.db
-        korma.core))
+  (:require [korma.db :refer :all]
+            [korma.core :refer :all]
+            [cheshire.core :refer [generate-string parse-string]]))
 
 ;;; Defines the database for lobos migrations
 (def db-spec
