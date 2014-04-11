@@ -8,23 +8,47 @@
                schema)
         [kaleidocs.models :only [db-spec]]))
 
-(defmigration add-authors-table
+(defmigration add-document-table
   ;; code be executed when migrating the schema "up" using "migrate"
   (up [] (create db-spec
-           (table :authors (integer :id :primary-key :auto-inc)
-             (varchar :username 100 :unique )
-             (varchar :password 100 :not-null )
-             (varchar :email 255))))
-  ;; Code to be executed when migrating schema "down" using "rollback"
-  (down [] (drop (table :authors ))))
+                 (table :document
+                        (integer :id :primary-key :auto-inc)
+                        (varchar :filename 100 :unique)
+                        (varchar :fields 100))))
+  (down [] (drop (table :document ))))
 
-(defmigration add-posts-table
+(defmigration add-docgroup-table
   (up [] (create db-spec
-           (table :posts (integer :id :primary-key :auto-inc)
-             (varchar :title 250)
-             (text :content )
-             ;;(boolean :status (default false))
-             ;;(timestamp :created (default (now)))
-             ;;(timestamp :published )
-             (integer :authors_id [:refer :authors :id] :not-null))))
-  (down [] (drop (table :posts ))))
+                 (table :docgroup
+                        (integer :id :primary-key :auto-inc)
+                        (varchar :name 100 :unique)
+                        (varchar :documents 100))))
+  (down [] (drop (table :docgroup))))
+
+(defmigration add-profile-table
+  (up [] (create db-spec
+                 (table :profile
+                        (integer :id :primary-key :auto-inc)
+                        (varchar :data 255))))
+  (down [] (drop (table :profile))))
+
+(defmigration add-contract-table
+  (up [] (create db-spec
+                 (table :contract
+                        (integer :id :primary-key :auto-inc)
+                        (varchar :records 255)
+                        (varchar :date 100)
+                        (varchar :sum 100))))
+  (down [] (drop (table :contract))))
+
+(defmigration add-record-table
+  (up [] (create db-spec
+                 (table :record
+                        (integer :id :primary-key :auto-inc)
+                        (varchar :data 255)
+                        (varchar :date 100)
+
+                        (integer :docgroup [:refer :docgroup :id])
+                        (integer :profile [:refer :profile :id])
+                        (integer :contract [:refer :contract :id]))))
+  (down [] (drop (table :record))))
