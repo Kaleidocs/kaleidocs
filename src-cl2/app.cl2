@@ -12,6 +12,16 @@
     {:content "Hello Modal<br />This is a multiline message! Have fun",
      :title "Title"}))
 
+(defn create-query-params [filter-key filter-value]
+  (def params {:page 0 :count 6})
+  (let [filter-key-string (str "filter[" filter-key "]")
+        sort-key-string (str "sorting[" filter-key "]")]
+    (set! (get params filter-key-string)
+          filter-value)
+    (set! (get params sort-key-string)
+          "asc")
+    params))
+
 (defcontroller query-ctrl
   [$scope $http]
   (defn$ find-entity [entity-type filter-key filter-value]
