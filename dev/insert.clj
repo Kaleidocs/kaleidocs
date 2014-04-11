@@ -1,6 +1,7 @@
 (ns insert
-  (:use [kaleidocs.models]
-        [korma.core]))
+  (:require [kaleidocs.models :refer :all]
+            [korma.core :refer :all]
+            [cheshire.core :refer [generate-string parse-string]]))
 
 (defn insert-all []
   (insert
