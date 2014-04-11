@@ -26,3 +26,16 @@
       (assoc v :data (generate-string data)))))
 
 
+(defentity document)
+(defentity docgroup)
+(defentity profile
+  (transform transform-data)
+  (prepare (prepare-data :data :id)))
+(defentity contract)
+(defentity record
+  (transform transform-data)
+  (prepare (prepare-data
+            :data :date :template :profile :contract :id :docgroup))
+  (has-one docgroup)
+  (has-one profile)
+  (belongs-to contract))
