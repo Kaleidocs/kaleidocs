@@ -5,13 +5,6 @@
 (defapp my-app [ng-route angular-file-upload ui.bootstrap
                 ng-table ng-resource ng-sanitize ng-animate])
 
-#_
-(defcontroller testbed-ctrl
-  [$scope]
-  (def$ modal
-    {:content "Hello Modal<br />This is a multiline message! Have fun",
-     :title "Title"}))
-
 (defn create-query-params [filter-key filter-value]
   (def params {:page 0 :count 6})
   (let [filter-key-string (str "filter[" filter-key "]")
@@ -104,29 +97,11 @@
   (console.log "Welcome to peron's hell"))
 
 (defroute
-  "/query"
-  {:controller 'query-ctrl
-   :template
-   (hiccup
-    [:input.form-control
-     {:type "text" :ng-model "queriedEntityId"
-      :typeahead "p.id as p.fn for p in
-  findEntity('demon', 'fn', $viewValue)"}])}
   "/person"
   {:controller 'person-ctrl
    :template
    (hiccup
     [:div {:ng-include "'edit-row.html'"
            :ng-controller "createPersonCtrl"}]
-    [:div {:ng-include "'table.html'"}]
-    #_
-    [:form
-     [:button.btn.btn-lg.btn-primary
-      {:bs-modal "modal",
-       :data-placement "center",
-       :data-animation "am-fade-and-scale",
-       :type "button"}
-      "Click to toggle modal\n  "
-      [:br]
-      [:small "(using an object)"]]])}
+    [:div {:ng-include "'table.html'"}])}
   :default "/testbed")
