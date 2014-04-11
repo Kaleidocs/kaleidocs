@@ -47,3 +47,27 @@
     (zipmap (map name entity-types)
             (map eval entity-types))))
 
+(defn fetch-entities
+  [entity-type page items-per-page
+   order-key order-value
+   filter-kvs]
+  (let [where-clauses
+        (when (seq filter-kvs)
+          (map (fn [[k v]]
+                 `(where* (pred-like ~k ~(str "%" v "%"))))
+               filter-kvs))
+        order-clauses
+        (when order-key
+          [`(order ~order-key ~order-value)])
+        base
+        (eval `(-> ~(name->entity entity-type)
+                   select*
+                   ~@where-clauses))]
+    {:total (-> base
+                (aggregate (count :*) :total)
+                select first :total)
+     :result (eval `(-> ~base
+                        ~@order-clauses
+                        (limit ~items-per-page)
+                        (offset ~(* items-per-page (dec page)))
+                        select))}))
