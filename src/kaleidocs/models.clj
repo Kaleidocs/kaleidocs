@@ -25,7 +25,4 @@
           v (apply dissoc v (keys data))]
       (assoc v :data (generate-string data)))))
 
-(defentity posts)
 
-(defentity authors
-  (has-many posts :author))
