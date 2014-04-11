@@ -45,13 +45,9 @@
      [:a.navbar-brand {:href "/"} "Kaleidocs"]]
     [:div.navbar-collapse.collapse
      [:ul.nav.navbar-nav
-      [:li [:a {:href "#/config"} "Config"]]
-      [:li [:a {:href "#/templates"} "Templates"]]
-      [:li [:a {:href "#/profiles"} "Profiles"]]
-      [:li [:a {:href "#/records"} "Records"]]
-      [:li [:a {:href "#/contracts"} "Contracts"]]
-      ]
-     ]]
+      [:li {:ng-repeat "entity in
+['document', 'docgroup', 'profile', 'record', 'contract']"}
+       [:a {:href "#/{{entity}}"} "{{entity}}"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
      [:ng-view]]]]]]
