@@ -52,6 +52,11 @@
   (delete (name->entity entity-type)
           (where {:id [= id]})))
 
+(defn add-entity
+  [entity-type data]
+  (insert (name->entity entity-type)
+          (values data)))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
