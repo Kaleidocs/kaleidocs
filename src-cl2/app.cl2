@@ -96,12 +96,27 @@
     :foreign-key "ln"}]
   (console.log "Welcome to peron's hell"))
 
-(defroute
-  "/person"
-  {:controller 'person-ctrl
+(defmacro with-tabletypes-routes
+  [tabletype-symbols & other-routes]
+  (let [tabletype-routes
+        (mapcat
+         #(let [type-name (name %)]
+            [(str "/" type-name)
+             {:controller (format "%sCtrl" type-name)
+              :template
+              `(hiccup
+                [:div {:ng-include "'edit-row.html'"
+                       :ng-controller
+                       ~(format "create%sCtrl"
+                               (clojure.string/capitalize type-name))}]
+                [:div {:ng-include "'table.html'"}])}])
+         tabletype-symbols)]
+    `(defroute
+       ~@tabletype-routes
+       ~@other-routes)))
+
+(with-tabletypes-routes [person demon]
+  "/testbed"
+  {:controller 'query-ctrl
    :template
-   (hiccup
-    [:div {:ng-include "'edit-row.html'"
-           :ng-controller "createPersonCtrl"}]
-    [:div {:ng-include "'table.html'"}])}
-  :default "/testbed")
+   (hiccup [:h3 "hue hue"])})
