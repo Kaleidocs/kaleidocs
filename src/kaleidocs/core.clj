@@ -195,17 +195,18 @@
   [s]
   (second (re-find #"filter\[([a-zA-Z]+)\]" s)))
 
-(defn find-filter-kv
+(defn find-filter-kvs
   [params]
-  (let [filter-key (some find-filter-key (keys params))
-        filter-value (when filter-key
-                       (get params (format "filter[%s]" filter-key)))]
-    [(keyword filter-key) filter-value]))
+  (let [filter-keys (remove nil? (map find-filter-key (keys params)))]
+    (map (fn [k]
+           [(keyword k)
+            (get params (format "filter[%s]" k))])
+         filter-keys)))
 
 (defroutes my-routes
   (GET "/api/:entity-type" [entity-type page count & other-params]
        (let [[order-key order-value] (find-order-kv other-params)
-             [filter-key filter-value] (find-filter-kv other-params)]
+             filter-kvs (find-filter-kvs other-params)]
          (timbre/info
           (format "type: %s; page %s; count %s"
                   entity-type page count))
@@ -213,8 +214,8 @@
           (format "order-key %s and order-value %s"
                   order-key order-value))
          (timbre/info
-          (format "filter-key %s and filter-value %s"
-                  filter-key filter-value))
+          (format "filter-kvs %s"
+                  (pr-str filter-kvs)))
          (generate-string {:total (clojure.core/count testbed-data)
                            :result testbed-data})))
   (POST "/api/:entity-type" [entity-type :as item]
