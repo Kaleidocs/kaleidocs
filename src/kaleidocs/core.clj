@@ -234,6 +234,7 @@
          {:status 200}))
   (DELETE ["/api/:entity-type/:id" :id #"[0-9]+"] [entity-type id]
           (timbre/info "Must delete this" entity-type id)
+          (delete-entity entity-type id)
           {:status 200})
   (POST "/upload" [file]
         ;; if file exists, just overwrite with new one
