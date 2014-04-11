@@ -41,3 +41,9 @@
   (has-one docgroup)
   (has-one profile)
   (belongs-to contract))
+
+(def name->entity
+  (let [entity-types '[document docgroup profile contract record]]
+    (zipmap (map name entity-types)
+            (map eval entity-types))))
+
