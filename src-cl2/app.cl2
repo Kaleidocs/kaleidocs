@@ -25,19 +25,11 @@
 (defcontroller query-ctrl
   [$scope $http]
   (defn$ find-entity [entity-type filter-key filter-value]
-    (def params {:page 0 :count 6})
-    (let [filter-key-string (str "filter[" filter-key "]")
-          sort-key-string (str "sorting[" filter-key "]")]
-      (set! (get params filter-key-string)
-            filter-value)
-      (set! (get params sort-key-string)
-            "asc")
-      nil)
     (..
      $http
      (get
       (str "/api/" entity-type)
-      {:params params})
+      {:params (create-query-params filter-key filter-value)})
      (then (fn [res] (-> res :data :result))))))
 
 (defmacro deftabletype [entity-type fixed-fields & body]
