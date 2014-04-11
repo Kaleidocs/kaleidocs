@@ -228,10 +228,13 @@
            entity-type page count
            order-key order-value
            filter-kvs))))
-  (POST "/api/:entity-type" [entity-type :as item]
-       (let []
-         (timbre/info "Got a post to" entity-type (pr-str item))
-         {:status 200}))
+  (POST "/api/:entity-type" [entity-type :as {data :body}]
+        (let []
+          (timbre/info "Got a post to" entity-type (pr-str data))
+          (if (integer? (:id data))
+            (update-entity entity-type (:id data) data)
+            (add-entity entity-type data))
+          {:status 200}))
   (DELETE ["/api/:entity-type/:id" :id #"[0-9]+"] [entity-type id]
           (timbre/info "Must delete this" entity-type id)
           (delete-entity entity-type id)
