@@ -9,6 +9,14 @@
    :subname     "./lobos"})
 
 (defdb clogdb db-spec)
+(defn transform-data
+  "Get v by query SQL. Transform it before sending out"
+  [{data :data :as v}]
+  (let [v (dissoc v :data)]
+    (if (seq data)
+      (merge v (parse-string data true))
+      v)))
+
 
 (defentity posts)
 
