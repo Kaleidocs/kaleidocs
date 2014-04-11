@@ -96,6 +96,34 @@
     :foreign-key "ln"}]
   (console.log "Welcome to peron's hell"))
 
+(deftabletype document
+  [:filename :fields]
+  []
+  )
+
+(deftabletype docgroup
+  [:name :documents]
+  []
+  )
+
+(deftabletype profile
+  [:company :bank :account :city]
+  []
+  )
+
+(deftabletype contract
+  [:records :date :sum]
+  []
+  )
+
+(deftabletype record
+  [:date :contract]
+  [{:foreign-type "docgroup"
+    :foreign-key "name"}
+   {:foreign-type "profile"
+    :foreign-key "company"}]
+  )
+
 (defmacro with-tabletypes-routes
   [tabletype-symbols & other-routes]
   (let [tabletype-routes
@@ -115,7 +143,8 @@
        ~@tabletype-routes
        ~@other-routes)))
 
-(with-tabletypes-routes [person demon]
+(with-tabletypes-routes
+  [document docgroup profile contract record]
   "/testbed"
   {:controller 'query-ctrl
    :template
