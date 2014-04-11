@@ -17,6 +17,13 @@
       (merge v (parse-string data true))
       v)))
 
+(defn prepare-data [& skipped-fields]
+  (fn [{data :data :as v}]
+    (let [data
+          (apply dissoc v
+                 skipped-fields)
+          v (apply dissoc v (keys data))]
+      (assoc v :data (generate-string data)))))
 
 (defentity posts)
 
