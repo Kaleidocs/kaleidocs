@@ -2,15 +2,9 @@
 (load-file "socket-cl2/src/client.cl2")
 (load-file "atom-crud/src/core.cl2")
 
-(defapp my-app [ng-route angular-file-upload mgcrea.ng-strap
+(defapp my-app [ng-route angular-file-upload ui.bootstrap
                 ng-table ng-resource ng-sanitize ng-animate])
 
-(.config my-app
- (fn-di
-  [$modal-provider]
-  ;; some problem with html unsafe
-  ;; https://github.com/mgcrea/angular-strap/issues/369
-  (. angular (extend (-> $modalProvider :defaults) {:html false}))))
 #_
 (defcontroller testbed-ctrl
   [$scope]
