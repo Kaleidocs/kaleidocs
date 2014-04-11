@@ -3,6 +3,7 @@
             [clojure.java.browse :refer [browse-url]]
             [noir.io :as io]
             [kaleidocs.merge :refer [merge-doc]]
+            [kaleidocs.models :refer :all]
             [noir.response :as response]
             [cheshire.core :refer [generate-string parse-string]]
             [clojure.string :as str]
