@@ -89,27 +89,27 @@
          ~@body)))
 
 (deftabletype document
-  [:filename :fields]
+  [:id :filename :fields]
   []
   )
 
 (deftabletype docgroup
-  [:name :documents]
+  [:id :name :documents]
   []
   )
 
 (deftabletype profile
-  [:company :bank :account :city]
+  [:id :company :bank :account :city]
   []
   )
 
 (deftabletype contract
-  [:records :date :sum]
+  [:id :records :date :sum]
   []
   )
 
 (deftabletype record
-  [:money :remarks :date :contract]
+  [:id :money :remarks :date]
   [{:foreign-type "docgroup"
     :foreign-key "name"}
    {:foreign-type "profile"
