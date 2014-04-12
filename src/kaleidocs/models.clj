@@ -42,6 +42,14 @@
   (belongs-to docgroup)
   (belongs-to profile))
 
+(defn fetch-expanded-records [ids]
+  (select expanded-record
+          (where {:id [in ids]})
+          (with docgroup
+                (fields :documents))
+          (with profile
+                (fields :company :bank :account :city))))
+
 (def name->entity
   (let [entity-types '[document docgroup profile contract record]]
     (zipmap (map name entity-types)
