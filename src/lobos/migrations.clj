@@ -29,7 +29,7 @@
   (up [] (create db-spec
                  (table :profile
                         (integer :id :primary-key :auto-inc)
-                        (varchar :company 100)
+                        (varchar :company 100 :unique)
                         (varchar :bank 100)
                         (varchar :account 100)
                         (varchar :city 100))))
