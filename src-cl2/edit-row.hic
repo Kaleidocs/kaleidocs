@@ -15,7 +15,7 @@
   [:label.col-sm-2.control-label "{{key}}"]
   [:input.w100
    {:name "{{key}}",
-    :type "text"
+    :type "{{key | fieldType }}"
     :ng-model "p[key]",}]]
  [:div.form-group
   [:div.col-sm-offset-2.col-sm-10
