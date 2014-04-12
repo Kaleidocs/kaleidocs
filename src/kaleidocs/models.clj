@@ -58,6 +58,15 @@
           (set-fields data)
           (where {:id [= id]})))
 
+(defn query-records-by-ids [ids]
+  (let [base (-> record
+                 select*
+                 (where {:id [in ids]}))]
+    {:sum (-> base
+              (aggregate (sum :money) :total)
+              select first :total)
+     :result (-> base select)}))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
