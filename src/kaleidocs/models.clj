@@ -2,6 +2,7 @@
   (:require [korma.db :refer :all]
             [korma.core :refer :all]
             [korma.sql.fns :refer :all]
+            [ring.util.codec :refer [url-decode]]
             [cheshire.core :refer [generate-string parse-string]]))
 
 ;;; Defines the database for lobos migrations
@@ -87,7 +88,7 @@
   (let [where-clauses
         (when (seq filter-kvs)
           (map (fn [[k v]]
-                 `(where* (pred-like ~k ~(str "%" v "%"))))
+                 `(where* (pred-like ~k ~(str "%" (url-decode v) "%"))))
                filter-kvs))
         order-clauses
         (when order-key
