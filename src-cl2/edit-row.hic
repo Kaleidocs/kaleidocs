@@ -21,7 +21,7 @@
   [:div.col-sm-offset-2.col-sm-10
    [:input.btn.btn-default
     {:ng-click "saveItem(p); setEditId(-1)",
-     :value " save ",
+     :value "{{p.id ? 'save': 'add'}}",
      :type "button"}]
    [:input.btn.btn-default
     {:ng-click "setEditId(-1)",
