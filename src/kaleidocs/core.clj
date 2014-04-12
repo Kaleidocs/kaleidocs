@@ -208,6 +208,12 @@
   (try (Integer/parseInt s)
        (catch Throwable e default)))
 
+(defn to-list [s]
+  (->> #","
+       (clojure.string/split s)
+       (map parse-int-or )
+       (remove nil?)))
+
 (defroutes my-routes
   (GET "/api/:entity-type" [entity-type page count & other-params]
        (let [[order-key order-value] (find-order-kv other-params)
