@@ -117,7 +117,7 @@
   )
 
 (deftabletype record
-  [:date :contract]
+  [:money :remarks :date :contract]
   [{:foreign-type "docgroup"
     :foreign-key "name"}
    {:foreign-type "profile"
@@ -152,6 +152,6 @@
 
 (deffilter field-type []
   [field-name]
-  (if (contains? #{:sum :money :date} field-name)
+  (if (contains? #{:sum :money} field-name)
     "number"
     "text"))
