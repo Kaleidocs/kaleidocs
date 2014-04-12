@@ -30,17 +30,12 @@
 
 (defentity document)
 (defentity docgroup)
-(defentity profile
-  (transform transform-data)
-  (prepare (prepare-data :data :id)))
+(defentity profile)
 (defentity contract)
-(defentity record
-  (transform transform-data)
-  (prepare (prepare-data
-            :data :date :template :profile :contract :id :docgroup))
-  (has-one docgroup)
-  (has-one profile)
-  (belongs-to contract))
+
+;; Don't declare relationship to avoid
+;; java.lang.RuntimeException: Can't embed object in code, maybe print-dup not defined
+(defentity record)
 
 (def name->entity
   (let [entity-types '[document docgroup profile contract record]]
