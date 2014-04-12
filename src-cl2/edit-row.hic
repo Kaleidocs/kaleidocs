@@ -5,7 +5,7 @@
   [:label.col-sm-2.control-label "{{key.foreignType}}"]
   [:input.w100
    {:name "{{key.foreignType}}",
-    :type "text"
+    :type "number"
     :ng-model "p[key.foreignType]"
     :ng-controller "queryCtrl"
     :typeahead "entity.id as entity[key.foreignKey] for entity in
