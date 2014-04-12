@@ -29,7 +29,10 @@
   (up [] (create db-spec
                  (table :profile
                         (integer :id :primary-key :auto-inc)
-                        (varchar :data 255))))
+                        (varchar :company 100)
+                        (varchar :bank 100)
+                        (varchar :account 100)
+                        (varchar :city 100))))
   (down [] (drop (table :profile))))
 
 (defmigration add-contract-table
@@ -38,17 +41,18 @@
                         (integer :id :primary-key :auto-inc)
                         (varchar :records 255)
                         (varchar :date 100)
-                        (varchar :sum 100))))
+                        (integer :sum))))
   (down [] (drop (table :contract))))
 
 (defmigration add-record-table
   (up [] (create db-spec
                  (table :record
                         (integer :id :primary-key :auto-inc)
-                        (varchar :data 255)
                         (varchar :date 100)
 
+                        (integer :money)
+                        (varchar :remarks 100)
+                        (varchar :contract 100)
                         (integer :docgroup [:refer :docgroup :id])
-                        (integer :profile [:refer :profile :id])
-                        (integer :contract [:refer :contract :id]))))
+                        (integer :profile [:refer :profile :id]))))
   (down [] (drop (table :record))))
