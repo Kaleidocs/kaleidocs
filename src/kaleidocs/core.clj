@@ -204,7 +204,7 @@
             (get params (format "filter[%s]" k))])
          filter-keys)))
 
-(defn parse-int-or [s default]
+(defn parse-int-or [s & [default]]
   (try (Integer/parseInt s)
        (catch Throwable e default)))
 
