@@ -154,4 +154,6 @@
   [field-name]
   (if (contains? #{:sum :money} field-name)
     "number"
-    "text"))
+    (if (= :id field-name)
+      "hidden"
+      "text")))
