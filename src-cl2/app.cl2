@@ -149,3 +149,9 @@
   {:controller 'query-ctrl
    :template
    (hiccup [:h3 "hue hue"])})
+
+(deffilter field-type []
+  [field-name]
+  (if (contains? #{:sum :money :date} field-name)
+    "number"
+    "text"))
