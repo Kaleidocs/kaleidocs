@@ -88,14 +88,6 @@
                 (success reload-table!))))
          ~@body)))
 
-(deftabletype person
-  ["fn" "ln" "em" "dc" "ph"]
-  [{:foreign-type "template"
-    :foreign-key "fn"}
-   {:foreign-type "profile"
-    :foreign-key "ln"}]
-  (console.log "Welcome to peron's hell"))
-
 (deftabletype document
   [:filename :fields]
   []
