@@ -52,7 +52,7 @@
 
                         (integer :money)
                         (varchar :remarks 100)
-                        (varchar :contract 100)
-                        (integer :docgroup [:refer :docgroup :id])
-                        (integer :profile [:refer :profile :id]))))
+                        (integer :contract_id [:refer :contract :id])
+                        (integer :docgroup_id [:refer :docgroup :id])
+                        (integer :profile_id [:refer :profile :id]))))
   (down [] (drop (table :record))))
