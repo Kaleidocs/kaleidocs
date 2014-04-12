@@ -37,6 +37,11 @@
 ;; java.lang.RuntimeException: Can't embed object in code, maybe print-dup not defined
 (defentity record)
 
+(defentity expanded-record
+  (table :record)
+  (belongs-to docgroup)
+  (belongs-to profile))
+
 (def name->entity
   (let [entity-types '[document docgroup profile contract record]]
     (zipmap (map name entity-types)
