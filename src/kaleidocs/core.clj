@@ -215,6 +215,10 @@
        (remove nil?)))
 
 (defroutes my-routes
+  (GET "/records" [ids]
+       (when (seq ids)
+         (generate-string
+          (query-records-by-ids (to-list ids)))))
   (GET "/api/:entity-type" [entity-type page count & other-params]
        (let [[order-key order-value] (find-order-kv other-params)
              filter-kvs (find-filter-kvs other-params)
