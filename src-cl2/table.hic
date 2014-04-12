@@ -6,8 +6,8 @@
     {:ng-click
      "tableParams.sorting(key, tableParams.isSortBy(key, 'asc') ? 'desc' : 'asc')",
      :ng-class
-     "{'sort-asc': tableParams.isSortBy(key, 'asc'),
-           'sort-desc': tableParams.isSortBy(key, 'desc')}",
+     "{'sort-asc':  tableParams.isSortBy(key, 'asc'),
+       'sort-desc': tableParams.isSortBy(key, 'desc')}",
      :ng-repeat "key in itemKeys"}
     "{{key}}"]]
   [:tr
