@@ -1,8 +1,8 @@
 [:form.form-horizontal
- [:input {:value "{{p.id}}", :name "id", :type "hidden"}]
  [:div.form-group
   {:ng-repeat "key in foreignKeys"}
-  [:label.col-sm-2.control-label "{{key.foreignType}}"]
+  [:label.col-sm-2.control-label
+   "{{key.foreignType}}"]
   [:input.w100
    {:name "{{key.foreignType}}",
     :type "number"
@@ -12,7 +12,9 @@
   findEntity(key.foreignType, key.foreignKey, $viewValue)"}]]
  [:div.form-group
   {:ng-repeat "key in itemKeys"}
-  [:label.col-sm-2.control-label "{{key}}"]
+  [:label.col-sm-2.control-label
+   {:ng-if "key != 'id'"}
+   "{{key}}"]
   [:input.w100
    {:name "{{key}}",
     :type "{{key | fieldType }}"
