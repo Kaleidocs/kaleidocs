@@ -6,7 +6,7 @@
   [:input.w100
    {:name "{{key.foreignType}}",
     :type "number"
-    :ng-model "p[key.foreignType]"
+    :ng-model "p[key.foreignType+'_id']"
     :ng-controller "queryCtrl"
     :typeahead "entity.id as entity[key.foreignKey] for entity in
   findEntity(key.foreignType, key.foreignKey, $viewValue)"}]]
