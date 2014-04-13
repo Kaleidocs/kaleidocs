@@ -10,6 +10,11 @@
       (.endsWith s ".xls")
       (.endsWith s ".xlsx")))
 
+(defn multi-doc? [document-record]
+  (and (.endsWith (:filename document-record) ".odt")
+       (when-let [fields (:fields document-record)]
+         (< 0 (count (clojure.string/split fields #","))))))
+
 (defn odf-file? [s]
   (or (.endsWith s ".odt")
       (.endsWith s ".ods")))
