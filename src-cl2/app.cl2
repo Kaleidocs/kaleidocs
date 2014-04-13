@@ -98,6 +98,16 @@
            (defn$ delete-item [id]
              (. ($http {:method "DELETE" :url (str ~query-url "/" id)})
                 (success reload-table!)))
+           (defn$ generate-item [id]
+             (def$ status (str "Generating "  ~(name entity-type) " #" id "..."))
+             (..
+              $http
+              (get
+               ~(str "/generate/" (name entity-type))
+               {:params {:ids id}})
+              (success (fn [data]
+                         (def$ status
+                           (str "Finished " ~(name entity-type) " #" id "..."))))))
            ~@body))))
 
 (deftabletype document
