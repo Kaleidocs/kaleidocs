@@ -96,8 +96,8 @@
                  (success reload-table!)))
            (defn$ delete-item [id]
              (. ($http {:method "DELETE" :url (str ~query-url "/" id)})
-                (success reload-table!))))
-         ~@body)))
+                (success reload-table!)))
+           ~@body))))
 
 (deftabletype document
   [:id :filename :fields]
