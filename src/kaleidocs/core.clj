@@ -86,7 +86,8 @@
            order-key order-value
            filter-kvs))))
   (POST "/api/:entity-type" [entity-type :as {data :body}]
-        (let []
+        (let [data (select-keys data
+                                (allowed-columns entity-type))]
           (timbre/info "Got a post to" entity-type (pr-str data))
           (if (integer? (:id data))
             (update-entity entity-type (:id data) data)
