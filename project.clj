@@ -14,6 +14,7 @@
                  [korma "0.3.0-RC5"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [com.h2database/h2 "1.3.176"]
+                 [n2w-vi "0.1.0"]
                  [org.clojars.hozumi/clj-commons-exec "1.0.7"]]
   :profiles
   {:deploy
