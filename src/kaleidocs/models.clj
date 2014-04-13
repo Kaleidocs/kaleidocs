@@ -11,6 +11,14 @@
    :subprotocol "h2"
    :subname     "./lobos"})
 
+(def allowed-columns
+  {"document" [:id :filename :fields]
+   "docgroup" [:id :name :documents]
+   "profile"  [:id :company :bank :account :city]
+   "contract" [:id :records :date :sum]
+   "record"   [:id :date :money :remarks
+               :contract_id :docgroup_id :profile_id]})
+
 (defdb clogdb db-spec)
 (defn transform-data
   "Get v by query SQL. Transform it before sending out"
