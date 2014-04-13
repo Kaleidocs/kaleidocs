@@ -4,6 +4,9 @@
             [kaleidocs.models :refer :all]
             [kaleidocs.convert :refer :all]))
 
+(defn unkeywordize [m]
+    (zipmap (map name (keys m)) (vals m)))
+
 #_
 (defn gen-doc [single-templates multiple-templates table-keys
                records data-map]
