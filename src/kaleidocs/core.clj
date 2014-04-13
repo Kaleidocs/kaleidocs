@@ -1,11 +1,11 @@
 (ns kaleidocs.core
   (:require [noir.io :as io]
-            [kaleidocs.merge :refer [merge-doc]]
             [kaleidocs.models :refer :all]
             [noir.response :as response]
             [cheshire.core :refer [generate-string parse-string]]
             [clojure.string :as str]
             [taoensso.timbre :as timbre]
+            [kaleidocs.generate :refer :all]
             [kaleidocs.convert :refer :all]
             [compojure.core :refer [GET POST DELETE defroutes]]
             [org.httpkit.server :refer [run-server]]
@@ -17,13 +17,6 @@
   (:gen-class))
   )
 
-(def templates-dir "templates")
-(def output-dir "output")
-
-(declare broadcast)
-
-(defn odf-template [s]
-  (str templates-dir "/" (odf-filename s)))
 
 (defn dev? [args] (some #{"-dev"} args))
 
