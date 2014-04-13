@@ -16,8 +16,8 @@
 (defn unkeywordize [m]
     (zipmap (map name (keys m)) (vals m)))
 
-(defn generate-records [records]
-  (doseq [current-record (fetch-expanded-records records)
+(defn generate-records* [records]
+  (doseq [current-record records
           :let [documents
                 (clojure.string/split
                  (:documents current-record) #",")]]
@@ -26,10 +26,12 @@
                   (str (:id current-record) "_" current-document)]]
       (merge-doc (str templates-dir "/" current-document)
                  (str output-dir "/" current-output)
-                 ;; columns
-                 [] ;; (map #(str "TABLE." (name %)) columns)
                  (merge (unkeywordize current-record)
                         freemarker-utils)))))
+
+(defn generate-records [ids]
+  (generate-records* (fetch-expanded-records ids)))
+
 #_
 (defn gen-doc [single-templates multiple-templates table-keys
                records data-map]
