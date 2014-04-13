@@ -31,6 +31,9 @@
     "{{p[key]}}"]
    [:td.rowTd
     [:input
+     {:ng-if "(entityType=='record')||(entityType=='contract')"
+      :ng-click "generateItem(p.id)" :value "generate" :type "button"}]
+    [:input
      {:ng-click "setEditId(p.id)", :value "edit", :type "button"
       :id "editRowBtn{{p.id}}"}]
     [:input
