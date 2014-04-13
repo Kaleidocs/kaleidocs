@@ -81,6 +81,13 @@
   (assoc m :fields
          (clojure.string/split (:fields m) #",")))
 
+(defn fetch-all-docs []
+  (let [docs (group-by multi-doc? (select document))]
+    ;; single docs
+    [(get docs false)
+     ;; multi docs
+     (mapv transform-fields (get docs true))]))
+
 (def name->entity
   (let [entity-types '[document docgroup profile contract record]]
     (zipmap (map name entity-types)
