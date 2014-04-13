@@ -13,34 +13,44 @@
   (up [] (create db-spec
                  (table :document
                         (integer :id :primary-key :auto-inc)
-                        (varchar :filename 100 :unique)
-                        (varchar :fields 100))))
+                        (varchar :filename 100 :unique
+                                 [:collate :utf8-general-ci])
+                        (varchar :fields 100
+                                 [:collate :utf8-general-ci]))))
   (down [] (drop (table :document ))))
 
 (defmigration add-docgroup-table
   (up [] (create db-spec
                  (table :docgroup
                         (integer :id :primary-key :auto-inc)
-                        (varchar :name 100 :unique)
-                        (varchar :documents 100))))
+                        (varchar :name 100 :unique
+                                 [:collate :utf8-general-ci])
+                        (varchar :documents 100
+                                 [:collate :utf8-general-ci]))))
   (down [] (drop (table :docgroup))))
 
 (defmigration add-profile-table
   (up [] (create db-spec
                  (table :profile
                         (integer :id :primary-key :auto-inc)
-                        (varchar :company 100 :unique)
-                        (varchar :bank 100)
-                        (varchar :account 100)
-                        (varchar :city 100))))
+                        (varchar :company 100 :unique
+                                 [:collate :utf8-general-ci])
+                        (varchar :bank 100
+                                 [:collate :utf8-general-ci])
+                        (varchar :account 100
+                                 [:collate :utf8-general-ci])
+                        (varchar :city 100
+                                 [:collate :utf8-general-ci]))))
   (down [] (drop (table :profile))))
 
 (defmigration add-contract-table
   (up [] (create db-spec
                  (table :contract
                         (integer :id :primary-key :auto-inc)
-                        (varchar :records 255)
-                        (varchar :date 100)
+                        (varchar :records 255
+                                 [:collate :utf8-general-ci])
+                        (varchar :date 100
+                                 [:collate :utf8-general-ci])
                         (integer :sum))))
   (down [] (drop (table :contract))))
 
@@ -48,11 +58,13 @@
   (up [] (create db-spec
                  (table :record
                         (integer :id :primary-key :auto-inc)
-                        (varchar :date 100)
+                        (varchar :date 100
+                                 [:collate :utf8-general-ci])
 
                         (integer :money)
-                        (varchar :remarks 100)
+                        (varchar :remarks 100
+                                 [:collate :utf8-general-ci])
                         (integer :contract_id [:refer :contract :id])
                         (integer :docgroup_id [:refer :docgroup :id])
-                        (integer :profile_id [:refer :profile :id]))))
+                        (integer :profile_id  [:refer :profile :id]))))
   (down [] (drop (table :record))))
