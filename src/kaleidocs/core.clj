@@ -95,35 +95,7 @@
   (DELETE ["/api/:entity-type/:id" :id #"[0-9]+"] [entity-type id]
           (timbre/info "Must delete this" entity-type id)
           (delete-entity entity-type id)
-          {:status 200})
-  (POST "/upload" [file]
-        ;; if file exists, just overwrite with new one
-        ;; else, inform clients about new template
-        (let [filename (:filename file)
-              odf-template (str templates-dir "/"
-                                (odf-filename filename))]
-          (if-not (or (mso-file? filename)
-                      (odf-file? filename))
-            (broadcast [:status "Error: Unknown file format"])
-            (do
-              (if (.exists (clojure.java.io/file odf-template))
-                (broadcast [:status (str "Updating template " filename)])
-                (broadcast [:new-template {:filename filename}]))
-              ;; copy to templates dir
-
-              (io/upload-file templates-dir file :create-path? true)
-
-              (when (mso-file? filename)
-                (broadcast [:status (str "Importing template " filename)])
-                (let [mso-template (str templates-dir "/" filename)]
-                  ;; convert to odf
-                  (convert-doc (filename->target-format filename)
-                               mso-template
-                               templates-dir)
-                  (.delete (clojure.java.io/file mso-template)))
-                (broadcast [:status
-                            (str "Importing template " filename " finished")]))))
-          filename)))
+          {:status 200}))
 
 (def app
   (-> my-routes
