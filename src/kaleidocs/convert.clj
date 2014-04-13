@@ -1,6 +1,9 @@
 (ns kaleidocs.convert
   (:require [clj-commons-exec :as exec]))
 
+(def templates-dir "templates")
+(def output-dir "output")
+
 (defn mso-file? [s]
   (or (.endsWith s ".doc")
       (.endsWith s ".docx")
@@ -37,6 +40,9 @@
    (clojure.string/replace #".docx$" ".odt")
    (clojure.string/replace #".xls$" ".ods")
    (clojure.string/replace #".xlsx$" ".ods")))
+
+(defn odf-template [s]
+  (str templates-dir "/" (odf-filename s)))
 
 (defn get-libreoffice-executable []
   (let [os (.toLowerCase (System/getProperty "os.name"))]
