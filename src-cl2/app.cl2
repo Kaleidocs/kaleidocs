@@ -32,6 +32,10 @@
          (map parse-int)
          (remove isNaN)
          set)))
+
+(deffilter string->set []
+  [s] (string->set s))
+
 (defmacro deftabletype
   [entity-type fixed-fields foreign-fields & body]
   (let [ctrl-name (symbol (format "%s-ctrl" (name entity-type)))
