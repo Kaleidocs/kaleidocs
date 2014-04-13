@@ -2,6 +2,7 @@
   (:require [korma.db :refer :all]
             [korma.core :refer :all]
             [korma.sql.fns :refer :all]
+            [kaleidocs.convert :refer [multi-doc?]]
             [ring.util.codec :refer [url-decode]]
             [cheshire.core :refer [generate-string parse-string]]))
 
