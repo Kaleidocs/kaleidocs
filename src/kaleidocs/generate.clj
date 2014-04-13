@@ -2,7 +2,16 @@
   (:require [kaleidocs.merge :refer [merge-doc]]
             [taoensso.timbre :as timbre]
             [kaleidocs.models :refer :all]
-            [kaleidocs.convert :refer :all]))
+            [kaleidocs.convert :refer :all]
+            [n2w-vi.core :refer [number->words]]))
+
+(def numberToTextVn
+  (reify freemarker.template.TemplateMethodModelEx
+    (exec [this args]
+      (number->words (.getAsNumber (first (seq args)))))))
+
+(def freemarker-utils
+  {"numberToTextVn" numberToTextVn})
 
 (defn unkeywordize [m]
     (zipmap (map name (keys m)) (vals m)))
