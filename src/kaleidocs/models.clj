@@ -70,12 +70,10 @@
           (with profile
                 (fields :company :bank :account :city))))
 
-(defn fetch-expanded-contract [id]
-  (let [current-contract (-> contract (where {:id id})
-                             select first)
-        found-records (to-list (:records current-contract))
-        current-records (fetch-expanded-records found-records)]
-    [current-contract current-records]))
+(defn fetch-contract [id]
+  (-> contract
+      (where {:id id})
+      select first))
 
 (defn transform-fields [m]
   (assoc m :fields
