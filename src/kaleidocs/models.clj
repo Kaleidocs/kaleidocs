@@ -77,6 +77,10 @@
         current-records (fetch-expanded-records found-records)]
     [current-contract current-records]))
 
+(defn transform-fields [m]
+  (assoc m :fields
+         (clojure.string/split (:fields m) #",")))
+
 (def name->entity
   (let [entity-types '[document docgroup profile contract record]]
     (zipmap (map name entity-types)
