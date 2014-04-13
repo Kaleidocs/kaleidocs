@@ -1,4 +1,5 @@
 [:form.form-horizontal
+ [:div {:ng-hide "true"} "{{ p.date = (p.date|thenOrNow) }}"]
  [:div.form-group
   {:ng-repeat "key in foreignKeys"}
   [:label.col-sm-2.control-label
