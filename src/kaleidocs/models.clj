@@ -28,7 +28,7 @@
    "profile"  [:id :company :bank :account :city]
    "contract" [:id :records :date :sum]
    "record"   [:id :date :money :remarks
-               :contract_id :docgroup_id :profile_id]})
+               :docgroup_id :profile_id]})
 
 (defdb clogdb db-spec)
 (defn transform-data

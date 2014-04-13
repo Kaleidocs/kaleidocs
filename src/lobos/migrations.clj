@@ -64,7 +64,7 @@
                         (integer :money)
                         (varchar :remarks 100
                                  [:collate :utf8-general-ci])
-                        (integer :contract_id [:refer :contract :id])
+                        ;; (integer :contract_id [:refer :contract :id])
                         (integer :docgroup_id [:refer :docgroup :id])
                         (integer :profile_id  [:refer :profile :id]))))
   (down [] (drop (table :record))))
