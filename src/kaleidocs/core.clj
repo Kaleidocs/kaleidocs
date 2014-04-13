@@ -51,16 +51,6 @@
             (get params (format "filter[%s]" k))])
          filter-keys)))
 
-(defn parse-int-or [s & [default]]
-  (try (Integer/parseInt s)
-       (catch Throwable e default)))
-
-(defn to-list [s]
-  (->> #","
-       (clojure.string/split s)
-       (map parse-int-or )
-       (remove nil?)))
-
 (defroutes my-routes
   (GET "/records" [ids]
        (when (seq ids)

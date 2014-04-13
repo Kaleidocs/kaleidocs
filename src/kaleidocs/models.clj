@@ -5,6 +5,16 @@
             [ring.util.codec :refer [url-decode]]
             [cheshire.core :refer [generate-string parse-string]]))
 
+(defn parse-int-or [s & [default]]
+  (try (Integer/parseInt s)
+       (catch Throwable e default)))
+
+(defn to-list [s]
+  (->> #","
+       (clojure.string/split s)
+       (map parse-int-or )
+       (remove nil?)))
+
 ;;; Defines the database for lobos migrations
 (def db-spec
   {:classname   "org.h2.Driver"
