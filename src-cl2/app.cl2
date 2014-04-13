@@ -56,6 +56,7 @@
 
          (defcontroller ~ctrl-name
            [$scope $filter ng-table-params $resource $timeout $http]
+           (def$ entity-type ~(name entity-type))
            (def$ item-keys ~fixed-fields)
            (def$ foreign-keys ~foreign-fields)
            (def API ($resource ~query-url))
