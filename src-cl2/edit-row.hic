@@ -42,6 +42,7 @@
      :value "{{p.id ? 'save': 'add'}}",
      :type "button"}]
    [:input.btn.btn-default
-    {:ng-click "setEditId(-1)",
+    {:ng-if "p.id"
+     :ng-click "setEditId(-1)",
      :value "cancel",
      :type "button"}]]]]
