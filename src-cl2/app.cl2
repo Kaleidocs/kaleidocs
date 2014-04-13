@@ -25,6 +25,13 @@
       {:params (create-query-params filter-key filter-value)})
      (then (fn [res] (-> res :data :result))))))
 
+(defn string->set [s]
+  (when (string? s)
+    (->> ","
+         (.split s)
+         (map parse-int)
+         (remove isNaN)
+         set)))
 (defmacro deftabletype
   [entity-type fixed-fields foreign-fields & body]
   (let [ctrl-name (symbol (format "%s-ctrl" (name entity-type)))
