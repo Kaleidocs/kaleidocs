@@ -42,6 +42,26 @@
 (defn generate-records [ids]
   (generate-records* (fetch-expanded-records ids)))
 
+(defn generate-contract [id]
+  (let [current-contract (fetch-contract id)
+        record-ids (to-list (:records current-contract))
+        records (fetch-expanded-records record-ids)]
+    (generate-records* records)
+    (doseq [current-document
+            (map transform-fields (fetch-multidocs))
+            :let [current-output
+                  (str (:id current-contract) "_"
+                       (:filename current-document))]]
+      (merge-doc (str templates-dir "/" (:filename current-document))
+                 (str output-dir "/" current-output)
+                 ;; columns
+                 (map #(str "TABLE." (name %))
+                      (:fields current-document))
+                 (merge (unkeywordize current-contract)
+                        {"TABLE"
+                         (mapv unkeywordize records)}
+                        freemarker-utils)))))
+
 #_
 (defn gen-doc [single-templates multiple-templates table-keys
                records data-map]
