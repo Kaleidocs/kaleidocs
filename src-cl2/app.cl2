@@ -104,7 +104,7 @@
               $http
               (get
                ~(str "/generate/" (name entity-type))
-               {:params {:ids id}})
+               {:params {:id id}})
               (success (fn [data]
                          (def$ status
                            (str "Finished " ~(name entity-type) " #" id "..."))))))
