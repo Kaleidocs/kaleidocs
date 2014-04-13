@@ -69,6 +69,13 @@
           (with profile
                 (fields :company :bank :account :city))))
 
+(defn fetch-expanded-contract [id]
+  (let [current-contract (-> contract (where {:id id})
+                             select first)
+        found-records (to-list (:records current-contract))
+        current-records (fetch-expanded-records found-records)]
+    [current-contract current-records]))
+
 (def name->entity
   (let [entity-types '[document docgroup profile contract record]]
     (zipmap (map name entity-types)
