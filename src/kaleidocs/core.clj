@@ -52,6 +52,18 @@
          filter-keys)))
 
 (defroutes my-routes
+  (GET "/generate/:entity-type" [entity-type id]
+       (case entity-type
+         "record"
+         (try (generate-records [(parse-int-or id)])
+              {:status 200}
+              (catch Throwable e
+                (timbre/info "Error generating records" e)))
+         "contract"
+         (try (generate-contract (parse-int-or id))
+              {:status 200}
+              (catch Throwable e
+                (timbre/info "Error generating contract" e)))))
   (GET "/records" [ids]
        (when (seq ids)
          (generate-string
