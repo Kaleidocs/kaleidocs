@@ -12,8 +12,9 @@
 
 (defn multi-doc? [document-record]
   (and (.endsWith (:filename document-record) ".odt")
-       (when-let [fields (:fields document-record)]
-         (< 0 (count (clojure.string/split fields #","))))))
+       (if-let [fields (:fields document-record)]
+         (< 0 (count (clojure.string/split fields #",")))
+         false)))
 
 (defn odf-file? [s]
   (or (.endsWith s ".odt")
