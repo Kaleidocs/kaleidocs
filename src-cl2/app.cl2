@@ -173,3 +173,11 @@
     (if (= :id field-name)
       "hidden"
       "text")))
+
+(deffilter then-or-now [date-filter]
+  [s]
+  (or s
+      (-> (Date.)
+          .getTime
+          (date-filter
+           "dd/MM/yyyy"))))
