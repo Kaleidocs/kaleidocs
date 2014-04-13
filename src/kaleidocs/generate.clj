@@ -10,8 +10,18 @@
     (exec [this args]
       (number->words (.getAsNumber (first (seq args)))))))
 
+(defn long-date-vn [s]
+  (apply format "ngày %s tháng %s năm %s"
+         (clojure.string/split s #"/")))
+
+(def longDateVn
+  (reify freemarker.template.TemplateMethodModelEx
+    (exec [this args]
+      (long-date-vn (.toString (first (seq args)))))))
+
 (def freemarker-utils
-  {"numberToTextVn" numberToTextVn})
+  {"numberToTextVn" numberToTextVn
+   "longDateVn" longDateVn})
 
 (defn unkeywordize [m]
     (zipmap (map name (keys m)) (vals m)))
