@@ -72,7 +72,8 @@
 
 (defn fetch-contract [id]
   (-> contract
-      (where {:id id})
+      select*
+      (where {:id [pred-= id]})
       select first))
 
 (defn transform-fields [m]
