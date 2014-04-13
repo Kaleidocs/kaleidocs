@@ -106,7 +106,20 @@
 (deftabletype contract
   [:id :records :date :sum]
   []
-  )
+  (defn query-records [ids]
+    (..
+     $http
+     (get
+      "/records"
+      {:params {:ids (.join (keys ids) ",")}})
+     (success (fn [data]
+                (def$ fetched-data data)))))
+  (def last-queried-records #{})
+  (defn$ watch-records [records]
+    (when (not= last-queried-records records)
+      (set! last-queried-records records)
+      (query-records records)))
+  nil)
 
 (deftabletype record
   [:id :money :remarks :date]
