@@ -46,7 +46,8 @@
      [:ul.nav.navbar-nav
       [:li {:ng-repeat "entity in
 ['document', 'docgroup', 'profile', 'record', 'contract']"}
-       [:a {:href "#/{{entity}}"} "{{entity}}"]]]]]
+       [:a {:href "#/{{entity}}"} "{{entity}}"]]
+      [:li [:a {:href "/export"} "Export"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
      [:ng-view]]]]]]
