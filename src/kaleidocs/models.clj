@@ -3,7 +3,7 @@
             [korma.core :refer :all]
             [korma.sql.fns :refer :all]
             [clj-excel.core :refer [build-workbook workbook-hssf save]]
-            [kaleidocs.convert :refer [multi-doc?]]
+            [kaleidocs.convert :refer [output-dir multi-doc?]]
             [ring.util.codec :refer [url-decode]]
             [cheshire.core :refer [generate-string parse-string]]))
 
@@ -143,9 +143,10 @@
 
 (defn get-all-data []
   (into {} (for [[k v] allowed-columns]
-             [k (map #(as-row % v) (select k))])))
+             [k (cons (map name v)
+                      (map #(as-row % v) (select k)))])))
 
 (defn export-xls []
   (-> (workbook-hssf)
       (build-workbook (get-all-data))
-      (save "export.xls")))
+      (save (str output-dir "/" "export.xls"))))
