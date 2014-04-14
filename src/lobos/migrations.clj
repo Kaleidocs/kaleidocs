@@ -33,7 +33,7 @@
   (up [] (create db-spec
                  (table :profile
                         (integer :id :primary-key :auto-inc)
-                        (varchar :company 100 :unique
+                        (varchar :company 100
                                  [:collate :utf8-general-ci])
                         (varchar :bank 100
                                  [:collate :utf8-general-ci])
