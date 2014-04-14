@@ -192,3 +192,13 @@
           .getTime
           (date-filter
            "dd/MM/yyyy"))))
+
+(deffilter key-box-class []
+  [key]
+  (cond
+   (contains? #{:id :account :sum :date} key)
+   "text-right"
+   (contains? #{} key)
+   "text-justify"
+   :default
+   "text-left"))
