@@ -28,7 +28,7 @@
      ;;:filter "{ 'fn': 'text' }",
      :sortable "key",
      :data-title "key"}
-    "{{p[key]}}"]
+    [:p {:ng-class "key|keyBoxClass"} "{{p[key]}}"]]
    [:td.rowTd
     [:input
      {:ng-if "(entityType=='record')||(entityType=='contract')"
