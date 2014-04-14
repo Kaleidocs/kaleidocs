@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [http-kit "2.1.16"]
                  [lib-noir "0.7.8"]
+                 [lobos "1.0.0-beta1"]
                  [com.taoensso/timbre "2.7.1"]
                  [ring/ring-devel "1.1.8"]
                  [ring/ring-json "0.3.0"]
@@ -33,8 +34,7 @@
    :dev
    {:source-paths ["dev"]
     :dependencies
-    [[lobos "1.0.0-beta1"]
-     [org.clojure/tools.namespace "0.2.4"]
+    [[org.clojure/tools.namespace "0.2.4"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]]
     :cl2c {:frontend {:optimizations :pretty
