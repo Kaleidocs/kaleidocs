@@ -40,8 +40,9 @@
     :cl2c {:frontend {:optimizations :pretty
                       :strategy "dev"
                       :watch ["src-cl2", "test-cl2"]
-                      :filter (or "test-cl2/test_runner.cl2"
-                                  (and "test-cl2/" ".hic"))
+                      :filter (or "src-cl2/app.cl2"
+                                  (and "src-cl2" ".hic$"))
+                      :path-map ["src-cl2/" => "resources/public/"]
                       :paths ["node_modules/" "src-cl2/"]
                       ;; some files may take too long to compile. We need a limit
                       :timeout 2000}}}}
