@@ -30,12 +30,13 @@
 (defn find-order-kv
   [params]
   (let [order-key (some find-order-key (keys params))
-        order-value (when order-key
+        order-value (if order-key
                       (case (get params (format "sorting[%s]" order-key))
                         "asc" :ASC
                         "desc" :DESC
-                        nil))]
-    [(keyword order-key) order-value]))
+                        nil)
+                      :DESC)]
+    [(or (keyword order-key) :id) order-value]))
 
 (defn find-filter-key
   [s]
