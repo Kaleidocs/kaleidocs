@@ -16,11 +16,10 @@
        (map parse-int-or )
        (remove nil?)))
 
-;;; Defines the database for lobos migrations
 (def db-spec
   {:classname   "org.h2.Driver"
    :subprotocol "h2"
-   :subname     "./lobos"})
+   :subname     "./data"})
 
 (def allowed-columns
   {"document" [:id :filename :fields]
