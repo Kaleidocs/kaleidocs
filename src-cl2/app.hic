@@ -18,7 +18,6 @@
     :rel "stylesheet"}]
   [:script
    "document.write('<base href=\"' + document.location + '\" />')"]
-  [:script {:src "vendor/sockjs/sockjs.min.js"}]
   [:script {:src "vendor/angular/angular.js"}]
   [:script {:src "vendor/angular-sanitize/angular-sanitize.min.js"}]
   [:script {:src "vendor/angular-animate/angular-animate.min.js"}]
