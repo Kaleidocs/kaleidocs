@@ -2,6 +2,7 @@
   (:require [korma.db :refer :all]
             [korma.core :refer :all]
             [korma.sql.fns :refer :all]
+            [clj-excel.core :refer [build-workbook workbook-hssf save]]
             [kaleidocs.convert :refer [multi-doc?]]
             [ring.util.codec :refer [url-decode]]
             [cheshire.core :refer [generate-string parse-string]]))
@@ -136,3 +137,15 @@
                         (limit ~items-per-page)
                         (offset ~(* items-per-page (dec page)))
                         select))}))
+
+(defn as-row [m columns]
+  (map m columns))
+
+(defn get-all-data []
+  (into {} (for [[k v] allowed-columns]
+             [k (map #(as-row % v) (select k))])))
+
+(defn export-xls []
+  (-> (workbook-hssf)
+      (build-workbook (get-all-data))
+      (save "export.xls")))
