@@ -11,6 +11,7 @@
                  [ring/ring-devel "1.1.8"]
                  [ring/ring-json "0.3.0"]
                  [kaleidocs/meld "0.4.0"]
+                 [kaleidocs/clj-excel "0.0.1"]
                  [korma "0.3.0-RC5"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [com.h2database/h2 "1.3.176"]
