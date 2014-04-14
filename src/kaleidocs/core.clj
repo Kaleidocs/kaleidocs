@@ -51,6 +51,9 @@
          filter-keys)))
 
 (defroutes my-routes
+  (GET "/export" []
+       (export-xls)
+       "Export completed")
   (GET "/generate/:entity-type" [entity-type id]
        (case entity-type
          "record"
