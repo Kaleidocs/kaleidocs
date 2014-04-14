@@ -19,14 +19,32 @@
   {:deploy
    {:uberjar-name "kaleidocs.jar"
     :main kaleidocs.core
-    :aot :all}
+    :aot :all
+    :cl2c {:frontend
+           {:watch ["src-cl2", "test-cl2"]
+            :filter (or "src-cl2/app.cl2"
+                        (and "src-cl2" ".hic$"))
+            :path-map ["src-cl2/" => "resources/public/"]
+            :paths ["node_modules/"]
+            :strategy "prod"
+            :optimizations :simple
+            ;; some files may take too long to compile. We need a limit
+            :timeout 2000}}}
    :dev
    {:source-paths ["dev"]
     :dependencies
     [[lobos "1.0.0-beta1"]
      [org.clojure/tools.namespace "0.2.4"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
-     [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]]}}
+     [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]]
+    :cl2c {:frontend {:optimizations :pretty
+                      :strategy "dev"
+                      :watch ["src-cl2", "test-cl2"]
+                      :filter (or "test-cl2/test_runner.cl2"
+                                  (and "test-cl2/" ".hic"))
+                      :paths ["node_modules/" "src-cl2/"]
+                      ;; some files may take too long to compile. We need a limit
+                      :timeout 2000}}}}
   :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]]
   :nodejs {:keywords ["chlorinejs",
                       "clojure",
@@ -51,22 +69,4 @@
                        [angular-sanitize "~1.2.16"]
                        [angular-i18n "~1.2.16"]
                        [ng-file-upload "~1.2.11"]]
-  :cl2c {:frontend
-         {:watch ["src-cl2", "test-cl2"]
-          :filter (or "src-cl2/app.cl2"
-                      (and "src-cl2" ".hic$"))
-          :path-map ["src-cl2/" => "resources/public/"]
-          :paths ["node_modules/"]
-          :strategy "dev"
-          ;; some files may take too long to compile. We need a limit
-          :timeout 2000
-          }
-         :dev
-         {:watch ["src-cl2", "test-cl2"]
-          :filter (or "test-cl2/test_runner.cl2"
-                      (and "test-cl2/" ".hic"))
-          :paths ["node_modules/" "src-cl2/"]
-          :strategy "dev"
-          ;; some files may take too long to compile. We need a limit
-          :timeout 2000
-          }})
+  )
