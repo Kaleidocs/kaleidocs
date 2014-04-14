@@ -23,7 +23,9 @@
      (get
       (str "/api/" entity-type)
       {:params (create-query-params filter-key filter-value)})
-     (then (fn [res] (-> res :data :result))))))
+     (then (fn [res]
+             (map #(add-details % entity-type filter-key)
+                  (-> res :data :result)))))))
 
 (defn string->set [s]
   (when (string? s)
@@ -202,3 +204,23 @@
    "text-justify"
    :default
    "text-left"))
+
+(defn add-details
+  [entity entity-type foreign-type]
+  (let [head (str entity-type "#" (:id entity) " "
+                  (get entity foreign-type))
+        s (-> entity
+              (dissoc foreign-type :id)
+              vals
+              (.join ", "))
+        tail
+        (when (not (= s ""))
+          (str " (" s ")"))
+        details
+        (str head tail)]
+    (assoc entity :_details details)))
+
+(console.log "Yooloo" (map #(add-details % :bla :b)
+                           [{:id 1 :b :foo :c :m}
+                            {:id 2 :b :bar :c :n}
+                            {:id 3 :b :boo :c :p}]))

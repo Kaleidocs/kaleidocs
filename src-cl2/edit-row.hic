@@ -4,13 +4,20 @@
   {:ng-repeat "key in foreignKeys"}
   [:label.col-sm-2.control-label
    "{{key.foreignType}}"]
+  [:div
+   {:ng-hide "true"}
+   "{{ p[key.foreignType+'_id'] = p[key.foreignType+'_full'].id }}"]
   [:input.w100
    {:name "{{key.foreignType}}",
-    :type "number"
-    :ng-model "p[key.foreignType+'_id']"
+    ;; :type "number"
+    :ng-model "p[key.foreignType+'_full']"
     :ng-controller "queryCtrl"
-    :typeahead "entity.id as entity[key.foreignKey] for entity in
-  findEntity(key.foreignType, key.foreignKey, $viewValue)"}]]
+    :typeahead "
+entity
+ as entity._details
+ for entity in
+  findEntity (key.foreignType, key.foreignKey, $viewValue)"}]]
+
  [:div.form-group
   {:ng-repeat "key in itemKeys"}
   [:label.col-sm-2.control-label
