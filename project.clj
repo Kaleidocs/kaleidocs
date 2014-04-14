@@ -4,13 +4,12 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [http-kit-sockjs "0.2.0"]
+                 [http-kit "2.1.16"]
                  [lib-noir "0.7.8"]
                  [com.taoensso/timbre "2.7.1"]
                  [ring/ring-devel "1.1.8"]
                  [ring/ring-json "0.3.0"]
                  [kaleidocs/meld "0.4.0"]
-                 [lobos "1.0.0-beta1"]
                  [korma "0.3.0-RC5"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [com.h2database/h2 "1.3.176"]
@@ -24,7 +23,8 @@
    :dev
    {:source-paths ["dev"]
     :dependencies
-    [[org.clojure/tools.namespace "0.2.4"]
+    [[lobos "1.0.0-beta1"]
+     [org.clojure/tools.namespace "0.2.4"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]]}}
   :node-dependencies [[atom-crud "0.1.0-SNAPSHOT"]]

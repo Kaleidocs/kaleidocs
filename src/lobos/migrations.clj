@@ -51,7 +51,7 @@
                                  [:collate :utf8-general-ci])
                         (varchar :date 100
                                  [:collate :utf8-general-ci])
-                        (integer :sum))))
+                        (bigint :sum))))
   (down [] (drop (table :contract))))
 
 (defmigration add-record-table
@@ -61,7 +61,7 @@
                         (varchar :date 100
                                  [:collate :utf8-general-ci])
 
-                        (integer :money)
+                        (bigint :money)
                         (varchar :remarks 100
                                  [:collate :utf8-general-ci])
                         ;; (integer :contract_id [:refer :contract :id])
