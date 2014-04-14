@@ -15,8 +15,6 @@
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]])
   (:gen-class))
-  )
-
 
 (defn dev? [args] (some #{"-dev"} args))
 
