@@ -1,6 +1,4 @@
 (load-file "angular-cl2/src/core.cl2")
-(load-file "socket-cl2/src/client.cl2")
-(load-file "atom-crud/src/core.cl2")
 
 (defapp my-app [ng-route angular-file-upload ui.bootstrap
                 ng-table ng-resource ng-sanitize ng-animate])
@@ -177,7 +175,9 @@
   "/testbed"
   {:controller 'query-ctrl
    :template
-   (hiccup [:h3 "hue hue"])})
+   (hiccup [:h3 "hue hue"])}
+  :default
+  "/record")
 
 (deffilter field-type []
   [field-name]
