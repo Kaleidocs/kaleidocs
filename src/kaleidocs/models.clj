@@ -101,26 +101,28 @@
   [entity-type page items-per-page
    order-key order-value
    filter-kvs]
-  (let [where-clauses
-        (when (seq filter-kvs)
-          (map (fn [[k v]]
-                 `(where* (pred-like ~k ~(str "%" (url-decode v) "%"))))
-               filter-kvs))
-        order-clauses
-        (when order-key
-          [`(order ~order-key ~order-value)])
+  (let [with-where-clauses
+        (if (seq filter-kvs)
+          (->> filter-kvs
+               (map
+                (fn [[k v]]
+                  #(where* % (pred-like k (str "%" (url-decode v) "%")))))
+               (apply comp))
+          identity)
         base
-        (eval `(-> ~(name->entity entity-type)
-                   select*
-                   ~@where-clauses))]
+        (with-where-clauses (select* (name->entity entity-type)))
+        base-with-order
+        (if order-key
+          (-> base
+              (order order-key order-value))
+          base)]
     {:total (-> base
                 (aggregate (count :*) :total)
                 select first :total)
-     :result (eval `(-> ~base
-                        ~@order-clauses
-                        (limit ~items-per-page)
-                        (offset ~(* items-per-page (dec page)))
-                        select))}))
+     :result (-> base-with-order
+                 (limit items-per-page)
+                 (offset (* items-per-page (dec page)))
+                 select)}))
 
 (defn as-row [m columns]
   (map m columns))
