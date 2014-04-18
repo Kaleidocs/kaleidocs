@@ -34,7 +34,7 @@ entity
   [:table.table.table-bordered
    {:ng-if "p.records"}
    [:div {:ng-hide "true"}
-    "{{p.sum = fetchedData.sum}}"]
+    "{{ p.records ? (p.sum = fetchedData.sum) : (p.sum = 0)}}"]
    [:thead
     [:tr
      [:th {:ng-repeat "k in ['id', 'money']"}
