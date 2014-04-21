@@ -57,8 +57,11 @@
            (defn on-success []
              (alert-msg "success" ~(str entity-type " added."))
              (reload-table!))
-           (defn on-error []
-             (alert-msg "danger" ~(str entity-type " not added."))
+           (defn on-error [data status]
+             (alert-msg "danger"
+                        (str ~(str entity-type " not added. ")
+                             "Error " status ": "
+                             data))
              (reload-table!))
            (def$ p {})
            (defn$ save-item [item]
