@@ -26,6 +26,12 @@
              (map #(add-details % entity-type filter-key)
                   (-> res :data :result)))))))
 
+(defcontroller alerts-ctrl
+  [$scope]
+  ($<-atom alerts alerts vals)
+  (defn$ remove-alert [id]
+    (remove-entity! alerts id)))
+
 (defn string->set [s]
   (when (string? s)
     (->> ","
