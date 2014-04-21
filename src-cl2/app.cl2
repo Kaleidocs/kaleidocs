@@ -116,9 +116,16 @@
                        item {"Content-Type" "application/json"})
                  (success on-save-success)
                  (error on-save-error)))
+           (defn on-delete-success []
+             (alert-msg "success" ~(str entity-type " deleted"))
+             (reload-table!))
+           (defn on-delete-error []
+             (alert-msg "danger" ~(str entity-type " not deleted"))
+             (reload-table!))
            (defn$ delete-item [id]
              (. ($http {:method "DELETE" :url (str ~query-url "/" id)})
-                (success reload-table!)))
+                (success on-delete-success)
+                (error on-delete-error)))
            (defn$ generate-item [id]
              (def$ status (str "Generating "  ~(name entity-type) " #" id "..."))
              (..
