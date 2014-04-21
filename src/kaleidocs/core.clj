@@ -94,10 +94,13 @@
         (let [data (select-keys data
                                 (allowed-columns entity-type))]
           (timbre/info "Got a post to" entity-type (pr-str data))
-          (if (integer? (:id data))
-            (update-entity entity-type (:id data) data)
-            (add-entity entity-type data))
-          {:status 200}))
+          (if (seq data)
+            (do (if (integer? (:id data))
+                  (update-entity entity-type (:id data) data)
+                  (add-entity entity-type data))
+                {:status 200})
+            {:status 400
+             :body "Empty data is not allowed"})))
   (DELETE ["/api/:entity-type/:id" :id #"[0-9]+"] [entity-type id]
           (timbre/info "Must delete this" entity-type id)
           (delete-entity entity-type id)
