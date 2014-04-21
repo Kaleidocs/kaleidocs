@@ -29,6 +29,8 @@
 (defcontroller alerts-ctrl
   [$scope]
   ($<-atom alerts alerts vals)
+  (defn$ clear-alerts []
+    (reset! alerts {}))
   (defn$ remove-alert [id]
     (remove-entity! alerts id)))
 
