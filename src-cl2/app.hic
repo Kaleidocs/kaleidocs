@@ -50,4 +50,10 @@
       [:li [:a {:href "/export"} "Export"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
+     [:div {:ng-controller "alertsCtrl"}
+      [:alert
+       {:close "removeAlert(alert.id)",
+        :type "alert.type",
+        :ng-repeat "alert in alerts"}
+       "{{alert.msg}}"]]
      [:ng-view]]]]]]
