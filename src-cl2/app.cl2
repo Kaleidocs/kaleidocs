@@ -220,3 +220,10 @@
         details
         (str head tail)]
     (assoc entity :_details details)))
+
+(def alerts (atom {}))
+(defn next-alert-id []
+  (inc (let [ids (keys @alerts)]
+         (if (= [] ids)
+           0
+           (apply max ids)))))
