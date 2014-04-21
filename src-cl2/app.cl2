@@ -219,8 +219,3 @@
         details
         (str head tail)]
     (assoc entity :_details details)))
-
-(console.log "Yooloo" (map #(add-details % :bla :b)
-                           [{:id 1 :b :foo :c :m}
-                            {:id 2 :b :bar :c :n}
-                            {:id 3 :b :boo :c :p}]))
