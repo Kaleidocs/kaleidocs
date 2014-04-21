@@ -55,16 +55,10 @@
              (def$ p {})
              (. ($- table-params) reload))
            (defn on-success []
-             (add-entity! alerts nil
-                          {:id (next-alert-id)
-                           :type "success"
-                           :msg  ~(str entity-type " added.")})
+             (alert-msg "success" ~(str entity-type " added."))
              (reload-table!))
            (defn on-error []
-             (add-entity! alerts nil
-                          {:id (next-alert-id)
-                           :type "danger"
-                           :msg  ~(str entity-type " not added.")})
+             (alert-msg "danger" ~(str entity-type " not added."))
              (reload-table!))
            (def$ p {})
            (defn$ save-item [item]
@@ -246,3 +240,9 @@
          (if (= [] ids)
            0
            (apply max ids)))))
+
+(defn alert-msg [type msg]
+  (add-entity! alerts nil
+               {:id (next-alert-id)
+                :type type
+                :msg msg}))
