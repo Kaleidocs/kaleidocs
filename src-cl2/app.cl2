@@ -60,12 +60,19 @@
                            :type "success"
                            :msg  ~(str entity-type " added.")})
              (reload-table!))
+           (defn on-error []
+             (add-entity! alerts nil
+                          {:id (next-alert-id)
+                           :type "danger"
+                           :msg  ~(str entity-type " not added.")})
+             (reload-table!))
            (def$ p {})
            (defn$ save-item [item]
              (.. $http
                  (post ~query-url
                        item {"Content-Type" "application/json"})
                  (success on-success)
+                 (error on-error))))
 
          (defcontroller ~ctrl-name
            [$scope $filter ng-table-params $resource $timeout $http]
