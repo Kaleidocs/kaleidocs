@@ -54,12 +54,18 @@
            (defn reload-table! []
              (def$ p {})
              (. ($- table-params) reload))
+           (defn on-success []
+             (add-entity! alerts nil
+                          {:id (next-alert-id)
+                           :type "success"
+                           :msg  ~(str entity-type " added.")})
+             (reload-table!))
            (def$ p {})
            (defn$ save-item [item]
              (.. $http
                  (post ~query-url
                        item {"Content-Type" "application/json"})
-                 (success reload-table!))))
+                 (success on-success)
 
          (defcontroller ~ctrl-name
            [$scope $filter ng-table-params $resource $timeout $http]
