@@ -104,11 +104,18 @@
            (defn$ set-edit-id
              [pid]
              (def$ edit-id pid))
+           (defn on-save-success []
+             (alert-msg "success" ~(str entity-type " saved"))
+             (reload-table!))
+           (defn on-save-error []
+             (alert-msg "danger" ~(str entity-type " not saved"))
+             (reload-table!))
            (defn$ save-item [item]
              (.. $http
                  (post ~query-url
                        item {"Content-Type" "application/json"})
-                 (success reload-table!)))
+                 (success on-save-success)
+                 (error on-save-error)))
            (defn$ delete-item [id]
              (. ($http {:method "DELETE" :url (str ~query-url "/" id)})
                 (success reload-table!)))
