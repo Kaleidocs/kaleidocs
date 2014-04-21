@@ -45,7 +45,7 @@
     [:div.navbar-collapse.collapse
      [:ul.nav.navbar-nav
       [:li {:ng-repeat "entity in
-['document', 'docgroup', 'profile', 'record', 'contract']"}
+['profile', 'record', 'contract']"}
        [:a {:href "#/{{entity}}"} "{{entity}}"]]
       [:li [:a {:href "/export"} "Export"]]]]]
    [:div.container.row.span12
