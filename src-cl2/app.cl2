@@ -127,15 +127,38 @@
                 (success on-delete-success)
                 (error on-delete-error)))
            (defn$ generate-item [id]
-             (def$ status (str "Generating "  ~(name entity-type) " #" id "..."))
-             (..
-              $http
-              (get
-               ~(str "/generate/" (name entity-type))
-               {:params {:id id}})
-              (success (fn [data]
-                         (def$ status
-                           (str "Finished " ~(name entity-type) " #" id "..."))))))
+             (let [alert-id (next-alert-id)
+                   on-generate-success
+                   (fn []
+                     (add-entity!
+                      alerts nil
+                      {:id alert-id
+                       :type "success"
+                       :msg (str "Finished " ~(name entity-type)
+                                 " #" id "...")})
+                     (reload-table!))
+                   on-generate-error
+                   (fn []
+                     (add-entity!
+                      alerts nil
+                      {:id alert-id
+                       :type "danger"
+                       :msg (str "Error generating " ~(name entity-type)
+                                 " #" id "...")})
+                     (reload-table!))]
+               (add-entity!
+                alerts nil
+                {:id alert-id
+                 :type "info"
+                 :msg (str "Generating " ~(name entity-type)
+                           " #" id "...")})
+               (..
+                $http
+                (get
+                 ~(str "/generate/" (name entity-type))
+                 {:params {:id id}})
+                (success on-generate-success)
+                (error on-generate-error))))
            ~@body))))
 
 (deftabletype document
