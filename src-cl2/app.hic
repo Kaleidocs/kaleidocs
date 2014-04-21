@@ -51,6 +51,10 @@
    [:div.container.row.span12
     [:div.span8.offset2
      [:div {:ng-controller "alertsCtrl"}
+      [:button.btn.btn-default
+       {:ng-show "(alerts.length > 0)"
+        :ng-click "clearAlerts()"}
+       "Clear alerts"]
       [:alert
        {:close "removeAlert(alert.id)",
         :type "alert.type",
