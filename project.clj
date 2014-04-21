@@ -34,6 +34,7 @@
             :timeout 2000}}}
    :dev
    {:source-paths ["dev"]
+    :jvm-opts["-Duser.language=vi" "-Duser.country=VN" "-Duser.variant=VN"]
     :dependencies
     [[org.clojure/tools.namespace "0.2.4"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
