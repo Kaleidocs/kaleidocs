@@ -43,10 +43,6 @@
   (belongs-to docgroup)
   (belongs-to profile))
 
-(defentity expanded-record
-  (table :record)
-  (belongs-to docgroup)
-  (belongs-to profile))
 
 (defn fetch-expanded-records [ids]
   (select expanded-record
