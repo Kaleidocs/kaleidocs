@@ -46,11 +46,11 @@ entity
       "{{record[k]}}"]]]]]
  [:div.form-group
   [:div.col-sm-offset-3.col-sm-6
-   [:input.btn.btn-default
+   [:input.btn.btn-success
     {:ng-click "saveItem(p); setEditId(-1)",
      :value "{{p.id ? 'save': 'add'}}",
      :type "button"}]
-   [:input.btn.btn-default
+   [:input.btn.btn-warning
     {:ng-if "p.id"
      :ng-click "setEditId(-1)",
      :value "cancel",
