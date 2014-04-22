@@ -25,7 +25,7 @@
 
 (defn find-order-key
   [s]
-  (second (re-find #"sorting\[([a-zA-Z]+)\]" s)))
+  (second (re-find #"sorting\[([a-zA-Z_]+)\]" s)))
 
 (defn find-order-kv
   [params]
@@ -40,7 +40,7 @@
 
 (defn find-filter-key
   [s]
-  (second (re-find #"filter\[([a-zA-Z]+)\]" s)))
+  (second (re-find #"filter\[([a-zA-Z_]+)\]" s)))
 
 (defn find-filter-kvs
   [params]
