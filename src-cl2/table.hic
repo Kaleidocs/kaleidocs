@@ -25,14 +25,14 @@ tableParams.sorting(
   [:tr {:ng-init "q={}"}
    [:th.text-center.sortable
     {:ng-repeat "key in itemKeys"}
-    [:input.form-control
+    [:input.form-control.input-sm
      {:ng-model "filterDict[key]",
       :type "text"}]]
    [:th.text-center.sortable
     {:ng-repeat "key in foreignKeys"}
     [:div {:ng-hide "true"}
      "{{ filterDict[key.foreignType+'_id'] = q[key.foreignType+'_full'].id }}"]
-    [:input.form-control
+    [:input.form-control.input-sm
      {:name "{{key.foreignType}}",
       :ng-model "q[key.foreignType+'_full']"
       :ng-controller "queryCtrl"
