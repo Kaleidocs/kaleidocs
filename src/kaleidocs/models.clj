@@ -48,13 +48,6 @@
     (zipmap (map name entity-types)
             (map #(select* (eval %)) entity-types))))
 
-(defn fetch-expanded-records [ids]
-  (select expanded-record
-          (where {:id [in ids]})
-          (with docgroup
-                (fields :documents))
-          (with profile
-                (fields :company :bank :account :city))))
 (def name->entity-base
   (assoc name->entity
     "record"
@@ -63,6 +56,9 @@
         (with docgroup)
         (with profile))))
 
+(defn fetch-records [ids]
+  (select (name->entity-base "record")
+          (where {:id [in ids]})))
 
 (defn fetch-contract [id]
   (-> contract
