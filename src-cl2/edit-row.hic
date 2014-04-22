@@ -10,7 +10,6 @@
   [:div.col-sm-6
    [:input.form-control
     {:name "{{key.foreignType}}",
-     ;; :type "number"
      :ng-model "p[key.foreignType+'_full']"
      :ng-controller "queryCtrl"
      :typeahead "
