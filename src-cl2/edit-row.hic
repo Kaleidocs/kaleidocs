@@ -2,34 +2,36 @@
  [:div {:ng-hide "true"} "{{ p.date = (p.date|thenOrNow) }}"]
  [:div.form-group
   {:ng-repeat "key in foreignKeys"}
-  [:label.col-sm-2.control-label
+  [:label.col-sm-3.control-label
    "{{key.foreignType}}"]
   [:div
    {:ng-hide "true"}
    "{{ p[key.foreignType+'_id'] = p[key.foreignType+'_full'].id }}"]
-  [:input.w100
-   {:name "{{key.foreignType}}",
-    ;; :type "number"
-    :ng-model "p[key.foreignType+'_full']"
-    :ng-controller "queryCtrl"
-    :typeahead "
+  [:div.col-sm-6
+   [:input.form-control
+    {:name "{{key.foreignType}}",
+     ;; :type "number"
+     :ng-model "p[key.foreignType+'_full']"
+     :ng-controller "queryCtrl"
+     :typeahead "
 entity
  as entity._details
  for entity in
-  findEntity (key.foreignType, key.foreignKey, $viewValue)"}]]
+  findEntity (key.foreignType, key.foreignKey, $viewValue)"}]]]
 
  [:div.form-group
   {:ng-repeat "key in itemKeys"}
-  [:label.col-sm-2.control-label
+  [:label.col-sm-3.control-label
    {:ng-if "key != 'id'"}
    "{{key}}"]
-  [:input.w100
-   {:name "{{key}}",
-    :type "{{key | fieldType }}"
-    :ng-model "p[key]"
-    :ng-change "(key == 'records') ?
+  [:div.col-sm-6
+   [:input.form-control
+    {:name "{{key}}",
+     :type "{{key | fieldType }}"
+     :ng-model "p[key]"
+     :ng-change "(key == 'records') ?
   watchRecords((p[key] | stringToSet)) :
-  true"}]]
+  true"}]]]
  [:div
   [:table.table.table-bordered
    {:ng-if "p.records"}
@@ -44,7 +46,7 @@ entity
      [:td {:ng-repeat "k in ['id', 'money']"}
       "{{record[k]}}"]]]]]
  [:div.form-group
-  [:div.col-sm-offset-2.col-sm-10
+  [:div.col-sm-offset-3.col-sm-6
    [:input.btn.btn-default
     {:ng-click "saveItem(p); setEditId(-1)",
      :value "{{p.id ? 'save': 'add'}}",
