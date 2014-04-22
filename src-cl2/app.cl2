@@ -254,7 +254,7 @@
 (deffilter key-box-class []
   [key]
   (cond
-   (contains? #{:id :account :sum :date} key)
+   (contains? #{:id :account :sum :date :money} key)
    "text-right"
    (contains? #{} key)
    "text-justify"
