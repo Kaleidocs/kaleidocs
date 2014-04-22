@@ -43,6 +43,10 @@
   (belongs-to docgroup)
   (belongs-to profile))
 
+(def name->entity
+  (let [entity-types '[document docgroup profile contract]]
+    (zipmap (map name entity-types)
+            (map #(select* (eval %)) entity-types))))
 
 (defn fetch-expanded-records [ids]
   (select expanded-record
@@ -51,6 +55,14 @@
                 (fields :documents))
           (with profile
                 (fields :company :bank :account :city))))
+(def name->entity-base
+  (assoc name->entity
+    "record"
+    (-> record
+        select*
+        (with docgroup)
+        (with profile))))
+
 
 (defn fetch-contract [id]
   (-> contract
@@ -64,19 +76,6 @@
 
 (defn fetch-multidocs []
   (filter multi-doc? (select document)))
-
-(def name->entity
-  (let [entity-types '[document docgroup profile contract]]
-    (zipmap (map name entity-types)
-            (map #(select* (eval %)) entity-types))))
-
-(def name->entity-base
-  (assoc name->entity
-    "record"
-    (-> record
-        select*
-        (with docgroup)
-        (with profile))))
 
 (defn delete-entity
   [entity-type id]
