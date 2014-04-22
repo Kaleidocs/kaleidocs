@@ -70,9 +70,17 @@
   (filter multi-doc? (select document)))
 
 (def name->entity
-  (let [entity-types '[document docgroup profile contract record]]
+  (let [entity-types '[document docgroup profile contract]]
     (zipmap (map name entity-types)
-            (map eval entity-types))))
+            (map #(select* (eval %)) entity-types))))
+
+(def name->entity-base
+  (assoc name->entity
+    "record"
+    (-> record
+        select*
+        (with docgroup)
+        (with profile))))
 
 (defn delete-entity
   [entity-type id]
