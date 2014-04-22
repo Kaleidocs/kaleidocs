@@ -21,7 +21,9 @@ tableParams.sorting(
      "{'sort-asc':  tableParams.isSortBy(key.foreignType+'_id', 'asc'),
        'sort-desc': tableParams.isSortBy(key.foreignType+'_id', 'desc')}",
      :ng-repeat "key in foreignKeys"}
-    "{{key.foreignType}}"]]
+    "{{key.foreignType}}"]
+   [:th.text-center.sortable
+    "Action"]]
   [:tr {:ng-init "q={}"}
    [:th.text-center.sortable
     {:ng-repeat "key in itemKeys"}
@@ -40,7 +42,8 @@ tableParams.sorting(
 entity
  as entity._details
  for entity in
-  findEntity (key.foreignType, key.foreignKey, $viewValue)"}]]]]
+  findEntity (key.foreignType, key.foreignKey, $viewValue)"}]]
+   [:th.text-center.sortable]]]
 
  [:tbody
   {:ng-repeat "p in $data"}
