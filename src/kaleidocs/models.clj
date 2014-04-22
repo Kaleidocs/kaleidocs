@@ -120,7 +120,7 @@
                (apply comp))
           identity)
         base
-        (with-where-clauses (select* (name->entity entity-type)))
+        (with-where-clauses (name->entity-base entity-type))
         base-with-order
         (if order-key
           (-> base
