@@ -46,10 +46,15 @@
 (def name->entity
   (let [entity-types '[document docgroup profile contract]]
     (zipmap (map name entity-types)
+            (map eval entity-types))))
+
+(def name->entity-base*
+  (let [entity-types '[document docgroup profile contract]]
+    (zipmap (map name entity-types)
             (map #(select* (eval %)) entity-types))))
 
 (def name->entity-base
-  (assoc name->entity
+  (assoc name->entity-base*
     "record"
     (-> record
         select*
