@@ -9,7 +9,7 @@
      "{'sort-asc':  tableParams.isSortBy(key, 'asc'),
        'sort-desc': tableParams.isSortBy(key, 'desc')}",
      :ng-repeat "key in itemKeys"}
-    "{{key}}"]
+    [:div "{{key}}"]]
    [:th.text-center.sortable
     {:ng-click
      "
@@ -21,7 +21,7 @@ tableParams.sorting(
      "{'sort-asc':  tableParams.isSortBy(key.foreignType+'_id', 'asc'),
        'sort-desc': tableParams.isSortBy(key.foreignType+'_id', 'desc')}",
      :ng-repeat "key in foreignKeys"}
-    "{{key.foreignType}}"]
+    [:div "{{key.foreignType}}"]]
    [:th.text-center.sortable
     "Action"]]
   [:tr {:ng-init "q={}"}
