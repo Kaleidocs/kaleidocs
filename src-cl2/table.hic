@@ -64,14 +64,17 @@ entity
     [:p {:ng-class "key.foreignKey|keyBoxClass"}
      "{{p[key.foreignKey]}}"]]
    [:td.rowTd
-    [:input
+    [:button.btn.btn-xs.btn-info
      {:ng-if "(entityType=='record')||(entityType=='contract')"
-      :ng-click "generateItem(p.id)" :value "generate" :type "button"}]
-    [:input
-     {:ng-click "setEditId(p.id)", :value "edit", :type "button"
-      :id "editRowBtn{{p.id}}"}]
-    [:input
-     {:ng-click "deleteItem(p.id)", :value "delete", :type "button"}]]]
+      :ng-click "generateItem(p.id)", :type "button"}
+     [:span.glyphicon.glyphicon-file] " gen"]
+    [:button.btn.btn-xs.btn-warning
+     {:ng-click "setEditId(p.id)", :type "button"
+      :id "editRowBtn{{p.id}}"}
+     [:span.glyphicon.glyphicon-pencil] " edit"]
+    [:button.btn.btn-xs.btn-danger
+     {:ng-click "deleteItem(p.id)", :type "button"}
+     [:span.glyphicon.glyphicon-remove] " del"]]]
   [:tr
    {:ng-if "editId===p.id", :ng-show "editId===p.id"}
    [:td
