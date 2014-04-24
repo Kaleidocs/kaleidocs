@@ -20,7 +20,7 @@
 (def db-spec
   {:classname   "org.h2.Driver"
    :subprotocol "h2"
-   :subname     "./data"})
+   :subname     "./data;IGNORECASE=TRUE"})
 
 (def allowed-columns
   {"document" [:id :filename :fields]
