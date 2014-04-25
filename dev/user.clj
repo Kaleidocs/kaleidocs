@@ -63,3 +63,14 @@
   (stop)
   (destroy-all)
   (refresh :after 'user/go))
+
+(defn update-db [filename]
+  ;; copy old database to data.h2.db
+  ;; lein repl
+  (save-data filename)
+  (destroy-all)
+  (create-all)
+  (load-data filename)
+  ;; exit repl
+  ;; copy new data.h2.db to target machine
+)
