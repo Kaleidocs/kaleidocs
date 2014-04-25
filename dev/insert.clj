@@ -137,3 +137,18 @@
   (insert-profile)
   (insert-mass-record)
   (insert-contract))
+
+(def entities (map name '[document docgroup profile record contract]))
+
+(defn save-data [filename]
+  (->> (for [entity entities]
+         [entity (select (name->entity entity))])
+       (into {})
+       pr-str
+       (spit filename)))
+
+(defn load-data [filename]
+  (let [m (read-string (slurp filename))]
+    (doseq [entity entities]
+      (insert (name->entity entity)
+              (values (get m entity))))))
