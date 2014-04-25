@@ -37,8 +37,6 @@
 (defentity profile)
 (defentity contract)
 
-;; Don't declare relationship to avoid
-;; java.lang.RuntimeException: Can't embed object in code, maybe print-dup not defined
 (defentity record
   (belongs-to docgroup)
   (belongs-to profile))
