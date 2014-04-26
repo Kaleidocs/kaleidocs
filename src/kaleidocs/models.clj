@@ -30,6 +30,12 @@
    "record"   [:id :date :money :remarks
                :docgroup_id :profile_id]})
 
+(def exported-columns
+  (assoc allowed-columns
+    "record" [:id :date :money :remarks
+              :docgroup_id :profile_id
+              :company :bank :account :city]))
+
 (defdb clogdb db-spec)
 
 (defentity document)
