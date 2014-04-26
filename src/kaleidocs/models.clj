@@ -138,9 +138,9 @@
   (map m columns))
 
 (defn get-all-data []
-  (into {} (for [[k v] allowed-columns]
-             [k (cons (map name v)
-                      (map #(as-row % v) (select k)))])))
+  (into {} (for [[k v] exported-columns]
+             [k (cons (map name v) ;; header row
+                      (map #(as-row % v) (select (name->entity-base k))))])))
 
 (defn export-xls []
   (-> (workbook-hssf)
