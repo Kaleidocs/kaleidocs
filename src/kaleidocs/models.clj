@@ -99,8 +99,7 @@
           (where {:id [= id]})))
 
 (defn query-records-by-ids [ids]
-  (let [base (-> record
-                 select*
+  (let [base (-> (name->entity-base "record")
                  (where {:id [in ids]}))]
     {:sum (-> base
               (aggregate (sum :money) :total)
