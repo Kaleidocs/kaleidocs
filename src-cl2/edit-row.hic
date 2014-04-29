@@ -35,14 +35,15 @@ entity
   [:table.table.table-bordered
    {:ng-if "p.records"}
    [:div {:ng-hide "true"}
-    "{{ p.records ? (p.sum = fetchedData.sum) : (p.sum = 0)}}"]
+    "{{ p.records ? (p.sum = fetchedData.sum) : (p.sum = 0)}}
+     {{ recordColumns = ['id', 'money', 'remarks', 'date', 'company']}}"]
    [:thead
     [:tr
-     [:th {:ng-repeat "k in ['id', 'money']"}
+     [:th {:ng-repeat "k in recordColumns"}
       "{{k}}"]]]
    [:tbody
     [:tr {:ng-repeat "record in fetchedData.result"}
-     [:td {:ng-repeat "k in ['id', 'money']"}
+     [:td {:ng-repeat "k in recordColumns"}
       "{{record[k]}}"]]]]]
  [:div.form-group
   [:div.col-sm-offset-3.col-sm-6
