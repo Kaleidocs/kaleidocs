@@ -28,6 +28,9 @@ entity
     {:name "{{key}}",
      :type "{{key | fieldType }}"
      :ng-model "p[key]"
+     :ng-init "(key == 'records') ?
+  watchRecords((p[key] | stringToSet)) :
+  true"
      :ng-change "(key == 'records') ?
   watchRecords((p[key] | stringToSet)) :
   true"}]]]
