@@ -128,9 +128,10 @@
              (alert-msg "danger" ~(str entity-type " not deleted"))
              (reload-table!))
            (defn$ delete-item [id]
-             (. ($http {:method "DELETE" :url (str ~query-url "/" id)})
-                (success on-delete-success)
-                (error on-delete-error)))
+             (when (confirm "Are you sure?")
+               (. ($http {:method "DELETE" :url (str ~query-url "/" id)})
+                  (success on-delete-success)
+                  (error on-delete-error))))
            (defn$ generate-item [id]
              (let [alert-id (next-alert-id)
                    on-generate-success
