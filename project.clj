@@ -35,10 +35,13 @@
    :dev
    {:source-paths ["dev"]
     :jvm-opts["-Duser.language=vi" "-Duser.country=VN" "-Duser.variant=VN"]
+    :eval-in :nrepl
     :dependencies
     [[org.clojure/tools.namespace "0.2.4"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
-     [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]]
+     [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]
+     [chlorine/repl "0.1.0-SNAPSHOT"]]
+    :repl-options {:nrepl-middleware [chlorine.repl/wrap-chlorine-repl]}
     :cl2c {:frontend {:optimizations :pretty
                       :strategy "dev"
                       :watch ["src-cl2", "test-cl2"]
