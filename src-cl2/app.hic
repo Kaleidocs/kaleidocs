@@ -1,4 +1,4 @@
-[:html {:lang "en" :ng-app "myApp"}
+[:html {:lang "en"}
  [:head
   [:meta  {:charset "utf-8"}]
   [:meta {:content "IE=edge", :http-equiv "X-UA-Compatible"}]
@@ -28,7 +28,7 @@
   [:script {:src "vendor/angular-bootstrap/ui-bootstrap-tpls.js"}]
   [:script {:src "vendor/ng-file-upload/angular-file-upload.min.js"}]
   [:script {:src "app.js"}]]
- [:body
+ [:body {:ng-cloak ""}
   [:div.container
    [:div.navbar.navbar-default
     {:role "navigation"}

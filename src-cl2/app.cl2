@@ -4,6 +4,23 @@
 (defapp my-app [ng-route angular-file-upload ui.bootstrap
                 ng-table ng-resource ng-sanitize ng-animate])
 
+(..
+ angular
+ (element document)
+ (ready
+  (fn
+   []
+   (let [initInjector (. angular (injector ["ng"]))
+         $http (. initInjector (get "$http"))]
+     (..
+      $http
+      (get "/config")
+      (then
+       (fn
+         [response]
+         (. my-app (constant :config (-> response :data)))
+         (. angular (bootstrap document [:my-app])))))))))
+
 (defn create-query-params [filter-key filter-value]
   (def params {:page 0 :count 6})
   (let [filter-key-string (str "filter[" filter-key "]")
