@@ -95,9 +95,11 @@
                  (error on-error))))
 
          (defcontroller ~ctrl-name
-           [$scope $filter ng-table-params $resource $timeout $http]
+           [$scope $filter ng-table-params $resource $timeout $http config]
            (def$ entity-type ~(name entity-type))
-           (def$ item-keys ~fixed-fields)
+           (def$ item-keys (concat ~fixed-fields
+                                   (-> config :fields
+                                       (get ($- entity-type)))))
            (def$ foreign-keys ~foreign-fields)
            (def API ($resource ~query-url))
            (def$ filter-dict {})
@@ -199,7 +201,7 @@
   )
 
 (deftabletype profile
-  [:id :company :bank :account :city]
+  [:id]
   []
   )
 
@@ -222,7 +224,7 @@
   nil)
 
 (deftabletype record
-  [:id :money :remarks :date]
+  [:id]
   [{:foreign-type "docgroup"
     :foreign-key "name"}
    {:foreign-type "profile"
