@@ -43,10 +43,13 @@
       [:span.icon-bar]]
      [:a.navbar-brand {:href "/"} "Kaleidocs"]]
     [:div.navbar-collapse.collapse
-     [:ul.nav.navbar-nav
+     [:ul.nav.navbar-nav {:ng-controller "navbarCtrl"}
       [:li {:ng-repeat "entity in
-['profile', 'record', 'contract']"}
-       [:a {:href "#/{{entity}}"} "{{entity}}"]]
+['profile', 'record', 'contract']"
+            :class
+"{{( '/'+entity === $location.path() ) ? 'active' : '' }}"}
+       [:a {:href "#/{{entity}}"}
+        "{{entity}}"]]
       [:li [:a {:href "/export"} "Export"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
