@@ -26,6 +26,10 @@
              (map #(add-details % entity-type filter-key)
                   (-> res :data :result)))))))
 
+(defcontroller navbar-ctrl
+  [$scope $location]
+  (def$ $location $location))
+
 (defcontroller alerts-ctrl
   [$scope]
   ($<-atom alerts alerts vals)
