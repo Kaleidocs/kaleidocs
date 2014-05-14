@@ -234,6 +234,11 @@
        ~@tabletype-routes
        ~@other-routes)))
 
+(defcontroller fields-ctrl [$scope custom-fields]
+  (def$ flexible-tables [:profile :record])
+  ($<-atom fields fields)
+  (custom-fields.update!))
+
 (with-tabletypes-routes
   [document docgroup profile contract record]
   "/testbed"
