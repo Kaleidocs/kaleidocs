@@ -43,6 +43,13 @@
   (belongs-to docgroup)
   (belongs-to profile))
 
+(defn allowed-columns [entity-type]
+  (into (base-columns entity-type)
+        (when (#{"profile" "record"} entity-type)
+          (->> (select custom_fields
+                       (where {:entity "record"}))
+               (map #(-> % :field keyword))))))
+
 (def name->entity
   (let [entity-types '[document docgroup profile record contract]]
     (zipmap (map name entity-types)
