@@ -107,6 +107,12 @@
               select first :total)
      :result (-> base select)}))
 
+(defn fetch-custom-fields []
+  (->> (select custom_fields)
+       (group-by :entity)
+       ((fn [coll] (zipmap (keys coll)
+                           (map #(map :field %) (vals coll)))))))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
