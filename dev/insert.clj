@@ -124,10 +124,25 @@
    contract
    (values (for [i (range 20)] (create-sample-contract)))))
 
+(defn insert-fields []
+  (insert
+   custom_fields
+   (values [{:entity "profile", :field "company"}
+            {:entity "profile", :field "bank"}
+            {:entity "profile", :field "account"}
+            {:entity "profile", :field "city"}
+
+            {:entity "record", :field "money"}
+            {:entity "record", :field "remarks"}
+            {:entity "record", :field "date"}
+            {:entity "record", :field "partner"}
+            {:entity "record", :field "project"}])))
+
 (defn insert-all []
   (insert-doc)
   (insert-docgroup)
   (insert-profile)
+  (insert-fields)
   )
 
 (defn insert-bunk []
@@ -136,6 +151,7 @@
   (insert-docgroup)
   (insert-profile)
   (insert-mass-record)
+  (insert-fields)
   (insert-contract))
 
 (def entities (map name '[document docgroup profile record contract]))
