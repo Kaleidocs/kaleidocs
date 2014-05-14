@@ -51,9 +51,9 @@
          filter-keys)))
 
 (defroutes my-routes
-  (GET "/config" []
+  (GET "/custom-fields" []
        (generate-string
-        {:fields (fetch-custom-fields)}))
+        (fetch-custom-fields)))
   (GET "/" [] (response/redirect "/app.html"))
   (GET "/export" []
        (export-xls)
