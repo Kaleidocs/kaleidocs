@@ -241,10 +241,7 @@
 
 (with-tabletypes-routes
   [document docgroup profile contract record]
-  "/testbed"
-  {:controller 'query-ctrl
-   :template
-   (hiccup [:h3 "hue hue"])}
+  "/fields" ['fields-ctrl "custom-fields.html"]
   :default
   "/record")
 
