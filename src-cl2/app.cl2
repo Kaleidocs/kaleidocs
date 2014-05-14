@@ -298,3 +298,10 @@
 
 (def fields (atom {:record  []
                    :profile []}))
+
+(defservice custom-fields [$http]
+  (this->!)
+  (defn! update! []
+    (.. $http
+        (get "/custom-fields")
+        (then #(reset! fields (:data %))))))
