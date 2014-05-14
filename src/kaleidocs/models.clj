@@ -42,6 +42,7 @@
 (defentity docgroup)
 (defentity profile)
 (defentity contract)
+(defentity custom_fields)
 
 (defentity record
   (belongs-to docgroup)
