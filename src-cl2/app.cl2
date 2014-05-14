@@ -295,3 +295,6 @@
                {:id (next-alert-id)
                 :type type
                 :msg msg}))
+
+(def fields (atom {:record  []
+                   :profile []}))
