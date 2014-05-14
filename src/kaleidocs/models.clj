@@ -121,6 +121,18 @@
   (exec-raw (format "ALTER TABLE \"%s\" DROP COLUMN \"%s\""
                     entity field)))
 
+(defn add-custom-field [entity field]
+  (transaction
+   (insert custom_fields
+           (values {:entity entity :field field}))
+   (add-column entity field)))
+
+(defn remove-custom-field [entity field]
+  (transaction
+   (delete custom_fields
+           (where {:entity entity :field field}))
+   (drop-column entity field)))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
