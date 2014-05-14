@@ -51,6 +51,7 @@
          filter-keys)))
 
 (defroutes my-routes
+  (GET "/config" [] (generate-string {}))
   (GET "/" [] (response/redirect "/app.html"))
   (GET "/export" []
        (export-xls)
