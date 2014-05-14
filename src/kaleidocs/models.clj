@@ -50,6 +50,15 @@
                        (where {:entity "record"}))
                (map #(-> % :field keyword))))))
 
+(defn exported-columns [entity-type]
+  (if (= "record" entity-type)
+    (into (base-columns entity-type)
+          (->> (select custom_fields
+                       (where (or {:entity "record"}
+                                  {:entity "profile"})))
+               (map #(-> % :field keyword))))
+    (allowed-columns entity-type)))
+
 (def name->entity
   (let [entity-types '[document docgroup profile record contract]]
     (zipmap (map name entity-types)
