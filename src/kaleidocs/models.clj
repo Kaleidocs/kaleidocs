@@ -22,19 +22,14 @@
    :subprotocol "h2"
    :subname     "./data;IGNORECASE=TRUE"})
 
-(def allowed-columns
+(declare fetch-custom-fields)
+
+(def base-columns
   {"document" [:id :filename :fields]
    "docgroup" [:id :name :documents]
-   "profile"  [:id :company :bank :account :city]
    "contract" [:id :records :date :sum]
-   "record"   [:id :date :money :remarks
-               :docgroup_id :profile_id]})
-
-(def exported-columns
-  (assoc allowed-columns
-    "record" [:id :date :money :remarks
-              :docgroup_id :profile_id
-              :company :bank :account :city]))
+   "profile"  [:id]
+   "record"   [:id :date :money :docgroup_id :profile_id]})
 
 (defdb clogdb db-spec)
 
