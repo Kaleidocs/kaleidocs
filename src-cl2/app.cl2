@@ -78,11 +78,12 @@
                  (error on-error))))
 
          (defcontroller ~ctrl-name
-           [$scope $filter ng-table-params $resource $timeout $http config]
+           [$scope $filter $resource $timeout $http
+            ng-table-params custom-fields]
+           (custom-fields.update!)
            (def$ entity-type ~(name entity-type))
-           (def$ item-keys (concat ~fixed-fields
-                                   (-> config :fields
-                                       (get ($- entity-type)))))
+           ($<-atom item-keys fields
+                    #(concat ~fixed-fields (get % ($- entity-type))))
            (def$ foreign-keys ~foreign-fields)
            (def API ($resource ~query-url))
            (def$ filter-dict {})
