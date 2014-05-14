@@ -68,3 +68,13 @@
                         (integer :docgroup_id [:refer :docgroup :id])
                         (integer :profile_id  [:refer :profile :id]))))
   (down [] (drop (table :record))))
+
+(defmigration add-fields-table
+  (up [] (create db-spec
+                 (table :custom_fields
+                        (integer :id :primary-key :auto-inc)
+                        (varchar :entity 100
+                                 [:collate :utf8-general-ci])
+                        (varchar :field 100 :unique
+                                 [:collate :utf8-general-ci]))))
+  (down [] (drop (table :custom_fields))))
