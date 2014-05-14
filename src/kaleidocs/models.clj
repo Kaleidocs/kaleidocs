@@ -113,6 +113,14 @@
        ((fn [coll] (zipmap (keys coll)
                            (map #(map :field %) (vals coll)))))))
 
+(defn add-column [entity field]
+  (exec-raw (format "ALTER TABLE \"%s\" ADD \"%s\" varchar(100)"
+                    entity field)))
+
+(defn drop-column [entity field]
+  (exec-raw (format "ALTER TABLE \"%s\" DROP COLUMN \"%s\""
+                    entity field)))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
