@@ -175,7 +175,8 @@
   (map m columns))
 
 (defn get-all-data []
-  (into {} (for [[k v] exported-columns]
+  (into {} (for [k (keys base-columns)
+                 :let [v (exported-columns k)]]
              [k (cons (map name v) ;; header row
                       (map #(as-row % v) (select (name->entity-base k))))])))
 
