@@ -7,7 +7,7 @@
             [taoensso.timbre :as timbre]
             [kaleidocs.generate :refer :all]
             [kaleidocs.convert :refer :all]
-            [compojure.core :refer [GET POST DELETE defroutes]]
+            [compojure.core :refer [GET POST PUT DELETE defroutes]]
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.json :refer [wrap-json-body]]
