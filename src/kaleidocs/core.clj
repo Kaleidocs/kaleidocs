@@ -93,6 +93,23 @@
            entity-type page count
            order-key order-value
            filter-kvs))))
+  (POST   "/fields/:entity-type/:field"
+          [entity-type field]
+          (timbre/info "Adding field" field "in" entity-type)
+          (add-custom-field entity-type field)
+          (generate-string
+           (fetch-custom-fields)))
+  (PUT    "/fields/:entity-type/:old-field/:new-field"
+          [entity-type old-field new-field]
+          (timbre/info "Renaming field" old-field "to" new-field "in" entity-type)
+          (rename-custom-field entity-type old-field new-field)
+          (generate-string
+           (fetch-custom-fields)))
+  (DELETE "/fields/:entity-type/:field" [entity-type field]
+          (timbre/info "Deleting field" field "in" entity-type)
+          (remove-custom-field entity-type field)
+          (generate-string
+           (fetch-custom-fields)))
   (POST "/api/:entity-type" [entity-type :as {data :body}]
         (let [data (select-keys data
                                 (allowed-columns entity-type))]
