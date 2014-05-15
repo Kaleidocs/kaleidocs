@@ -2,16 +2,13 @@
   ;; exclude some clojure built-in symbols so we can use the lobos' symbols
   (:refer-clojure :exclude [alter drop complement
                             bigint boolean char double float time])
-  ;; use only defmigration macro from lobos
-  (:use (lobos [migration :only [defmigration]]
-               core
-               schema)
-        [kaleidocs.models :only [db-spec]]))
+  (:require [lobos.core :refer [create drop alter]]
+            [lobos.schema :refer [table integer bigint varchar]]
+            [lobos.migration :refer [defmigration]]))
 
 (defmigration add-document-table
   ;; code be executed when migrating the schema "up" using "migrate"
-  (up [] (create db-spec
-                 (table :document
+  (up [] (create (table :document
                         (integer :id :primary-key :auto-inc)
                         (varchar :filename 100 :unique
                                  [:collate :utf8-general-ci])
@@ -20,8 +17,7 @@
   (down [] (drop (table :document ))))
 
 (defmigration add-docgroup-table
-  (up [] (create db-spec
-                 (table :docgroup
+  (up [] (create (table :docgroup
                         (integer :id :primary-key :auto-inc)
                         (varchar :name 100 :unique
                                  [:collate :utf8-general-ci])
@@ -30,8 +26,7 @@
   (down [] (drop (table :docgroup))))
 
 (defmigration add-profile-table
-  (up [] (create db-spec
-                 (table :profile
+  (up [] (create (table :profile
                         (integer :id :primary-key :auto-inc)
                         (varchar :company 100
                                  [:collate :utf8-general-ci])
@@ -44,8 +39,7 @@
   (down [] (drop (table :profile))))
 
 (defmigration add-contract-table
-  (up [] (create db-spec
-                 (table :contract
+  (up [] (create (table :contract
                         (integer :id :primary-key :auto-inc)
                         (varchar :records 255
                                  [:collate :utf8-general-ci])
@@ -55,8 +49,7 @@
   (down [] (drop (table :contract))))
 
 (defmigration add-record-table
-  (up [] (create db-spec
-                 (table :record
+  (up [] (create (table :record
                         (integer :id :primary-key :auto-inc)
                         (varchar :date 100
                                  [:collate :utf8-general-ci])
@@ -70,8 +63,7 @@
   (down [] (drop (table :record))))
 
 (defmigration add-fields-table
-  (up [] (create db-spec
-                 (table :custom_fields
+  (up [] (create (table :custom_fields
                         (integer :id :primary-key :auto-inc)
                         (varchar :entity 100
                                  [:collate :utf8-general-ci])
