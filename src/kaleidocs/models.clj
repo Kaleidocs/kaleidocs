@@ -149,6 +149,13 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
            (where {:entity entity :field field}))
    (drop-column entity field)))
 
+(defn rename-custom-field [entity old-field new-field]
+  (transaction
+   (update custom_fields
+           (set-fields {:entity entity :field new-field})
+           (where {:entity entity :field old-field}))
+   (rename-column entity old-field new-field)))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
