@@ -234,10 +234,25 @@
        ~@tabletype-routes
        ~@other-routes)))
 
-(defcontroller fields-ctrl [$scope custom-fields]
+(defcontroller fields-ctrl [$scope $http custom-fields]
   (def$ flexible-tables [:profile :record])
   ($<-atom fields fields)
-  (custom-fields.update!))
+  (custom-fields.update!)
+
+  (defn$ add-field [entity field]
+    (.. $http
+        (post (str "/fields/" entity "/" field))
+        (then #(reset! fields (:data %)))))
+
+  (defn$ rename-field [entity old-field new-field]
+    (.. $http
+        (put (str "/fields/" entity "/" old-field "/" new-field))
+        (then #(reset! fields (:data %)))))
+
+  (defn$ remove-field [entity field]
+    (. ($http {:method "DELETE"
+               :url (str "/fields/" entity "/" field)})
+       (then #(reset! fields (:data %))))))
 
 (with-tabletypes-routes
   [document docgroup profile contract record]
