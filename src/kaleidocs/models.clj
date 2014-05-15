@@ -132,6 +132,11 @@
   (exec-raw (format "ALTER TABLE \"%s\" DROP COLUMN \"%s\""
                     entity field)))
 
+(defn rename-column [entity old-field new-field]
+  (exec-raw (format "ALTER TABLE \"%s\"
+ALTER COLUMN \"%s\" RENAME TO \"%s\""
+                    entity old-field new-field)))
+
 (defn add-custom-field [entity field]
   (transaction
    (insert custom_fields
