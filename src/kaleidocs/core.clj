@@ -73,31 +73,8 @@
           (remove-custom-field entity-type field)
           (custom-fields-json)))
 
-(defroutes my-routes
-  (context "/fields" [] fields-route)
-  (GET "/custom-fields" []
-       (custom-fields-json))
-  (GET "/" [] (response/redirect "/app.html"))
-  (GET "/export" []
-       (export-xls)
-       "Export completed")
-  (GET "/generate/:entity-type" [entity-type id]
-       (case entity-type
-         "record"
-         (try (generate-records [(parse-int-or id)])
-              {:status 200}
-              (catch Throwable e
-                (timbre/info "Error generating records" e)))
-         "contract"
-         (try (generate-contract (parse-int-or id))
-              {:status 200}
-              (catch Throwable e
-                (timbre/info "Error generating contract" e)))))
-  (GET "/records" [ids]
-       (when (seq ids)
-         (generate-string
-          (query-records-by-ids (to-list ids)))))
-  (GET "/api/:entity-type" [entity-type page count & other-params]
+(defroutes api-route
+  (GET "/:entity-type" [entity-type page count & other-params]
        (let [[order-key order-value] (find-order-kv other-params)
              filter-kvs (find-filter-kvs other-params)
              page (parse-int-or page 1)
@@ -116,7 +93,7 @@
            entity-type page count
            order-key order-value
            filter-kvs))))
-  (POST "/api/:entity-type" [entity-type :as {data :body}]
+  (POST "/:entity-type" [entity-type :as {data :body}]
         (let [data (select-keys data
                                 (allowed-columns entity-type))]
           (timbre/info "Got a post to" entity-type (pr-str data))
@@ -127,10 +104,36 @@
                 {:status 200})
             {:status 400
              :body "Empty data is not allowed"})))
-  (DELETE ["/api/:entity-type/:id" :id #"[0-9]+"] [entity-type id]
+  (DELETE ["/:entity-type/:id" :id #"[0-9]+"] [entity-type id]
           (timbre/info "Must delete this" entity-type id)
           (delete-entity entity-type id)
           {:status 200}))
+
+(defroutes my-routes
+  (GET "/" [] (response/redirect "/app.html"))
+  (context "/fields" [] fields-route)
+  (context "/api"    [] api-route)
+  (GET "/custom-fields" []
+       (custom-fields-json))
+  (GET "/export" []
+       (export-xls)
+       "Export completed")
+  (GET "/generate/:entity-type" [entity-type id]
+       (case entity-type
+         "record"
+         (try (generate-records [(parse-int-or id)])
+              {:status 200}
+              (catch Throwable e
+                (timbre/info "Error generating records" e)))
+         "contract"
+         (try (generate-contract (parse-int-or id))
+              {:status 200}
+              (catch Throwable e
+                (timbre/info "Error generating contract" e)))))
+  (GET "/records" [ids]
+       (when (seq ids)
+         (generate-string
+          (query-records-by-ids (to-list ids))))))
 
 (def app
   (-> my-routes
