@@ -1,9 +1,20 @@
 (ns kaleidocs.generate
   (:require [kaleidocs.merge :refer [merge-doc]]
+            [clojure.string :as string]
             [taoensso.timbre :as timbre]
             [kaleidocs.models :refer :all]
             [kaleidocs.convert :refer :all]
             [n2w-vi.core :refer [number->words]]))
+
+(defn escape-ampersands* [s]
+  (if (string? s)
+    (string/escape s {\& \＆})
+    s))
+
+(defn escape-ampersands [m]
+  (reduce (fn [m0 [k v]]
+            (assoc m0 k (escape-ampersands* v)))
+          nil m))
 
 (def numberToTextVn
   (reify freemarker.template.TemplateMethodModelEx
