@@ -1,6 +1,6 @@
 [:form.form-horizontal.well
  [:div {:ng-hide "true"} "{{ p.date = (p.date|thenOrNow) }}"]
- [:div.form-group
+ [:div.form-group.has-feedback
   {:ng-repeat "key in foreignKeys"}
   [:label.col-sm-3.control-label
    "{{key.foreignType}}"]
@@ -16,7 +16,8 @@
 entity
  as entity._details
  for entity in
-  findEntity (key.foreignType, key.foreignKey, $viewValue)"}]]]
+  findEntity (key.foreignType, key.foreignKey, $viewValue)"}]
+   [:span {:class "glyphicon glyphicon-search form-control-feedback"}]]]
 
  [:div.form-group
   {:ng-repeat "key in itemKeys"}
