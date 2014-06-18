@@ -329,5 +329,5 @@
   (this->!)
   (defn! update! []
     (.. $http
-        (get "/custom-fields")
+        (get "/fields")
         (then #(reset! fields (:data %))))))
