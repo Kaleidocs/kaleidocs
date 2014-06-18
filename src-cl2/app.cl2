@@ -208,7 +208,7 @@
   nil)
 
 (deftabletype record
-  [:id]
+  [:id :money]
   [{:foreign-type "docgroup"
     :foreign-key "name"}
    {:foreign-type "profile"
