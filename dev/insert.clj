@@ -131,12 +131,15 @@
             {:entity "profile", :field "bank"}
             {:entity "profile", :field "account"}
             {:entity "profile", :field "city"}
-
-            {:entity "record", :field "money"}
+            ;; Don't add money field as its type is bigint
+            ;; {:entity "record", :field "money"}
             {:entity "record", :field "remarks"}
             {:entity "record", :field "date"}
-            {:entity "record", :field "partner"}
-            {:entity "record", :field "project"}])))
+
+            ;; ensure the initial fields are also in lobos.migrations
+            ;;{:entity "record", :field "partner"}
+            ;;{:entity "record", :field "project"}
+            ])))
 
 (defn insert-all []
   (insert-doc)
