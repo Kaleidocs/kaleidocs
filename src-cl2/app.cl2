@@ -250,9 +250,10 @@
         (then #(reset! fields (:data %)))))
 
   (defn$ remove-field [entity field]
-    (. ($http {:method "DELETE"
-               :url (str "/fields/" entity "/" field)})
-       (then #(reset! fields (:data %))))))
+    (when (confirm "Are you sure?")
+      (. ($http {:method "DELETE"
+                 :url (str "/fields/" entity "/" field)})
+         (then #(reset! fields (:data %)))))))
 
 (with-tabletypes-routes
   [document docgroup profile contract record]
