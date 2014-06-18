@@ -79,4 +79,4 @@ entity
    {:ng-if "editId===p.id", :ng-show "editId===p.id"}
    [:td
     {:ng-include "'edit-row.html'",
-     :colspan "7"}]]]]
+     :colspan "9"}]]]]
