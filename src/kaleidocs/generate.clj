@@ -57,8 +57,9 @@
 (defn generate-contract [id]
   (let [current-contract (escape-ampersands (fetch-contract id))
         record-ids (to-list (:records current-contract))
-        records (map-indexed #(assoc %2 "ID" (inc %1))
-                             (fetch-records record-ids))]
+        records (map-indexed
+                 #(assoc (escape-ampersands %2) "ID" (inc %1))
+                 (fetch-records record-ids))]
     (generate-records* records)
     (doseq [current-document
             (map transform-fields (fetch-multidocs))
