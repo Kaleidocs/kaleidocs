@@ -38,7 +38,8 @@
     (zipmap (map name (keys m)) (vals m)))
 
 (defn generate-records* [records]
-  (doseq [current-record records
+  (doseq [current-record
+          (map escape-ampersands records)
           :let [documents
                 (clojure.string/split
                  (:documents current-record) #",")]]
