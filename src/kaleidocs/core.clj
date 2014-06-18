@@ -58,6 +58,8 @@
           (fetch-custom-fields))))
 
 (defroutes fields-route
+  (GET    "/" []
+          (custom-fields-json))
   (POST   "/:entity-type/:field"
           [entity-type field]
           (timbre/info "Adding field" field "in" entity-type)
@@ -113,8 +115,6 @@
   (GET "/" [] (response/redirect "/app.html"))
   (context "/fields" [] fields-route)
   (context "/api"    [] api-route)
-  (GET "/custom-fields" []
-       (custom-fields-json))
   (GET "/export" []
        (export-xls)
        "Export completed")
