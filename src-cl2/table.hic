@@ -67,14 +67,14 @@ entity
     [:button.btn.btn-xs.btn-info
      {:ng-if "(entityType=='record')||(entityType=='contract')"
       :ng-click "generateItem(p.id)", :type "button"}
-     [:span.glyphicon.glyphicon-file] " gen"]
+     [:span.glyphicon.glyphicon-file] ""]
     [:button.btn.btn-xs.btn-warning
      {:ng-click "setEditId(p.id)", :type "button"
       :id "editRowBtn{{p.id}}"}
-     [:span.glyphicon.glyphicon-pencil] " edit"]
+     [:span.glyphicon.glyphicon-pencil] ""]
     [:button.btn.btn-xs.btn-danger
      {:ng-click "deleteItem(p.id)", :type "button"}
-     [:span.glyphicon.glyphicon-remove] " del"]]]
+     [:span.glyphicon.glyphicon-remove] ""]]]
   [:tr
    {:ng-if "editId===p.id", :ng-show "editId===p.id"}
    [:td
