@@ -1,4 +1,4 @@
-(defproject kaleidocs "0.1.0-SNAPSHOT"
+(defproject kaleidocs "1.0.0"
   :description "An Angular web app designed to ... well, that part is up to you."
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
