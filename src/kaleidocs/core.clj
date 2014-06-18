@@ -53,7 +53,10 @@
 (defroutes my-routes
   (GET "/custom-fields" []
        (generate-string
-        (fetch-custom-fields)))
+        (merge {"profile"  []
+                "record"   []
+                "contract" []}
+               (fetch-custom-fields))))
   (GET "/" [] (response/redirect "/app.html"))
   (GET "/export" []
        (export-xls)
