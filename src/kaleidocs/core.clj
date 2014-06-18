@@ -50,6 +50,13 @@
             (get params (format "filter[%s]" k))])
          filter-keys)))
 
+(defn custom-fields-json []
+  (generate-string
+   (merge {"profile"  []
+           "record"   []
+           "contract" []}
+          (fetch-custom-fields))))
+
 (defroutes my-routes
   (GET "/custom-fields" []
        (generate-string
