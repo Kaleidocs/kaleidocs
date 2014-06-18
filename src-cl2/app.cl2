@@ -286,6 +286,13 @@
    :default
    "text-left"))
 
+(deffilter key-box-format [number-filter]
+  [val key]
+  (if
+   (contains? #{:id :sum :money} key)
+   (number-filter val)
+   val))
+
 (defn add-details
   [entity entity-type foreign-type]
   (let [head (str entity-type "#" (:id entity) " "
