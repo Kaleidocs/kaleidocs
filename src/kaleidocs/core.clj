@@ -57,6 +57,22 @@
            "contract" []}
           (fetch-custom-fields))))
 
+(defroutes fields-route
+  (POST   "/:entity-type/:field"
+          [entity-type field]
+          (timbre/info "Adding field" field "in" entity-type)
+          (add-custom-field entity-type field)
+          (custom-fields-json))
+  (PUT    "/:entity-type/:old-field/:new-field"
+          [entity-type old-field new-field]
+          (timbre/info "Renaming field" old-field "to" new-field "in" entity-type)
+          (rename-custom-field entity-type old-field new-field)
+          (custom-fields-json))
+  (DELETE "/:entity-type/:field" [entity-type field]
+          (timbre/info "Deleting field" field "in" entity-type)
+          (remove-custom-field entity-type field)
+          (custom-fields-json)))
+
 (defroutes my-routes
   (GET "/custom-fields" []
        (generate-string
