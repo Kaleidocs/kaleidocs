@@ -55,7 +55,7 @@ entity
      ;;:filter "{ 'fn': 'text' }",
      :sortable "key",
      :data-title "key"}
-    [:p {:ng-class "key|keyBoxClass"} "{{p[key]}}"]]
+    [:p {:ng-class "key|keyBoxClass"} "{{p[key]|keyBoxFormat:key}}"]]
    [:td.rowTd
     {:ng-repeat "key in foreignKeys"
      ;;:filter "{ 'fn': 'text' }",
