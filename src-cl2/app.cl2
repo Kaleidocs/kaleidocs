@@ -72,18 +72,19 @@
   [entity-type fixed-fields foreign-fields & body]
   (let [symbolize        #(->> entity-type name (format %) symbol)
         ctrl-name        (symbolize "%s-ctrl")
-        create-ctrl-name (symbolize "create-%s-ctrl")
-        query-url        (str "/api/" entity-type)]
-    `(do (make-create-ctrl ~entity-type ~create-ctrl-name ~query-url)
+        create-ctrl-name (symbolize "create-%s-ctrl")]
+    `(do (make-create-ctrl ~entity-type ~create-ctrl-name
+                           ~(str "/api/" entity-type))
          (defcontroller ~ctrl-name
            [$scope $filter $resource $timeout $http
             ng-table-params custom-fields]
            (custom-fields.update!)
            (def$ entity-type ~(name entity-type))
+           (def query-url (str "/api/" ($- entity-type)))
            ($<-atom item-keys fields
                     #(concat ~fixed-fields (get % ($- entity-type) [])))
            (def$ foreign-keys ~foreign-fields)
-           (def API ($resource ~query-url))
+           (def API ($resource query-url))
            (def$ filter-dict {})
            (defn reload-table! []
              (. ($- table-params) reload))
@@ -122,7 +123,7 @@
              (reload-table!))
            (defn$ save-item [item]
              (.. $http
-                 (post ~query-url item {"Content-Type" "application/json"})
+                 (post query-url item {"Content-Type" "application/json"})
                  (success on-save-success)
                  (error on-save-error)))
            (defn on-delete-success []
@@ -133,7 +134,7 @@
              (reload-table!))
            (defn$ delete-item [id]
              (when (confirm "Are you sure?")
-               (. ($http {:method "DELETE" :url (str ~query-url "/" id)})
+               (. ($http {:method "DELETE" :url (str query-url "/" id)})
                   (success on-delete-success)
                   (error on-delete-error))))
            (defn$ generate-item [id]
