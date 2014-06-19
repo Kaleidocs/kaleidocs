@@ -2,6 +2,7 @@
   (:require [noir.io :as io]
             [kaleidocs.models :refer :all]
             [kaleidocs.utils :refer [find-order-kv find-filter-kvs
+                                     file-response-as
                                      normalize-diacritics-map]]
             [noir.response :as response]
             [cheshire.core :refer [generate-string parse-string]]
@@ -93,7 +94,7 @@
   (context "/api"    [] api-route)
   (GET "/export" []
        (export-xls)
-       "Export completed")
+       (file-response-as "output/export.xls" "export.xls"))
   (GET "/generate/:entity-type" [entity-type id]
        (case entity-type
          "record"
