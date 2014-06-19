@@ -13,6 +13,13 @@
             (assoc m0 k (escape-ampersands* v)))
           nil m))
 
+(defn normalize-diacritics-map [m]
+  (reduce (fn [m0 [k v]]
+            (assoc m0 k (if (string? v)
+                          (normalize-diacritics v true)
+                          v)))
+          nil m))
+
 (defn long-date-vn [s]
   (apply format "ngày %s tháng %s năm %s"
          (clojure.string/split s #"/")))
