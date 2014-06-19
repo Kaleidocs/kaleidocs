@@ -1,8 +1,8 @@
 (ns kaleidocs.core
   (:require [noir.io :as io]
             [kaleidocs.models :refer :all]
-            [kaleidocs.utils :refer [find-order-key find-order-kv
-                                     find-filter-key find-filter-kvs]]
+            [kaleidocs.utils :refer [find-order-kv find-filter-kvs
+                                     normalize-diacritics-map]]
             [noir.response :as response]
             [cheshire.core :refer [generate-string parse-string]]
             [clojure.string :as str]
