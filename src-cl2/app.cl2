@@ -115,22 +115,21 @@
              [pid]
              (def$ edit-id pid))
            (defn on-save-success []
-             (alert-msg "success" ~(str entity-type " saved"))
+             (alert-msg "success" (str ($- entity-type) " saved"))
              (reload-table!))
            (defn on-save-error []
-             (alert-msg "danger" ~(str entity-type " not saved"))
+             (alert-msg "danger" (str ($- entity-type) " not saved"))
              (reload-table!))
            (defn$ save-item [item]
              (.. $http
-                 (post ~query-url
-                       item {"Content-Type" "application/json"})
+                 (post ~query-url item {"Content-Type" "application/json"})
                  (success on-save-success)
                  (error on-save-error)))
            (defn on-delete-success []
-             (alert-msg "success" ~(str entity-type " deleted"))
+             (alert-msg "success" (str ($- entity-type) " deleted"))
              (reload-table!))
            (defn on-delete-error []
-             (alert-msg "danger" ~(str entity-type " not deleted"))
+             (alert-msg "danger" (str ($- entity-type) " not deleted"))
              (reload-table!))
            (defn$ delete-item [id]
              (when (confirm "Are you sure?")
@@ -145,8 +144,7 @@
                       alerts nil
                       {:id alert-id
                        :type "success"
-                       :msg (str "Finished " ~(name entity-type)
-                                 " #" id "...")})
+                       :msg (str "Finished " ($- entity-type) " #" id "...")})
                      (reload-table!))
                    on-generate-error
                    (fn []
@@ -154,19 +152,18 @@
                       alerts nil
                       {:id alert-id
                        :type "danger"
-                       :msg (str "Error generating " ~(name entity-type)
-                                 " #" id "...")})
+                       :msg (str "Error generating " ($- entity-type) " #" id "...")})
                      (reload-table!))]
                (add-entity!
                 alerts nil
                 {:id alert-id
                  :type "info"
-                 :msg (str "Generating " ~(name entity-type)
+                 :msg (str "Generating " ($- entity-type)
                            " #" id "...")})
                (..
                 $http
                 (get
-                 ~(str "/generate/" (name entity-type))
+                 (str "/generate/" ($- entity-type))
                  {:params {:id id}})
                 (success on-generate-success)
                 (error on-generate-error))))
