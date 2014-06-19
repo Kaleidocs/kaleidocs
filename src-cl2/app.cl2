@@ -68,6 +68,101 @@
            (success on-success)
            (error on-error)))))
 
+(defmacro common-save-item []
+  `(do
+     (defn on-save-success []
+       (alert-msg "success" (str ($- entity-type) " saved"))
+       (reload-table!))
+
+     (defn on-save-error []
+       (alert-msg "danger" (str ($- entity-type) " not saved"))
+       (reload-table!))
+
+     (defn$ save-item [item]
+       (.. $http
+           (post query-url item {"Content-Type" "application/json"})
+           (success on-save-success)
+           (error on-save-error)))))
+
+(defmacro common-delete-item []
+  `(do (defn on-delete-success []
+         (alert-msg "success" (str ($- entity-type) " deleted"))
+         (reload-table!))
+
+       (defn on-delete-error []
+         (alert-msg "danger" (str ($- entity-type) " not deleted"))
+         (reload-table!))
+
+       (defn$ delete-item [id]
+         (when (confirm "Are you sure?")
+           (. ($http {:method "DELETE" :url (str query-url "/" id)})
+              (success on-delete-success)
+              (error on-delete-error))))))
+
+(defmacro common-generate-item []
+  `(do
+     (defn$ generate-item [id]
+       (let [alert-id (next-alert-id)
+             on-generate-success
+             #(do (add-entity!
+                   alerts nil
+                   {:id alert-id
+                    :type "success"
+                    :msg (str "Finished " ($- entity-type) " #" id "...")})
+                  (reload-table!))
+             on-generate-error
+             #(do (add-entity!
+                   alerts nil
+                   {:id alert-id
+                    :type "danger"
+                    :msg (str "Error generating " ($- entity-type) " #" id "...")})
+                  (reload-table!))]
+         (add-entity! alerts nil
+                      {:id alert-id
+                       :type "info"
+                       :msg (str "Generating " ($- entity-type) " #" id "...")})
+
+         (..
+          $http
+          (get (str "/generate/" ($- entity-type))
+               {:params {:id id}})
+          (success on-generate-success)
+          (error on-generate-error))))))
+
+(defmacro common-tabletype-ctrl-body []
+  `(do
+     (def API ($resource query-url))
+     (def$ filter-dict {})
+     (defn reload-table! []
+       (. ($- table-params) reload))
+     (. $scope ($watch "filterDict"
+                       #(when (and ($- filter-dict) ($- table-params))
+                          (reload-table!))
+                       true))
+
+     (def$ table-params
+       ;; https://github.com/esvit/ng-table/wiki/Configuring-your-table-with-ngTableParams#parameters
+       (ngTableParams.
+        {:count 10, :page 1 :filter ($- filter-dict)}
+        {:counts [] ;; disable "items per page" toggler
+         :getData
+         (fn [$defer params]
+           (.get API
+                 (. params url)
+                 (fn [data]
+                   ($timeout
+                    #(do (. params (total (:total data)))
+                         (. $defer (resolve (:result data))))
+                    500))))}))
+
+     (def$ edit-id -1)
+     (defn$ set-edit-id [pid]
+       (def$ edit-id pid))
+
+     (common-save-item)
+     (common-delete-item)
+     (common-generate-item)))
+
 (defmacro deftabletype
   [entity-type fixed-fields foreign-fields & body]
   (let [symbolize        #(->> entity-type name (format %) symbol)
@@ -84,90 +179,7 @@
            ($<-atom item-keys fields
                     #(concat ~fixed-fields (get % ($- entity-type) [])))
            (def$ foreign-keys ~foreign-fields)
-           (def API ($resource query-url))
-           (def$ filter-dict {})
-           (defn reload-table! []
-             (. ($- table-params) reload))
-           (. $scope
-              ($watch "filterDict"
-                      (fn []
-                        (if (and ($- filter-dict)
-                                 ($- table-params))
-                          (reload-table!)))
-                      true))
-
-           (def$ table-params
-             ;; https://github.com/esvit/ng-table/wiki/Configuring-your-table-with-ngTableParams#parameters
-             (ngTableParams.
-              {:count 10, :page 1 :filter ($- filter-dict)}
-              {:counts [] ;; disable "items per page" toggler
-               :getData
-               (fn [$defer params]
-                 (.get API
-                       (. params url)
-                       (fn [data]
-                         ($timeout
-                          (fn []
-                            (. params (total (:total data)))
-                            (. $defer (resolve (:result data))))
-                          500))))}))
-           (def$ edit-id -1)
-           (defn$ set-edit-id
-             [pid]
-             (def$ edit-id pid))
-           (defn on-save-success []
-             (alert-msg "success" (str ($- entity-type) " saved"))
-             (reload-table!))
-           (defn on-save-error []
-             (alert-msg "danger" (str ($- entity-type) " not saved"))
-             (reload-table!))
-           (defn$ save-item [item]
-             (.. $http
-                 (post query-url item {"Content-Type" "application/json"})
-                 (success on-save-success)
-                 (error on-save-error)))
-           (defn on-delete-success []
-             (alert-msg "success" (str ($- entity-type) " deleted"))
-             (reload-table!))
-           (defn on-delete-error []
-             (alert-msg "danger" (str ($- entity-type) " not deleted"))
-             (reload-table!))
-           (defn$ delete-item [id]
-             (when (confirm "Are you sure?")
-               (. ($http {:method "DELETE" :url (str query-url "/" id)})
-                  (success on-delete-success)
-                  (error on-delete-error))))
-           (defn$ generate-item [id]
-             (let [alert-id (next-alert-id)
-                   on-generate-success
-                   (fn []
-                     (add-entity!
-                      alerts nil
-                      {:id alert-id
-                       :type "success"
-                       :msg (str "Finished " ($- entity-type) " #" id "...")})
-                     (reload-table!))
-                   on-generate-error
-                   (fn []
-                     (add-entity!
-                      alerts nil
-                      {:id alert-id
-                       :type "danger"
-                       :msg (str "Error generating " ($- entity-type) " #" id "...")})
-                     (reload-table!))]
-               (add-entity!
-                alerts nil
-                {:id alert-id
-                 :type "info"
-                 :msg (str "Generating " ($- entity-type)
-                           " #" id "...")})
-               (..
-                $http
-                (get
-                 (str "/generate/" ($- entity-type))
-                 {:params {:id id}})
-                (success on-generate-success)
-                (error on-generate-error))))
+           (common-tabletype-ctrl-body)
            ~@body))))
 
 (deftabletype document
