@@ -1,6 +1,8 @@
 (ns kaleidocs.core
   (:require [noir.io :as io]
             [kaleidocs.models :refer :all]
+            [kaleidocs.utils :refer [find-order-key find-order-kv
+                                     find-filter-key find-filter-kvs]]
             [noir.response :as response]
             [cheshire.core :refer [generate-string parse-string]]
             [clojure.string :as str]
@@ -22,33 +24,6 @@
   (if-let [port (first (remove #{"-dev"} args))]
     (Integer/parseInt port)
     3000))
-
-(defn find-order-key
-  [s]
-  (second (re-find #"sorting\[([a-zA-Z_]+)\]" s)))
-
-(defn find-order-kv
-  [params]
-  (let [order-key (some find-order-key (keys params))
-        order-value (if order-key
-                      (case (get params (format "sorting[%s]" order-key))
-                        "asc" :ASC
-                        "desc" :DESC
-                        nil)
-                      :DESC)]
-    [(or (keyword order-key) :id) order-value]))
-
-(defn find-filter-key
-  [s]
-  (second (re-find #"filter\[([a-zA-Z_]+)\]" s)))
-
-(defn find-filter-kvs
-  [params]
-  (let [filter-keys (remove nil? (map find-filter-key (keys params)))]
-    (map (fn [k]
-           [(keyword k)
-            (get params (format "filter[%s]" k))])
-         filter-keys)))
 
 (defn custom-fields-json []
   (generate-string
