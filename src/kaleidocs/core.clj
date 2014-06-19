@@ -133,7 +133,7 @@
   (GET "/records" [ids]
        (when (seq ids)
          (generate-string
-          (query-records-by-ids (to-list ids))))))
+          (query-records-by-ids (split-string->list ids))))))
 
 (def app
   (-> my-routes

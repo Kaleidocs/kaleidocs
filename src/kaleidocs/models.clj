@@ -11,7 +11,7 @@
   (try (Integer/parseInt s)
        (catch Throwable e default)))
 
-(defn to-list [s]
+(defn split-string->list [s]
   (->> #","
        (clojure.string/split s)
        (map parse-int)

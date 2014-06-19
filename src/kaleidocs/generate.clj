@@ -56,7 +56,7 @@
 
 (defn generate-contract [id]
   (let [current-contract (escape-ampersands (fetch-contract id))
-        record-ids (to-list (:records current-contract))
+        record-ids (split-string->list (:records current-contract))
         records (map-indexed
                  #(assoc (escape-ampersands %2) "ID" (inc %1))
                  (fetch-records record-ids))]
