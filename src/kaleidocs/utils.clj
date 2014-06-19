@@ -1,5 +1,7 @@
 (ns kaleidocs.utils
-  (:require [clojure.string :as string]))
+  (:require [vietnamese-utils.core :refer [normalize-diacritics]]
+            [clojure.string :as string]
+            [ring.util.codec :refer [url-decode]]))
 
 (defn escape-ampersands* [s]
   (if (string? s)
