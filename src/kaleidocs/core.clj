@@ -79,8 +79,8 @@
   (GET "/:entity-type" [entity-type page count & other-params]
        (let [[order-key order-value] (find-order-kv other-params)
              filter-kvs (find-filter-kvs other-params)
-             page (parse-int-or page 1)
-             count (parse-int-or count 10)]
+             page (parse-int page 1)
+             count (parse-int count 10)]
          (do (timbre/info
               (format "type: %s; page %s; count %s"
                       entity-type page count))
@@ -121,12 +121,12 @@
   (GET "/generate/:entity-type" [entity-type id]
        (case entity-type
          "record"
-         (try (generate-records [(parse-int-or id)])
+         (try (generate-records [(parse-int id)])
               {:status 200}
               (catch Throwable e
                 (timbre/info "Error generating records" e)))
          "contract"
-         (try (generate-contract (parse-int-or id))
+         (try (generate-contract (parse-int id))
               {:status 200}
               (catch Throwable e
                 (timbre/info "Error generating contract" e)))))

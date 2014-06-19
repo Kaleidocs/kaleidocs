@@ -7,14 +7,14 @@
             [ring.util.codec :refer [url-decode]]
             [cheshire.core :refer [generate-string parse-string]]))
 
-(defn parse-int-or [s & [default]]
+(defn parse-int [s & [default]]
   (try (Integer/parseInt s)
        (catch Throwable e default)))
 
 (defn to-list [s]
   (->> #","
        (clojure.string/split s)
-       (map parse-int-or )
+       (map parse-int)
        (remove nil?)))
 
 (def db-spec
