@@ -71,8 +71,9 @@
            order-key order-value
            filter-kvs))))
   (POST "/:entity-type" [entity-type :as {data :body}]
-        (let [data (select-keys data
-                                (allowed-columns entity-type))]
+        (let [data (-> data
+                       (select-keys (allowed-columns entity-type))
+                       normalize-diacritics-map)]
           (timbre/info "Got a post to" entity-type (pr-str data))
           (if (seq data)
             (do (if (integer? (:id data))
