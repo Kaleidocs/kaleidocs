@@ -1,7 +1,13 @@
 (ns kaleidocs.utils
   (:require [vietnamese-utils.core :refer [normalize-diacritics]]
             [clojure.string :as string]
+            [ring.util.response :refer [file-response]]
             [ring.util.codec :refer [url-decode]]))
+
+(defn file-response-as [path filename]
+  (assoc-in (file-response path)
+            [:headers "Content-Disposition"]
+            (format "attachment;filename=%s" filename)))
 
 (defn escape-ampersands* [s]
   (if (string? s)
