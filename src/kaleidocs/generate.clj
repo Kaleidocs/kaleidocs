@@ -1,29 +1,15 @@
 (ns kaleidocs.generate
   (:require [kaleidocs.merge :refer [merge-doc]]
-            [clojure.string :as string]
+            [kaleidocs.utils :refer [escape-ampersands long-date-vn unkeywordize]]
             [taoensso.timbre :as timbre]
             [kaleidocs.models :refer :all]
             [kaleidocs.convert :refer :all]
             [n2w-vi.core :refer [number->words]]))
 
-(defn escape-ampersands* [s]
-  (if (string? s)
-    (string/escape s {\& \＆})
-    s))
-
-(defn escape-ampersands [m]
-  (reduce (fn [m0 [k v]]
-            (assoc m0 k (escape-ampersands* v)))
-          nil m))
-
 (def numberToTextVn
   (reify freemarker.template.TemplateMethodModelEx
     (exec [this args]
       (number->words (.getAsNumber (first (seq args)))))))
-
-(defn long-date-vn [s]
-  (apply format "ngày %s tháng %s năm %s"
-         (clojure.string/split s #"/")))
 
 (def longDateVn
   (reify freemarker.template.TemplateMethodModelEx
@@ -33,9 +19,6 @@
 (def freemarker-utils
   {"numberToTextVn" numberToTextVn
    "longDateVn" longDateVn})
-
-(defn unkeywordize [m]
-    (zipmap (map name (keys m)) (vals m)))
 
 (defn generate-records* [records]
   (doseq [current-record
