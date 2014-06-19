@@ -49,10 +49,10 @@
 
 (defmacro deftabletype
   [entity-type fixed-fields foreign-fields & body]
-  (let [ctrl-name (symbol (format "%s-ctrl" (name entity-type)))
-        create-ctrl-name (symbol (format "create-%s-ctrl"
-                                         (name entity-type)))
-        query-url (str "/api/" entity-type)]
+  (let [symbolize        #(->> entity-type name (format %) symbol)
+        ctrl-name        (symbolize "%s-ctrl")
+        create-ctrl-name (symbolize "create-%s-ctrl")
+        query-url        (str "/api/" entity-type)]
     `(do (defcontroller ~create-ctrl-name
            [$scope $http]
            (defn reload-table! []
