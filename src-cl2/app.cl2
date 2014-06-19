@@ -7,11 +7,9 @@
 (defn create-query-params [filter-key filter-value]
   (def params {:page 0 :count 6})
   (let [filter-key-string (str "filter[" filter-key "]")
-        sort-key-string (str "sorting[" filter-key "]")]
-    (set! (get params filter-key-string)
-          filter-value)
-    (set! (get params sort-key-string)
-          "asc")
+        sort-key-string   (str "sorting[" filter-key "]")]
+    (set! (get params filter-key-string) filter-value)
+    (set! (get params sort-key-string) "asc")
     params))
 
 (defcontroller query-ctrl
