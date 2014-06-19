@@ -49,8 +49,12 @@
 
 (defn find-filter-kvs
   [params]
-  (let [filter-keys (remove nil? (map find-filter-key (keys params)))]
+  (let [filter-keys (remove nil? (map find-filter-key (keys params)))
+        normalized-value-for
+        (fn [k] (-> (get params (format "filter[%s]" k))
+                    url-decode
+                    (normalize-diacritics true)))]
     (map (fn [k]
            [(keyword k)
-            (get params (format "filter[%s]" k))])
+            (normalized-value-for k)])
          filter-keys)))
