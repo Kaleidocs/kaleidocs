@@ -47,34 +47,34 @@
 (deffilter string->set []
   [s] (string->set s))
 
+(defmacro make-create-ctrl
+  [entity-type create-ctrl-name query-url]
+  `(defcontroller ~create-ctrl-name
+     [$scope $http]
+     (defn reload-table! []
+       (def$ p {})
+       (. ($- table-params) reload))
+     (defn on-success []
+       (alert-msg "success" ~(str entity-type " added."))
+       (reload-table!))
+     (defn on-error [data status]
+       (alert-msg "danger" (str ~(str entity-type " not added. ")
+                                "Error " status ": " data))
+       (reload-table!))
+     (def$ p {})
+     (defn$ save-item [item]
+       (.. $http
+           (post ~query-url item {"Content-Type" "application/json"})
+           (success on-success)
+           (error on-error)))))
+
 (defmacro deftabletype
   [entity-type fixed-fields foreign-fields & body]
   (let [symbolize        #(->> entity-type name (format %) symbol)
         ctrl-name        (symbolize "%s-ctrl")
         create-ctrl-name (symbolize "create-%s-ctrl")
         query-url        (str "/api/" entity-type)]
-    `(do (defcontroller ~create-ctrl-name
-           [$scope $http]
-           (defn reload-table! []
-             (def$ p {})
-             (. ($- table-params) reload))
-           (defn on-success []
-             (alert-msg "success" ~(str entity-type " added."))
-             (reload-table!))
-           (defn on-error [data status]
-             (alert-msg "danger"
-                        (str ~(str entity-type " not added. ")
-                             "Error " status ": "
-                             data))
-             (reload-table!))
-           (def$ p {})
-           (defn$ save-item [item]
-             (.. $http
-                 (post ~query-url
-                       item {"Content-Type" "application/json"})
-                 (success on-success)
-                 (error on-error))))
-
+    `(do (make-create-ctrl ~entity-type ~create-ctrl-name ~query-url)
          (defcontroller ~ctrl-name
            [$scope $filter $resource $timeout $http
             ng-table-params custom-fields]
