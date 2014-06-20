@@ -108,6 +108,7 @@
                    alerts nil
                    {:id alert-id
                     :type "success"
+                    :files %
                     :msg (str "Finished " ($- entity-type) " #" id "...")})
                   (reload-table!))
              on-generate-error
