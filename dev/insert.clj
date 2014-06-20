@@ -157,17 +157,27 @@
   (insert-fields)
   (insert-contract))
 
-(def entities (map name '[document docgroup profile record contract]))
+(def entity-types (map name '[document docgroup profile record contract]))
 
-(defn save-data [filename]
-  (->> (for [entity entities]
-         [entity (select (name->entity entity))])
-       (into {})
-       pr-str
-       (spit filename)))
+(defn save-data
+  "Saves all data to file with an optional transformer function.
+  Usage:
+   (save-data \"data.clj\" (fn [_ m] (assoc m :foo 3)))"
+  ([filename]
+     (save-data filename
+                (fn [entity-type entity] (identity entity))))
+  ([filename transformer]
+     (println "Saving data...")
+     (->> (for [entity-type entity-types]
+            [entity-type
+             (map (fn [entity] (transformer entity-type entity))
+                  (select (name->entity entity-type)))])
+          (into {})
+          pr-str
+          (spit filename))))
 
 (defn load-data [filename]
   (let [m (read-string (slurp filename))]
-    (doseq [entity entities]
-      (insert (name->entity entity)
-              (values (get m entity))))))
+    (doseq [entity-type entity-types]
+      (insert (name->entity entity-type)
+              (values (get m entity-type))))))
