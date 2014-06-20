@@ -1,6 +1,6 @@
 (defproject kaleidocs "1.1.0"
-  :description "An Angular web app designed to ... well, that part is up to you."
-  :url "http://example.com/FIXME"
+  :description "Produce office documents from templates"
+  :url "https://github.com/Kaleidocs/kaleidocs"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
@@ -15,7 +15,7 @@
                  [korma "0.3.0-RC5"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [com.h2database/h2 "1.3.176"]
-                 [vietnamese-utils "0.1.0"]
+                 [vietnamese-utils "0.2.0"]
                  [n2w-vi "0.1.0"]
                  [org.clojars.hozumi/clj-commons-exec "1.0.7"]]
   :profiles
