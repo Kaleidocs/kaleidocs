@@ -45,7 +45,7 @@
 
 (defn allowed-columns [entity-type]
   (into (base-columns entity-type)
-        (when (#{"profile" "record"} entity-type)
+        (when (#{"profile" "record" "contract"} entity-type)
           (->> (select custom_fields
                        (where {:entity entity-type}))
                (map #(-> % :field keyword))))))
