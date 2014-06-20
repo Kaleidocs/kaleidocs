@@ -62,5 +62,9 @@
        {:close "removeAlert(alert.id)",
         :type "alert.type",
         :ng-repeat "alert in alerts"}
-       "{{alert.msg}}"]]
+       [:p "{{alert.msg}}"]
+       [:a.btn.btn-default {:ng-repeat "file in alert.files"
+            :href "/download/{{file}}"}
+        [:span.glyphicon.glyphicon-download-alt " "]
+        "{{file}}"]]]
      [:ng-view]]]]]]
