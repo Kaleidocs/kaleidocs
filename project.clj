@@ -6,7 +6,6 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [http-kit "2.1.16"]
                  [lib-noir "0.7.8"]
-                 [lobos "1.0.0-beta1"]
                  [com.taoensso/timbre "2.7.1"]
                  [ring/ring-devel "1.1.8"]
                  [ring/ring-json "0.3.0"]
@@ -39,6 +38,7 @@
     :eval-in :nrepl
     :dependencies
     [[org.clojure/tools.namespace "0.2.4"]
+     [lobos "1.0.0-beta1"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.odt "1.0.3"]
      [fr.opensagres.xdocreport/fr.opensagres.xdocreport.document.ods "1.0.3"]
      [chlorine/repl "0.1.0-SNAPSHOT"]]
