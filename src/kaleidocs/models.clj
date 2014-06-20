@@ -155,6 +155,11 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
            (where {:entity entity :field old-field}))
    (rename-column entity old-field new-field)))
 
+(defn migrate-custom-fields [custom-fields-data]
+  (transaction
+   (doseq [custom-field custom-fields-data]
+     (add-column (:entity custom-field) (:field custom-field)))))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
