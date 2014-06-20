@@ -124,8 +124,7 @@
 
          (..
           $http
-          (get (str "/generate/" ($- entity-type))
-               {:params {:id id}})
+          (get (str "/generate/" ($- entity-type) "/" id))
           (success on-generate-success)
           (error on-generate-error))))))
 

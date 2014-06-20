@@ -95,7 +95,7 @@
   (GET "/export" []
        (export-xls)
        (file-response-as "output/export.xls" "export.xls"))
-  (GET "/generate/:entity-type" [entity-type id]
+  (GET "/generate/:entity-type/:id" [entity-type id]
        (case entity-type
          "record"
          (try (generate-records [(parse-int id)])
