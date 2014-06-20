@@ -21,7 +21,6 @@
   {:deploy
    {:uberjar-name "kaleidocs.jar"
     :main kaleidocs.core
-    :aot :all
     :cl2c {:frontend
            {:watch ["src-cl2", "test-cl2"]
             :filter (or "src-cl2/app.cl2"
@@ -67,6 +66,7 @@
   :plugins [[lein-cl2c "0.0.1-SNAPSHOT"]
             [lein-bower "0.4.0"]
             [lein-npm "0.4.0"]]
+  :uberjar-exclusions [#"lobos"]
   :bower {:directory "resources/public/vendor"}
   :bower-dependencies [[sockjs "~0.3.4"]
                        [angular-bootstrap "0.10.0"]
