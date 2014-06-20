@@ -172,12 +172,14 @@
             [entity-type
              (map (fn [entity] (transformer entity-type entity))
                   (select (name->entity entity-type)))])
-          (into {})
+          (into {"custom_fields" (select custom_fields)})
           pr-str
           (spit filename))))
 
 (defn load-data [filename]
   (let [m (read-string (slurp filename))]
+    (migrate-custom-fields (get m "custom_fields"))
     (doseq [entity-type entity-types]
       (insert (name->entity entity-type)
-              (values (get m entity-type))))))
+              (values (get m entity-type))))
+    (insert custom_fields (values (get m "custom_fields")))))
