@@ -95,6 +95,8 @@
   (GET "/export" []
        (export-xls)
        (file-response-as "output/export.xls" "export.xls"))
+  (GET "/download/:filename" [filename]
+       (file-response-as (str "output/" filename) filename))
   (GET "/generate/:entity-type/:id" [entity-type id]
        (case entity-type
          "record"
