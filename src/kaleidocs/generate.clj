@@ -20,22 +20,19 @@
   {"numberToTextVn" numberToTextVn
    "longDateVn" longDateVn})
 
-(defn generate-records* [records]
-  (doseq [current-record
-          (map escape-ampersands records)
-          :let [documents
-                (clojure.string/split
-                 (:documents current-record) #",")]]
-    (doseq [current-document documents
-            :let [current-output
-                  (str (:id current-record) "_" current-document)]]
-      (merge-doc (str templates-dir "/" current-document)
-                 (str output-dir "/" current-output)
-                 (merge (unkeywordize current-record)
-                        freemarker-utils)))))
+(defn generate-record* [record]
+  (let [documents (-> record :documents
+                      (clojure.string/split #","))]
+    (for [document documents
+          :let [output-file (str (:id record) "_" document)]]
+      (do (merge-doc (str templates-dir "/" document)
+                     (str output-dir "/" output-file)
+                     (merge (unkeywordize record) freemarker-utils))
+          output-file))))
 
 (defn generate-records [ids]
-  (generate-records* (fetch-records ids)))
+  (mapcat #(-> % escape-ampersands generate-record*)
+          (fetch-records ids)))
 
 (defn generate-contract [id]
   (let [current-contract (escape-ampersands (fetch-contract id))
