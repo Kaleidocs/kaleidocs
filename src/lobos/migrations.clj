@@ -27,15 +27,7 @@
 
 (defmigration add-profile-table
   (up [] (create (table :profile
-                        (integer :id :primary-key :auto-inc)
-                        (varchar :company 100
-                                 [:collate :utf8-general-ci])
-                        (varchar :bank 100
-                                 [:collate :utf8-general-ci])
-                        (varchar :account 100
-                                 [:collate :utf8-general-ci])
-                        (varchar :city 100
-                                 [:collate :utf8-general-ci]))))
+                        (integer :id :primary-key :auto-inc))))
   (down [] (drop (table :profile))))
 
 (defmigration add-contract-table
@@ -53,10 +45,7 @@
                         (integer :id :primary-key :auto-inc)
                         (varchar :date 100
                                  [:collate :utf8-general-ci])
-
                         (bigint :money)
-                        (varchar :remarks 100
-                                 [:collate :utf8-general-ci])
                         ;; (integer :contract_id [:refer :contract :id])
                         (integer :docgroup_id [:refer :docgroup :id])
                         (integer :profile_id  [:refer :profile :id]))))
