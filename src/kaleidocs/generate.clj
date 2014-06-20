@@ -21,8 +21,7 @@
    "longDateVn" longDateVn})
 
 (defn generate-record* [record]
-  (let [documents (-> record :documents
-                      (clojure.string/split #","))]
+  (let [documents (-> record :documents (clojure.string/split #","))]
     (for [document documents
           :let [output-file (str (:id record) "_" document)]]
       (do (merge-doc (str templates-dir "/" document)
