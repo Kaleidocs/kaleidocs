@@ -35,23 +35,22 @@
           (fetch-records ids)))
 
 (defn generate-contract [id]
-  (let [current-contract (escape-ampersands (fetch-contract id))
-        record-ids (split-string->list (:records current-contract))
-        records (map-indexed
-                 #(assoc (escape-ampersands %2) "ID" (inc %1))
-                 (fetch-records record-ids))]
-    (generate-records* records)
-    (doseq [current-document
-            (map transform-fields (fetch-multidocs))
-            :let [current-output
-                  (str (:id current-contract) "_"
-                       (:filename current-document))]]
-      (merge-doc (str templates-dir "/" (:filename current-document))
-                 (str output-dir "/" current-output)
-                 ;; columns
-                 (map #(str "TABLE." (name %))
-                      (:fields current-document))
-                 (merge (unkeywordize current-contract)
-                        {"TABLE"
-                         (mapv unkeywordize records)}
-                        freemarker-utils)))))
+  (let [contract            (escape-ampersands (fetch-contract id))
+        record-ids          (split-string->list (:records contract))
+        indexed-records     (map-indexed
+                             #(assoc (escape-ampersands %2) "ID" (inc %1))
+                             (fetch-records record-ids))
+        output-record-files (mapcat generate-record* indexed-records)]
+    (->
+     (for [contract-document (map transform-fields (fetch-multidocs))
+           :let [contract-output
+                 (str (:id contract) "_" (:filename contract-document))]]
+       (do (merge-doc (str templates-dir "/" (:filename contract-document))
+                      (str output-dir "/" contract-output)
+                      ;; columns
+                      (map #(str "TABLE." (name %)) (:fields contract-document))
+                      (merge (unkeywordize contract)
+                             {"TABLE" (mapv unkeywordize indexed-records)}
+                             freemarker-utils))
+           contract-output))
+     (concat output-record-files))))
