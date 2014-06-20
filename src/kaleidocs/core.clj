@@ -98,13 +98,11 @@
   (GET "/generate/:entity-type/:id" [entity-type id]
        (case entity-type
          "record"
-         (try (generate-records [(parse-int id)])
-              {:status 200}
+         (try (-> id parse-int vector generate-records generate-string)
               (catch Throwable e
                 (timbre/info "Error generating records" e)))
          "contract"
-         (try (generate-contract (parse-int id))
-              {:status 200}
+         (try (-> id parse-int generate-contract generate-string)
               (catch Throwable e
                 (timbre/info "Error generating contract" e)))))
   (GET "/records" [ids]
