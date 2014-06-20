@@ -61,8 +61,7 @@
 
 (def name->entity
   (let [entity-types '[document docgroup profile record contract]]
-    (zipmap (map name entity-types)
-            (map eval entity-types))))
+    (reduce (fn [m k] (assoc m (name k) (eval k))) nil entity-types)))
 
 (def name->entity-base*
   (let [entity-types '[document docgroup profile contract]]
