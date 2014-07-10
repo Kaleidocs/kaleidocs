@@ -221,7 +221,31 @@
     :foreign-key "name"}
    {:foreign-type "profile"
     :foreign-key "company"}]
-  )
+  (defn$ export [dict]
+    (let [alert-id (next-alert-id)
+          on-export-success
+          #(add-entity!
+            alerts nil
+            {:id alert-id
+             :type "success"
+             :files %
+             :msg "Export finished"})
+          on-export-error
+          #(add-entity!
+            alerts nil
+            {:id alert-id
+             :type "danger"
+             :msg "Error exporting"})]
+      (add-entity! alerts nil
+                   {:id alert-id
+                    :type "info"
+                    :msg "Exporting..."})
+      (..
+       $http
+       (post "/export" {:dict dict})
+       (success on-export-success)
+       (error on-export-error))))
+  nil)
 
 (defmacro with-tabletypes-routes
   [tabletype-symbols & other-routes]
