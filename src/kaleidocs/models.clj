@@ -213,3 +213,9 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
         base
         (with-where-clauses (name->entity-base entity-type))]
     (select base)))
+
+(defn records->sheet [entities]
+  (let [k "record"
+        v (exported-columns k)]
+    {k (cons (map name v) ;; header row
+             (map #(as-row % v) entities))}))
