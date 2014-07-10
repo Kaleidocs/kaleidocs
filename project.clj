@@ -1,4 +1,4 @@
-(defproject kaleidocs "1.1.0"
+(defproject kaleidocs "1.2.0"
   :description "Produce office documents from templates"
   :url "https://github.com/Kaleidocs/kaleidocs"
   :license {:name "Eclipse Public License"
