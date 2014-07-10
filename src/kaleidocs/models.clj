@@ -173,11 +173,7 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
    filter-kvs]
   (let [with-where-clauses
         (if (seq filter-kvs)
-          (->> filter-kvs
-               (map
-                (fn [[k v]]
-                  #(where* % (pred-like k (str "%" (url-decode v) "%")))))
-               (apply comp))
+          (filter-kvs->where-clauses filter-kvs)
           identity)
         base
         (with-where-clauses (name->entity-base entity-type))
