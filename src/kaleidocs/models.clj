@@ -203,3 +203,13 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
   (-> (workbook-hssf)
       (build-workbook (get-all-data))
       (save (str output-dir "/" "export.xls"))))
+
+(defn fetch-entities*
+  [entity-type filter-kvs]
+  (let [with-where-clauses
+        (if (seq filter-kvs)
+          (filter-kvs->where-clauses filter-kvs)
+          identity)
+        base
+        (with-where-clauses (name->entity-base entity-type))]
+    (select base)))
