@@ -160,6 +160,13 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
    (doseq [custom-field custom-fields-data]
      (add-column (:entity custom-field) (:field custom-field)))))
 
+(defn filter-kvs->where-clauses [filter-kvs]
+  (->> filter-kvs
+       (map
+        (fn [[k v]]
+          #(where* % (pred-like k (str "%" (url-decode v) "%")))))
+       (apply comp)))
+
 (defn fetch-entities
   [entity-type page items-per-page
    order-key order-value
