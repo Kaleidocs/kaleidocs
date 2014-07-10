@@ -80,3 +80,7 @@ entity
    [:td
     {:ng-include "'edit-row.html'",
      :colspan "9"}]]]]
+
+[:button.btn.btn-info
+ {:ng-if "entityType=='record'" :type "button"
+  :ng-click "export((filterDict|json))"} "Export selection"]
