@@ -95,6 +95,12 @@
   (GET "/export" []
        (export-xls)
        (file-response-as "output/export.xls" "export.xls"))
+  (POST "/export" [:as {data :body}]
+        (let [dict (parse-string (:dict data) true)]
+          (timbre/info "Export this selection" (pr-str dict))
+          (export-records dict)
+          (file-response-as "output/selection.xls" "selection.xls")
+          (generate-string ["selection.xls"])))
   (GET "/download/:filename" [filename]
        (file-response-as (str "output/" filename) filename))
   (GET "/generate/:entity-type/:id" [entity-type id]
