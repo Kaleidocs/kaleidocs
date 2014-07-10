@@ -219,3 +219,8 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
         v (exported-columns k)]
     {k (cons (map name v) ;; header row
              (map #(as-row % v) entities))}))
+
+(defn export-records [filter-dict]
+  (-> (workbook-hssf)
+      (build-workbook (records->sheet (fetch-entities* "record" filter-dict)))
+      (save (str output-dir "/" "selection.xls"))))
