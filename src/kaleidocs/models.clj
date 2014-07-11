@@ -5,11 +5,8 @@
             [clj-excel.core :refer [build-workbook workbook-hssf save]]
             [kaleidocs.convert :refer [output-dir multi-doc?]]
             [ring.util.codec :refer [url-decode]]
+            [kaleidocs.utils :refer [foreign-field? parse-int]]
             [cheshire.core :refer [generate-string parse-string]]))
-
-(defn parse-int [s & [default]]
-  (try (Integer/parseInt s)
-       (catch Throwable e default)))
 
 (defn split-string->list [s]
   (->> #","

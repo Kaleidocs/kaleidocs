@@ -4,6 +4,10 @@
             [ring.util.response :refer [file-response]]
             [ring.util.codec :refer [url-decode]]))
 
+(defn parse-int [s & [default]]
+  (try (Integer/parseInt s)
+       (catch Throwable e default)))
+
 (defn file-response-as [path filename]
   (assoc-in (file-response path)
             [:headers "Content-Disposition"]
