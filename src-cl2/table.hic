@@ -83,4 +83,6 @@ entity
 
 [:button.btn.btn-info
  {:ng-if "entityType=='record'" :type "button"
-  :ng-click "export((filterDict|json))"} "Export selection"]
+  :ng-click "export((filterDict|json))"}
+ [:span.glyphicon.glyphicon-file ""]
+ "Export selection"]
