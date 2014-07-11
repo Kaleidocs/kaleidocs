@@ -102,6 +102,10 @@
           (export-records dict)
           (file-response-as "output/selection.xls" "selection.xls")
           (generate-string ["selection.xls"])))
+  (POST "/sum" [:as {data :body}]
+        (let [dict (parse-string (:dict data) true)]
+          (timbre/info "Sum this selection" (pr-str dict))
+          (generate-string (fetch-entities-sum* "record" dict))))
   (GET "/download/:filename" [filename]
        (file-response-as (str "output/" filename) filename))
   (GET "/generate/:entity-type/:id" [entity-type id]
