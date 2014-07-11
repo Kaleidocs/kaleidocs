@@ -46,7 +46,10 @@
 "{{( '/'+entity === $location.path() ) ? 'active' : '' }}"}
        [:a {:href "#/{{entity}}"}
         "{{entity}}"]]
-      [:li [:a {:href "/export"} "Export"]]]]]
+      [:li [:a {:href "/export"} "Export"]]]
+     [:ul.nav.navbar-nav.navbar-right
+      [:li [:a {:href "https://github.com/Kaleidocs/kaleidocs/wiki"}
+            "About"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
      [:div {:ng-controller "alertsCtrl"}
