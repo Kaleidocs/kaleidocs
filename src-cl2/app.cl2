@@ -172,7 +172,7 @@
                            ~(str "/api/" entity-type))
          (defcontroller ~ctrl-name
            [$scope $filter $resource $timeout $http
-            ng-table-params custom-fields]
+            ng-table-params custom-fields number-filter]
            (custom-fields.update!)
            (def$ entity-type ~(name entity-type))
            (def query-url (str "/api/" ($- entity-type)))
