@@ -37,7 +37,8 @@
       [:span.icon-bar]
       [:span.icon-bar]
       [:span.icon-bar]]
-     [:a.navbar-brand {:href "/"} "Kaleidocs"]]
+     [:a.navbar-brand {:href "/"}
+      [:span.glyphicon.glyphicon-home ""] "    Kaleidocs    "]]
     [:div.navbar-collapse.collapse
      [:ul.nav.navbar-nav {:ng-controller "navbarCtrl"}
       [:li {:ng-repeat "entity in
@@ -45,11 +46,15 @@
             :class
 "{{( '/'+entity === $location.path() ) ? 'active' : '' }}"}
        [:a {:href "#/{{entity}}"}
-        "{{entity}}"]]
-      [:li [:a {:href "/export"} "Export"]]]
+        [:span.glyphicon.glyphicon-bookmark " "]
+        "    {{entity}}"]]
+      [:li [:a {:href "/export"}
+            [:span.glyphicon.glyphicon-file " "]
+            "     Export"]]]
      [:ul.nav.navbar-nav.navbar-right
       [:li [:a {:href "https://github.com/Kaleidocs/kaleidocs/wiki"}
-            "About"]]]]]
+            [:span.glyphicon.glyphicon-question-sign " "]
+            "     About"]]]]]
    [:div.container.row.span12
     [:div.span8.offset2
      [:div {:ng-controller "alertsCtrl"}
