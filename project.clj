@@ -61,7 +61,8 @@
            :devDependencies {:angular-cl2 "0.4.0-SNAPSHOT",
                              :less "~1.4.0"
                              :testem "0.6.2"
-                             :socket-cl2 "0.2.0"}
+                             :socket-cl2 "0.2.0"
+                             :bower "*"}
            :scripts {:testem "testem ci"}}
   :plugins [[lein-cl2c "0.0.1-SNAPSHOT"]
             [lein-bower "0.4.0"]
