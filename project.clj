@@ -67,7 +67,9 @@
   :plugins [[lein-cl2c "0.0.1-SNAPSHOT"]
             [lein-bower "0.5.1"]
             [lein-npm "0.4.0"]]
-  :aliases {"deploy!" ["with-profile" "deploy" "do" "clean," "uberjar"]}
+  :aliases {"frontend" ["do" "npm" "install," "bower" "install" "-f," "cl2c" "once" "frontend"]
+            "package" ["with-profile" "deploy" "do" "clean," "uberjar"]
+            "deploy!" ["do" "frontend," "package"]}
   :uberjar-exclusions [#"lobos"]
   :bower {:directory "resources/public/vendor"}
   :bower-dependencies [[sockjs "~0.3.4"]
