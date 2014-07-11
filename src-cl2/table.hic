@@ -1,3 +1,14 @@
+[:div.btn-group.panel
+ [:button.btn.btn-info
+  {:ng-if "entityType=='record'" :type "button"
+   :ng-click "export((filterDict|json))"}
+  [:span.glyphicon.glyphicon-file ""]
+  "Export selection"]
+ [:button.btn.btn-default
+  {:ng-if "entityType=='record'" :type "button"
+   :ng-click "showSum((filterDict|json))"}
+  [:span.glyphicon.glyphicon-star ""]
+  "Sum"]]
 [:table.table
  {:show-filter "true", :ng-table "tableParams"}
  [:thead
@@ -80,9 +91,3 @@ entity
    [:td
     {:ng-include "'edit-row.html'",
      :colspan "9"}]]]]
-
-[:button.btn.btn-info
- {:ng-if "entityType=='record'" :type "button"
-  :ng-click "export((filterDict|json))"}
- [:span.glyphicon.glyphicon-file ""]
- "Export selection"]
