@@ -221,6 +221,11 @@
     :foreign-key "name"}
    {:foreign-type "profile"
     :foreign-key "company"}]
+  (defn$ show-sum [dict]
+    (..
+     $http
+     (post "/sum" {:dict dict})
+     (success #(alert (str "Sum: " (number-filter %))))))
   (defn$ export [dict]
     (let [alert-id (next-alert-id)
           on-export-success
