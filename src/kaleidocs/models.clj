@@ -161,7 +161,10 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
   (->> filter-kvs
        (map
         (fn [[k v]]
-          #(where* % (pred-like k (str "%" (url-decode v) "%")))))
+          (let [expr (if (foreign-field? k)
+                       (pred-= k (parse-int v (when (number? v) v)))
+                       (pred-like k (str "%" (url-decode v) "%")))]
+            #(where* % expr))))
        (apply comp)))
 
 (defn fetch-entities
