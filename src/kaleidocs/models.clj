@@ -214,6 +214,18 @@ ALTER COLUMN \"%s\" RENAME TO \"%s\""
         (with-where-clauses (name->entity-base entity-type))]
     (select base)))
 
+(defn fetch-entities-sum*
+  [entity-type filter-kvs]
+  (let [with-where-clauses
+        (if (seq filter-kvs)
+          (filter-kvs->where-clauses filter-kvs)
+          identity)
+        base
+        (with-where-clauses (name->entity-base entity-type))]
+    (-> base
+        (aggregate (sum :money) :total)
+        select first :total)))
+
 (defn records->sheet [entities]
   (let [k "record"
         v (exported-columns k)]
