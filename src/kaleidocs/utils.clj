@@ -38,6 +38,9 @@
   (reduce (fn [m0 [k v]] (assoc m0 (name k) v))
           nil m))
 
+(defn foreign-field? [k]
+  (#{:docgroup_id :profile_id} k))
+
 (defn find-order-key
   [s]
   (second (re-find #"sorting\[([a-zA-Z_]+)\]" s)))
