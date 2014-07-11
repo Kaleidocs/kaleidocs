@@ -1,10 +1,11 @@
 (ns kaleidocs.core
   (:require [noir.io :as io]
             [kaleidocs.models :refer :all]
-            [kaleidocs.utils :refer [find-order-kv find-filter-kvs
-                                     file-response-as
-                                     normalize-diacritics-map]]
-            [noir.response :as response]
+            [kaleidocs.utils
+             :refer [find-order-kv find-filter-kvs
+                     file-response-as parse-int
+                     normalize-diacritics-map]]
+            [ring.util.response :as response]
             [cheshire.core :refer [generate-string parse-string]]
             [clojure.string :as str]
             [taoensso.timbre :as timbre]
