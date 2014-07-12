@@ -74,10 +74,12 @@
   :bower {:directory "resources/public/vendor"}
   :bower-dependencies [[sockjs "~0.3.4"]
                        [angular-bootstrap "0.10.0"]
+                       [bootstrap "3.1.1"]
                        [ng-table "~0.3.1"]
                        [angular-route "~1.2.16"]
                        [angular-resource "~1.2.16"]
                        [angular-sanitize "~1.2.16"]
+                       [angular-animate "~1.2.16"]
                        [angular-i18n "~1.2.16"]
                        [ng-file-upload "~1.2.11"]]
   )
