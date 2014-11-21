@@ -83,7 +83,7 @@
            (custom-fields.update!)
            (def$ entity-type ~(name entity-type))
            ($<-atom item-keys fields
-                    #(concat ~fixed-fields (get % ($- entity-type))))
+                    #(concat ~fixed-fields (get % ($- entity-type) [])))
            (def$ foreign-keys ~foreign-fields)
            (def API ($resource ~query-url))
            (def$ filter-dict {})
