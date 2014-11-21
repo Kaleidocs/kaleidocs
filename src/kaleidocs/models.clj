@@ -47,7 +47,7 @@
   (into (base-columns entity-type)
         (when (#{"profile" "record"} entity-type)
           (->> (select custom_fields
-                       (where {:entity "record"}))
+                       (where {:entity entity-type}))
                (map #(-> % :field keyword))))))
 
 (defn exported-columns [entity-type]
